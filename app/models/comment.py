@@ -7,12 +7,17 @@ class Comment(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
+    # Columns
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
     user_username = db.Column(db.String(40))
     comment_text = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+    # Relationships
+    user_comments = db.relationship('User', back_populates='comments_user')
 
     def to_dict(self):
         return {

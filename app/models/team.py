@@ -7,6 +7,7 @@ class Team(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
+    # Columns
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String(50), unique=True)
     name = db.Column(db.String(50), unique=True)
@@ -22,6 +23,16 @@ class Team(db.Model):
     avg_points_allowed = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    result_winner = db.relationship('Result', back_populates='result_winner')
+    spread_elim_picks_team = db.relationship('Spread_Elim_Pick', back_populates='team_spread_elim_picks', cascade='all, delete-orphan')
+    over_under_bets_team = db.relationship('Over_Under_Bet', back_populates='team_over_under_bets', cascade='all, delete-orphan')
+    spread_bets_team = db.relationship('Spread_Bet', back_populates='team_spread_bets', cascade='all, delete-orphan')
+    elim_picks_team = db.relationship('Elim_Pick', back_populates='team_elim_picks', cascade='all, delete-orphan')
+    pickem_picks_team = db.relationship('Pickem_Pick', back_populates='team_pickem_picks', cascade='all, delete-orphan')
+    spread_elim_picks_team = db.relationship('Spread_Elim_Pick', back_populates='team_spread_elim_picks', cascade='all, delete-orphan')
+
 
     def to_dict(self):
         return {

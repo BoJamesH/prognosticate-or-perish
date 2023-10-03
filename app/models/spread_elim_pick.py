@@ -7,6 +7,7 @@ class Spread_Elim_Pick(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
+    # Columns
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     week = db.Column(db.Integer)
@@ -15,6 +16,11 @@ class Spread_Elim_Pick(db.Model):
     status = db.Column(db.String, default='OPEN')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    user_spread_elim_picks = db.relationship('User', back_populates='spread_elim_picks_user')
+    team_spread_elim_picks = db.relationship('Team', back_populates='spread_elim_picks_team')
+    game_elim_picks = db.relationship('Game', back_populates='elim_picks_game')
 
     def to_dict(self):
         return {

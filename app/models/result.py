@@ -7,6 +7,7 @@ class Result(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
+    # Columns
     id = db.Column(db.Integer, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('games.id')))
     home_score = db.Column(db.Integer, nullable=False)
@@ -16,6 +17,11 @@ class Result(db.Model):
     loser_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('teams.id')))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    game_result = db.relationship('Game', back_populates='result_game')
+    winner_result = db.relationship('Team', back_populates='result_winner')
+
 
     def to_dict(self):
         return {

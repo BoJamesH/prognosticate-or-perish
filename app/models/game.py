@@ -7,6 +7,7 @@ class Game(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
+    # Columns
     id = db.Column(db.Integer, primary_key=True)
     start_date_time = db.Column(db.DateTime)
     week = db.Column(db.Integer)
@@ -22,6 +23,14 @@ class Game(db.Model):
     under_odds = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    result_game = db.relationship('Result', back_populates='game_result', cascade='all, delete-orphan')
+    spread_elim_picks_game = db.relationship('Spread_Elim_Pick', back_populates='game_spread_elim_picks', cascade='all, delete-orphan')
+    pickem_picks_game = db.relationship('Pickem_Pick', back_populates='game_pickem_picks', cascade='all, delete-orphan')
+    elim_picks_game = db.relationship('Elim_Pick', back_populates='game_elim_picks', cascade='all, delete-orphan')
+    over_under_bets_game = db.relationship('Over_Under_Bet', back_populates='game_over_under_bets', cascade='all, delete-orphan')
+    spread_bets_game = db.relationship('Game', back_populates='game_spread_bets', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {

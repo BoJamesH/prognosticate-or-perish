@@ -10,6 +10,7 @@ class User(db.Model, UserMixin):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
+    # Columns
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
@@ -27,6 +28,14 @@ class User(db.Model, UserMixin):
     sp_elim_pushes = db.Column(db.Integer())
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    comments_user = db.relationship('Comment', back_populates='user_comments', cascade='all, delete-orphan')
+    elim_picks_user = db.relationship('Elim_Pick', back_populates='user_elim_picks', cascade='all, delete-orphan')
+    pickem_picks_user = db.relationship('Pickem_Pick', back_populates='user_pickem_picks', cascade='all, delete-orphan')
+    spread_elim_picks_user = db.relationship('Spread_Elim_Pick', back_populates='user_spread_elim_picks', cascade='all, delete-orphan')
+    spread_bets_user = db.relationship('Spread_Bet', back_populates='user_spread_bets', cascade='all, delete-orphan')
+    over_under_bets_user = db.relationship('Over_Under_Bet', back_populates='user_over_under_bets', cascade='all, delete-orphan')
 
     @property
     def password(self):
