@@ -19,8 +19,6 @@ class Team(db.Model):
     home_losses = db.Column(db.Integer)
     away_wins = db.Column(db.Integer)
     away_losses = db.Column(db.Integer)
-    avg_points_scored = db.Column(db.Integer)
-    avg_points_allowed = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
