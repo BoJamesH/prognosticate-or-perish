@@ -18,6 +18,7 @@ class Comment(db.Model):
 
     # Relationships
     user_comments = db.relationship('User', back_populates='comments_user')
+    username_comments = db.relationship('User', back_populates='comments_username')
 
     def to_dict(self):
         return {

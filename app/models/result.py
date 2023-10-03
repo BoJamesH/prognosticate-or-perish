@@ -21,6 +21,7 @@ class Result(db.Model):
     # Relationships
     game_result = db.relationship('Game', back_populates='result_game')
     winner_result = db.relationship('Team', back_populates='result_winner')
+    loser_result = db.relationship('Team', back_populates='result_loser')
 
 
     def to_dict(self):
