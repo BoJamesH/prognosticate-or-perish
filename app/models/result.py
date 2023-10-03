@@ -8,12 +8,12 @@ class Result(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    game_id = db.Column(db.Integer, nullable=False)
+    game_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('games.id')))
     home_score = db.Column(db.Integer, nullable=False)
     away_score = db.Column(db.Integer, nullable=False)
     total_points = db.Column(db.Integer, nullable=False)
-    winner_id = db.Column(db.Integer, nullable=False)
-    loser_id = db.Column(db.Integer, nullable=False)
+    winner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('teams.id')))
+    loser_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('teams.id')))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

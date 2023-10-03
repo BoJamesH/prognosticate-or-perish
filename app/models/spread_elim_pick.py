@@ -1,8 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 
-class Elim_Pick(db.Model):
-    __tablename__ = 'elim_picks'
+class Spread_Elim_Pick(db.Model):
+    __tablename__ = 'spread_ elim_picks'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
