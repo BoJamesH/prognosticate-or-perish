@@ -29,18 +29,12 @@ class Game(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'start_date_time': self.start_date_time,
             'week': self.week,
             'year': self.year,
-            'home_team_id': self.home_team_id,
-            'away_team_id': self.away_team_id,
-            'home_spread': self.home_spread,
-            'away_spread': self.away_spread,
-            'home_spread_odds': self.home_spread_odds,
-            'away_spread_odds': self.away_spread_odds,
+            'home_team_name': self.home_team_name,
+            'away_team_name': self.away_team_name,
+            'spread': self.spread,
             'over_under': self.over_under,
-            'over_odds': self.over_odds,
-            'under_odds': self.under_odds,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         }

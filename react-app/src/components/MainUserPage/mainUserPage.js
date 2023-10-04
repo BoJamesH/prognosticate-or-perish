@@ -3,16 +3,19 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { getComments } from '../../store/comments'
 import './mainUserPage.css'
-import { getGames } from '../../store/games'
+import { getGames, getWeek } from '../../store/games'
 
 const MainUserPage = () => {
     const history = useHistory()
     const dispatch = useDispatch()
     const comments = useSelector(state => state.comments.allComments)
     const games = useSelector(state => state.games.allGames)
+    const currentWeek = useSelector(state => state.games.currentWeek)
+    console.log('CURRENTWEEK------------- ', currentWeek)
     useEffect( async () => {
+        await dispatch(getWeek())
         await dispatch(getComments())
-        await dispatch(getGames())
+        await dispatch(getGames(currentWeek))
     }, [dispatch])
 
     console.log(games)
