@@ -20,7 +20,7 @@ class Spread_Elim_Pick(db.Model):
     # Relationships
     user_spread_elim_picks = db.relationship('User', back_populates='spread_elim_picks_user')
     team_spread_elim_picks = db.relationship('Team', back_populates='spread_elim_picks_team')
-    game_elim_picks = db.relationship('Game', back_populates='elim_picks_game')
+    game_spread_elim_picks = db.relationship('Game', back_populates='spread_elim_picks_game')
 
     def to_dict(self):
         return {

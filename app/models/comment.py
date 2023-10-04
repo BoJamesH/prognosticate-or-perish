@@ -9,7 +9,7 @@ class Comment(db.Model):
 
     # Columns
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     user_username = db.Column(db.String(40))
     comment_text = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)

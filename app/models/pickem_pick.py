@@ -19,7 +19,7 @@ class Pickem_Pick(db.Model):
 
     # Relationships
     user_pickem_picks = db.relationship('User', back_populates='pickem_picks_user')
-    game_pickem_picks = db.relationship('Game', back_populates='pickem_picks_picks')
+    game_pickem_picks = db.relationship('Game', back_populates='pickem_picks_game')
     team_pickem_picks = db.relationship('Team', back_populates='pickem_picks_team')
 
 

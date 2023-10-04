@@ -3,6 +3,7 @@ from .users import seed_users, undo_users
 from .teams import seed_teams, undo_teams
 from .games import seed_games, undo_games
 from .comments import seed_comments, undo_comments
+from .elim_picks import seed_elim_picks, undo_elim_picks
 
 from app.models.db import db, environment, SCHEMA
 
@@ -24,6 +25,7 @@ def seed():
     seed_teams()
     seed_games()
     seed_comments()
+    seed_elim_picks()
     # Add other seed functions here
 
 
@@ -34,4 +36,6 @@ def undo():
     undo_teams()
     undo_games()
     undo_comments()
+    undo_elim_picks()
     # Add other undo functions here
+

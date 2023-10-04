@@ -1,14 +1,15 @@
 from app.models import db, Game, environment, SCHEMA
 from sqlalchemy.sql import text
+from datetime import datetime
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_games():
-    example_game_1 = Game(start_date_time="2023-10-08T00:15Z", week=5, year=2023, home_team_id=1, away_team_id=10, home_spread=-2.5, away_spread=2.5, home_spread_odds=-109, away_spread_odds=-109, over_under=40.5, under_odds=-109, over_odds=-109)
-    example_game_2 = Game(start_date_time="2023-10-09T13:00Z", week=5, year=2023, home_team_id=15, away_team_id=7, home_spread=3.5, away_spread=-3.5, home_spread_odds=-109, away_spread_odds=-109, over_under=48.0, under_odds=-109, over_odds=-109)
-    example_game_3 = Game(start_date_time="2023-10-09T16:25Z", week=5, year=2023, home_team_id=12, away_team_id=31, home_spread=-6.5, away_spread=6.5, home_spread_odds=-109, away_spread_odds=-109, over_under=44.5, under_odds=-109, over_odds=-109)
-    example_game_4 = Game(start_date_time="2023-10-09T20:20Z", week=5, year=2023, home_team_id=24, away_team_id=20, home_spread=1.5, away_spread=-1.5, home_spread_odds=-109, away_spread_odds=-109, over_under=51.0, under_odds=-109, over_odds=-109)
-    example_game_5 = Game(start_date_time="2023-10-10T21:15Z", week=5, year=2023, home_team_id=6, away_team_id=29, home_spread=-5.5, away_spread=5.5, home_spread_odds=-109, away_spread_odds=-109, over_under=43.5, under_odds=-109, over_odds=-109)
+    example_game_1 = Game(week=5, year=2023, home_team_id=1, away_team_id=10, home_spread=-2.5, away_spread=2.5, home_spread_odds=-109, away_spread_odds=-109, over_under=40.5, under_odds=-109, over_odds=-109)
+    example_game_2 = Game(week=5, year=2023, home_team_id=15, away_team_id=7, home_spread=3.5, away_spread=-3.5, home_spread_odds=-109, away_spread_odds=-109, over_under=48.0, under_odds=-109, over_odds=-109)
+    example_game_3 = Game(week=5, year=2023, home_team_id=12, away_team_id=31, home_spread=-6.5, away_spread=6.5, home_spread_odds=-109, away_spread_odds=-109, over_under=44.5, under_odds=-109, over_odds=-109)
+    example_game_4 = Game(week=5, year=2023, home_team_id=24, away_team_id=20, home_spread=1.5, away_spread=-1.5, home_spread_odds=-109, away_spread_odds=-109, over_under=51.0, under_odds=-109, over_odds=-109)
+    example_game_5 = Game(week=5, year=2023, home_team_id=6, away_team_id=29, home_spread=-5.5, away_spread=5.5, home_spread_odds=-109, away_spread_odds=-109, over_under=43.5, under_odds=-109, over_odds=-109)
 
     db.session.add(example_game_1)
     db.session.add(example_game_2)

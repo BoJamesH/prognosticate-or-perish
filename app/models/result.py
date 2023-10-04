@@ -14,7 +14,7 @@ class Result(db.Model):
     away_score = db.Column(db.Integer, nullable=False)
     total_points = db.Column(db.Integer, nullable=False)
     winner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('teams.id')))
-    loser_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('teams.id')))
+    loser_id = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

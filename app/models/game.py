@@ -9,7 +9,6 @@ class Game(db.Model):
 
     # Columns
     id = db.Column(db.Integer, primary_key=True)
-    start_date_time = db.Column(db.DateTime)
     week = db.Column(db.Integer)
     year = db.Column(db.Integer)
     home_team_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('teams.id')))
@@ -30,7 +29,7 @@ class Game(db.Model):
     pickem_picks_game = db.relationship('Pickem_Pick', back_populates='game_pickem_picks', cascade='all, delete-orphan')
     elim_picks_game = db.relationship('Elim_Pick', back_populates='game_elim_picks', cascade='all, delete-orphan')
     over_under_bets_game = db.relationship('Over_Under_Bet', back_populates='game_over_under_bets', cascade='all, delete-orphan')
-    spread_bets_game = db.relationship('Game', back_populates='game_spread_bets', cascade='all, delete-orphan')
+    spread_bets_game = db.relationship('Spread_Bet', back_populates='game_spread_bets', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
