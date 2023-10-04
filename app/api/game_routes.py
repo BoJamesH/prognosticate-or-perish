@@ -46,11 +46,12 @@ def create_games():
     except Exception as e:
         return jsonify({'error': 'Error creating game records', 'details': str(e)})
 
-@game_routes.route('/<week>', methods=['GET'])
-def get_games(week):
+@game_routes.route('')
+def get_games():
     try:
-        games = Game.query.filter_by(week=week).all()
+        games = Game.query.all()
         game_data = [game.to_dict() for game in games]
+        print(game_data)
         return jsonify({'games': game_data})
     except Exception as e:
         return jsonify({'error': 'Error retrieving games', 'details': str(e)})

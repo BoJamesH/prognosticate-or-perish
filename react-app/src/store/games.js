@@ -4,27 +4,28 @@ const SET_WEEK = 'GAMES/SET_WEEK'
 
 export const setGames = (games) => ({
     type: SET_GAMES,
-    games
-})
+    payload: games
+});
 
 export const setWeek = (week) => ({
     type: SET_WEEK,
-    week
+    payload: week
 })
 
 export const getWeek = () => async (dispatch) => {
     const firstResponse = await fetch(`http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`)
     const response = await firstResponse.json()
-    const currentWeek = Number(response.week.number)
+    console.log('GET WEEK RESPONSE', response)
+    const currentWeek = response.week.number
+    console.log('currentWEEK', currentWeek)
     dispatch(setWeek(currentWeek))
 }
 
-export const getGames = (week) => async (dispatch) => {
+export const getGames = () => async (dispatch) => {
     const firstResponse = await fetch(`http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`)
     const response = await firstResponse.json()
     if(response) {
         const events = response.events;
-        console.log('EVENTS', events)
         let allCompetitors = [];
         let allOdds = [];
         const allGames = [];
@@ -54,9 +55,7 @@ export const getGames = (week) => async (dispatch) => {
             };
             allGames.push(game);
         }
-        setWeek(Number(response.week.number))
         const game_week_data = allGames
-        console.log(game_week_data)
         for (let i = 0; i < game_week_data.length; i++) {
             game_week_data[i].week = response.week.number
             game_week_data[i].year = response.season.year
@@ -72,33 +71,23 @@ export const getGames = (week) => async (dispatch) => {
             body: JSON.stringify(game_week_data),
         })
     }
-    dispatch(storeGames(week))
+    dispatch(storeGames())
 }
 
-export const storeGames = (week) => async (dispatch) => {
+export const storeGames = () => async (dispatch) => {
     try {
-        const response = await fetch(`/api/games/${week}`);  // Include the week in the URL
-        const gameList = await response.json();
-        dispatch(setGames(gameList.games));  // Assuming the response structure has a 'games' key
+        const response = await fetch(`/api/games`);
+        const games = await response.json();
+        const gameList = games.games
+        console.log('GAME LIST---------- ', gameList)
+        dispatch(setGames(gameList)); // Use setGames to update the state
     } catch (error) {
         console.error('Error fetching games:', error);
     }
-}
-
-// export const getMessages = (serverId, channelId) => async (dispatch) => {
-//     const response = await fetch(`/api/${serverId}/${channelId}/messages`);
-//     console.log('RESPONSE', response)
-//     if (response) {
-//         const getChannelMessages = await response.json();
-//         // console.log('MADE THROUGH RESPONSE.OK')
-//         const channelMessages = getChannelMessages.messages
-//         dispatch(setMessages(channelMessages))
-//     }
-//     // console.log('BAD RESPONSE')
-// }
+};
 
 const initialState = {
-    allGames: {},
+    allGames: [],
     currentWeek: {},
 }
 

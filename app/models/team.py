@@ -46,8 +46,6 @@ class Team(db.Model):
             'home_losses': self.home_losses,
             'away_wins': self.away_wins,
             'away_losses': self.away_losses,
-            'avg_points_scored': self.avg_points_scored,
-            'avg_points_allowed': self.avg_points_allowed,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         }
