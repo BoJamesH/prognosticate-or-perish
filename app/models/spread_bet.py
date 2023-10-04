@@ -7,6 +7,7 @@ class Spread_Bet(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
+    # Columns
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     week = db.Column(db.Integer)
@@ -16,6 +17,12 @@ class Spread_Bet(db.Model):
     status = db.Column(db.String, default='OPEN')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    user_spread_bets = db.relationship('User', back_populates='spread_bets_user')
+    game_spread_bets = db.relationship('Game', back_populates='spread_bets_game')
+    team_spread_bets = db.relationship('Team', back_populates='spread_bets_team')
+
 
     def to_dict(self):
         return {

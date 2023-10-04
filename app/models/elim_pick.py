@@ -7,6 +7,7 @@ class Elim_Pick(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
+    # Columns
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     week = db.Column(db.Integer)
@@ -15,6 +16,12 @@ class Elim_Pick(db.Model):
     status = db.Column(db.String, default='OPEN')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    user_elim_picks = db.relationship('User', back_populates='elim_picks_user')
+    game_elim_picks = db.relationship('Game', back_populates='elim_picks_game')
+    team_elim_picks = db.relationship('Team', back_populates='elim_picks_team')
+
 
     def to_dict(self):
         return {
