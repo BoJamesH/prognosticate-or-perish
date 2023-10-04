@@ -27,10 +27,18 @@ export const setGames = (games) => ({
 // }
 
 export const getGames = () => async (dispatch) => {
-    const response = await fetch(`http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`)
-    console.log('response: ', response)
-    if(response.ok) {
+    const firstResponse = await fetch(`http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`, {
+        // method: "GET",
+        // headers: {
+		// 	"Content-Type": "application/json",
+		// },
+    })
+    console.log('firstResponse: ', firstResponse)
+    const response = await firstResponse.json()
+    console.log('response---------- ', response)
+    if(response) {
         const events = response.events;
+        console.log('EVENTS', events)
         let allCompetitors = [];
         let allOdds = [];
         const allGames = [];
@@ -60,9 +68,20 @@ export const getGames = () => async (dispatch) => {
             };
             allGames.push(game);
         }
-
-        console.log(allGames)
-        dispatch(setGames(allGames))
+        const game_week_data = allGames
+        // game_week_data.week = response.week.number
+        // game_week_data.year = response.season.year
+        console.log('game_week_data_frontend', game_week_data)
+        const backResponse = await fetch('/api/games', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(game_week_data),
+        })
+        if (response) {
+            dispatch(setGames(allGames))
+        }
     }
     console.log("Bad Response")
 }

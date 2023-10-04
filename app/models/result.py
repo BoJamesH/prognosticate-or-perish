@@ -13,16 +13,13 @@ class Result(db.Model):
     home_score = db.Column(db.Integer, nullable=False)
     away_score = db.Column(db.Integer, nullable=False)
     total_points = db.Column(db.Integer, nullable=False)
-    winner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('teams.id')))
-    loser_id = db.Column(db.Integer)
+    winner_name = db.Column(db.String)
+    loser_name = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # Relationships
     game_result = db.relationship('Game', back_populates='result_game')
-    winner_result = db.relationship('Team', back_populates='result_winner')
-    loser_result = db.relationship('Team', back_populates='result_loser')
-
 
     def to_dict(self):
         return {

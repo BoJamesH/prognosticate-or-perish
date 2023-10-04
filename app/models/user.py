@@ -31,7 +31,7 @@ class User(db.Model, UserMixin):
 
     # Relationships
     comments_user = db.relationship('Comment', back_populates='user_comments', cascade='all, delete-orphan')
-    comments_username = db.relationship('Comment', back_populates='username_comments')
+    comments_username = db.relationship('Comment', back_populates='username_comments', viewonly=True)
     elim_picks_user = db.relationship('Elim_Pick', back_populates='user_elim_picks', cascade='all, delete-orphan')
     pickem_picks_user = db.relationship('Pickem_Pick', back_populates='user_pickem_picks', cascade='all, delete-orphan')
     spread_elim_picks_user = db.relationship('Spread_Elim_Pick', back_populates='user_spread_elim_picks', cascade='all, delete-orphan')

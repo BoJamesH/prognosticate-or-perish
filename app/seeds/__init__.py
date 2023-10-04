@@ -1,7 +1,7 @@
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .teams import seed_teams, undo_teams
-from .games import seed_games, undo_games
+# from .games import seed_games, undo_games
 from .comments import seed_comments, undo_comments
 from .elim_picks import seed_elim_picks, undo_elim_picks
 
@@ -23,7 +23,7 @@ def seed():
             undo_users()
     seed_users()
     seed_teams()
-    seed_games()
+    # seed_games()
     seed_comments()
     seed_elim_picks()
     # Add other seed functions here
@@ -34,11 +34,7 @@ def seed():
 def undo():
     undo_elim_picks()
     undo_comments()
-    undo_games()
+    # undo_games()
     undo_teams()
     undo_users()
     # Add other undo functions here
-
-
-
-

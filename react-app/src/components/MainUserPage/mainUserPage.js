@@ -3,16 +3,19 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { getComments } from '../../store/comments'
 import './mainUserPage.css'
+import { getGames } from '../../store/games'
 
 const MainUserPage = () => {
     const history = useHistory()
     const dispatch = useDispatch()
     const comments = useSelector(state => state.comments.allComments)
-
+    const games = useSelector(state => state.games.allGames)
     useEffect( async () => {
         await dispatch(getComments())
+        await dispatch(getGames())
     }, [dispatch])
 
+    console.log(games)
     return(
         <>
         <h1>MAIN USER PAGE</h1>
