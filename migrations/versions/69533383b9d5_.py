@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 47f96b154753
+Revision ID: 69533383b9d5
 Revises: 
-Create Date: 2023-10-04 13:59:52.167453
+Create Date: 2023-10-04 14:45:12.206753
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '47f96b154753'
+revision = '69533383b9d5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,10 +24,15 @@ def upgrade():
     sa.Column('year', sa.Integer(), nullable=True),
     sa.Column('home_team_name', sa.String(), nullable=True),
     sa.Column('away_team_name', sa.String(), nullable=True),
-    sa.Column('spread', sa.Float(), nullable=True),
+    sa.Column('spread', sa.String(), nullable=True),
     sa.Column('over_under', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('last_fetch',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('last_fetch_timestamp', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('teams',
@@ -180,5 +185,6 @@ def downgrade():
     op.drop_table('comments')
     op.drop_table('users')
     op.drop_table('teams')
+    op.drop_table('last_fetch')
     op.drop_table('games')
     # ### end Alembic commands ###
