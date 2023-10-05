@@ -16,7 +16,6 @@
 .main-page-game-spread-div {
     width: 100%;
     display: flex;
-    flex: column;
     align-items: center;
     text-align: center;
     justify-content: center;
@@ -28,4 +27,9 @@
     flex: column;
     align-items: center;
     justify-content: center;
+}
+
+
+.main-commentlist-div {
+    max-width: 70vw;
 }

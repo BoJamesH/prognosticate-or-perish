@@ -4,7 +4,7 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_comments():
-    sample_comment = Comment(user_id=3, user_username='Bo', comment_text='Giants Seahawks was an absolutely terrible game!')
+    sample_comment = Comment(user_id=3, user_username='Bo', user_profile_image='https://i.imgur.com/FVynsKb.jpg', comment_text='Giants Seahawks was an absolutely terrible game!')
     db.session.add(sample_comment)
     db.session.commit()
 

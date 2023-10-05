@@ -4,7 +4,9 @@ import { useHistory } from 'react-router-dom';
 import { getComments } from '../../store/comments';
 import { getTeams } from '../../store/teams';
 import './mainUserPage.css';
-import { getGames, getWeek } from '../../store/games';
+import { getGames, getWeek, storeGames } from '../../store/games';
+import CommentForm from '../CommentForm/commentForm';
+import CommentList from '../CommentList/commentList';
 
 const MainUserPage = () => {
   const history = useHistory();
@@ -15,15 +17,13 @@ const MainUserPage = () => {
   const allTeams = useSelector((state) => state.teams.allTeams)
 
   useEffect(() => {
+    dispatch(getTeams());
     dispatch(getComments());
-    dispatch(getGames());
-    dispatch(getTeams())
+    dispatch(storeGames());
     dispatch(getWeek());
   }, [dispatch]);
 
-  // Conditional rendering
   if (!currentWeek || !allGames) {
-    // Loading indicator or empty state
     return <p>Loading...</p>;
   }
 
@@ -58,19 +58,12 @@ const MainUserPage = () => {
             ) : (
             <p>No games available for the current week.</p>
             )}
-      {comments.length ? (
-        <div className='all-comments-div'>
-          {comments.map((comment) => {
-            return (
-              <div key={comment.id} className='each-comment-div'>
-                {comment.user_username}: {comment.comment_text}
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <p>No comments available.</p>
-      )}
+            <div className='main-commentform-div'>
+            <CommentForm />
+            </div>
+            <div className='main-commentlist-div'>
+              <CommentList />
+            </div>
       </div>
     </>
   );

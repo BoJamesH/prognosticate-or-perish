@@ -28,9 +28,8 @@ class Result(db.Model):
             'home_score': self.home_score,
             'away_score': self.away_score,
             'total_points': self.total_points,
-            'away_team_id': self.away_team_id,
-            'winner_id': self.winner_id,
-            'loser_id': self.loser_id,
+            'winner_name': self.winner_name,
+            'loser_name': self.loser_name,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         }

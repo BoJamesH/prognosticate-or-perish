@@ -80,7 +80,7 @@ export const storeGames = () => async (dispatch) => {
         const games = await response.json();
         const gameList = games.games
         console.log('GAME LIST---------- ', gameList)
-        dispatch(setGames(gameList)); // Use setGames to update the state
+        dispatch(setGames(gameList)); 
     } catch (error) {
         console.error('Error fetching games:', error);
     }
