@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createComment } from '../../store/comments';
-
+import './commentForm.css'
 
 function CommentForm() {
     const dispatch = useDispatch()
@@ -21,8 +21,6 @@ function CommentForm() {
             user_profile_image,
             user_username
         };
-
-        // onSubmit(newComment);
         dispatch(createComment(newComment))
         set_comment_text('');
     };
@@ -32,12 +30,13 @@ function CommentForm() {
         <h2>Leave a Comment</h2>
         <form onSubmit={handleSubmit}>
         <div>
-            {/* <label htmlFor="comment">Comment:</label> */}
             <textarea
             id="comment"
             value={comment_text}
             onChange={handleCommentChange}
             required
+            className='comment-field'
+            placeholder='Got something to share?'
             ></textarea>
         </div>
         <div>
