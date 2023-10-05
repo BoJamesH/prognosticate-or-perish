@@ -31,25 +31,26 @@ const MainUserPage = () => {
 
   return (
     <>
-      <div>
+    <div className='main-page-all-container-div'>
+      <div className='main-page-title-div'>
         <h1>MAIN USER PAGE</h1>
         {currentWeek && <h3>WEEK {currentWeek} GAMES</h3>}
       </div>
         {games.length ? (
-            <div className='all-games-div'>
+            <div className='main-page-all-games-div'>
                 {games.map((game) => {
                 const homeTeam = allTeams.find((team) => team.name === game.home_team_name);
                 const awayTeam = allTeams.find((team) => team.name === game.away_team_name);
 
                 return (
-                    <div className='single-game-div' key={game.id}>
-                    <div className='game-teams-div'>
-                        <img src={homeTeam.logo_small} alt={`${homeTeam.name} logo`} />
+                    <div className='main-page-single-game-div' key={game.id}>
+                    <div className='main-page-game-teams-div'>
+                        <img className='main-page-team-logo' src={awayTeam.logo_small} alt={`${awayTeam.name} logo`}  />
                         {game.away_team_name} AT {game.home_team_name}
-                        <img src={awayTeam.logo_small} alt={`${awayTeam.name} logo`}  />
+                        <img className='main-page-team-logo' src={homeTeam.logo_small} alt={`${homeTeam.name} logo`} />
                     </div>
-                    <div className='game-spread-div'>SPREAD: {game.spread}</div>
-                    <div className='game-spread-div'>OVER/UNDER: {game.over_under}</div>
+                    <div className='main-page-game-spread-div'>SPREAD: {game.spread}</div>
+                    <div className='main-page-game-over-under-div'>OVER/UNDER: {game.over_under}</div>
                     </div>
                 );
                 })}
@@ -70,6 +71,7 @@ const MainUserPage = () => {
       ) : (
         <p>No comments available.</p>
       )}
+      </div>
     </>
   );
 };
