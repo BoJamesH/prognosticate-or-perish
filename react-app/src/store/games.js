@@ -12,7 +12,8 @@ export const setWeek = (week) => ({
     payload: week
 })
 
-export const getWeek = () => async (dispatch) => {
+export const getAPIWeek = () => async (dispatch) => {
+    console.log('HITTING API WEEK FETCH!!!!!!!!!')
     try {
         const firstResponse = await fetch(`http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`)
         const response = await firstResponse.json()
@@ -20,12 +21,34 @@ export const getWeek = () => async (dispatch) => {
         const currentWeek = response.week.number
         console.log('currentWEEK', currentWeek)
         dispatch(setWeek(currentWeek))
+        const backendSetWeek = await fetch('/api/week', {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(currentWeek)
+        });
     } catch (e) {
-        console.log(e)
+        console.error('Error fetching API week:', e);
     }
 }
 
-export const getGames = () => async (dispatch) => {
+export const storeWeek = () => async (dispatch) => {
+    try {
+        const response = await fetch(`/api/week`);
+        const res = await response.json();
+        console.log('RES', res)
+        const week = res.week.current_week
+        console.log('WEEK IN STORE WEEK', week)
+        console.log('BACKEND WEEK IN STORE--------- ', week)
+        dispatch(setWeek(Number(week)));
+    } catch (e) {
+        console.error('Error fetching week:', e);
+    }
+};
+
+export const getAPIGames = () => async (dispatch) => {
+    console.log('HITTING API GAMES FETCH!!!!!!!!!')
     try {
         const firstResponse = await fetch(`http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`)
         const response = await firstResponse.json()
@@ -88,7 +111,6 @@ export const storeGames = () => async (dispatch) => {
         const response = await fetch(`/api/games`);
         const games = await response.json();
         const gameList = games.games
-        console.log('GAME LIST---------- ', gameList)
         dispatch(setGames(gameList));
     } catch (error) {
         console.error('Error fetching games:', error);

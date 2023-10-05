@@ -1,27 +1,72 @@
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { getComments } from '../../store/comments';
 import { getTeams } from '../../store/teams';
 import './mainUserPage.css';
-import { getGames, getWeek, storeGames } from '../../store/games';
+import { getAPIGames, getAPIWeek, storeGames, storeWeek } from '../../store/games';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 
 const MainUserPage = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
-  const comments = useSelector((state) => state.comments.allComments);
   const currentWeek = Number(useSelector((state) => state.games.currentWeek));
   const allGames = useSelector((state) => state.games.allGames);
-  const allTeams = useSelector((state) => state.teams.allTeams)
+  const allTeams = useSelector((state) => state.teams.allTeams);
 
   useEffect(() => {
+    // Check if a day has passed since the last fetch of games and week
+    const lastGamesFetchTimestamp = localStorage.getItem('lastGamesFetchTimestamp');
+    const lastWeekFetchTimestamp = localStorage.getItem('lastWeekFetchTimestamp');
+    const currentTime = Date.now();
+
+    // Define a function to fetch games and week
+    const fetchGamesAndWeek = async () => {
+      try {
+        // Fetch games
+        const gamesResponse = await fetch('/api/games');
+        if (gamesResponse.ok) {
+          const gamesData = await gamesResponse.json();
+          dispatch(storeGames(gamesData)); // Update the Redux store with games
+          localStorage.setItem('lastGamesFetchTimestamp', String(currentTime));
+
+          // Trigger the API call to get games if a day has passed
+          dispatch(getAPIGames());
+        }
+
+        // Fetch week
+        const weekResponse = await fetch('/api/week');
+        if (weekResponse.ok) {
+          const weekData = await weekResponse.json();
+          const currentWeekFromBackend = Number(weekData.week);
+          dispatch(storeWeek(currentWeekFromBackend)); // Update the Redux store with the current week
+          localStorage.setItem('lastWeekFetchTimestamp', String(currentTime));
+
+          // Trigger the API call to get the week if a day has passed
+          dispatch(getAPIWeek());
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    // Check if a day has passed for both games and week fetches
+    if (
+      !lastGamesFetchTimestamp ||
+      !lastWeekFetchTimestamp ||
+      currentTime - Number(lastGamesFetchTimestamp) > 24 * 60 * 60 * 1000 ||
+      currentTime - Number(lastWeekFetchTimestamp) > 24 * 60 * 60 * 1000
+    ) {
+      fetchGamesAndWeek(); // Fetch games and week if necessary
+    }
+
+    // Fetch other data
     dispatch(getTeams());
     dispatch(getComments());
+    dispatch(storeWeek());
     dispatch(storeGames());
-    dispatch(getWeek());
+
   }, [dispatch]);
+
 
   if (!currentWeek || !allGames) {
     return <p>Loading...</p>;
