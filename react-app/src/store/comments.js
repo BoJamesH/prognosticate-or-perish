@@ -1,11 +1,15 @@
 const SET_COMMENTS = 'comments/SET_COMMENTS'
-
+// const POST_COMMENTS = 'comments/POST_COMMENTS'
 
 export const setComments = (comments) => ({
     type: SET_COMMENTS,
     payload: comments
 })
 
+// export const postComments = (comment) => ({
+//     type: POST_COMMENTS,
+//     payload: comment
+// })
 
 
 // export const postReactions = (message_id, reaction_type) => async (dispatch)=> {
@@ -33,9 +37,26 @@ export const getComments = () => async (dispatch) => {
         const getAllComments = await response.json();
         console.log('getAllComments:', getAllComments)
         const allComments = getAllComments.comments
+        console.log('ALL COMMENTS------ ', allComments)
         dispatch(setComments(allComments))
     }
     console.log("Bad Response")
+}
+
+export const createComment = (comment) => async (dispatch) => {
+    const response = await fetch('/api/comments', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(comment)
+    });
+
+    console.log('RESPONSE POST COMMENT-----', response);
+    if (response.ok) {
+        const newMessage = await response.json();
+        dispatch(getComments());
+    }
 }
 
 // export const deleteReaction = (reaction_id, message_id) => async (dispatch) => {

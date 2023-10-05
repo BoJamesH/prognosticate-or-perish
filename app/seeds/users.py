@@ -9,7 +9,7 @@ def seed_users():
     demo2 = User(
         username='Demo2', email='demo2@aa.io', password='password', profile_image='https://images.unsplash.com/photo-1566650554919-44ec6bbe2518?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwYW5pbWFsfGVufDB8fDB8fHww&w=1000&q=80')
     bo = User(
-        username='Bo', email='bo@aa.io', password='password', profile_image='https://cdn.mos.cms.futurecdn.net/6AxBGxrtbSAkmhLmtdvGLX.jpg')
+        username='Bo', email='bo@aa.io', password='password', profile_image='https://i.imgur.com/FVynsKb.jpg')
     ben = User(
         username='Ben', email='ben@aa.io', password='password', profile_image='https://imageio.forbes.com/specials-images/imageserve/5faad4255239c9448d6c7bcd/0x0.jpg?format=jpg&width=1200')
     devon = User(

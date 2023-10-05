@@ -23,16 +23,15 @@ def create_games():
                 game_week = game_data['week']
                 game_year = game_data['year']
                 game = Game(
-                    week=game_week,  # Replace with actual week data
-                    year=game_year,  # Replace with actual year data
-                    home_team_name=competitor1['team']['name'],  # Replace with actual team data
-                    away_team_name=competitor2['team']['name'],  # Replace with actual team data
+                    week=game_week,
+                    year=game_year,
+                    home_team_name=competitor1['team']['name'],
+                    away_team_name=competitor2['team']['name'],
                     spread=odds['details'],
                     over_under=int(odds['overUnder']),
                 )
                 db.session.add(game)
 
-            # Update the last fetch timestamp
             if not last_fetch_record:
                 last_fetch_record = LastFetch()
                 db.session.add(last_fetch_record)
