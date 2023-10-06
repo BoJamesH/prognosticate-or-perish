@@ -11,3 +11,4 @@ from .pickem_pick import Pickem_Pick
 from .spread_bet import Spread_Bet
 from .spread_elim_pick import Spread_Elim_Pick
 from .last_fetch import LastFetch
+from .week import Week

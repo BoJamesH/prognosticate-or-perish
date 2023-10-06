@@ -1,27 +1,55 @@
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { getComments } from '../../store/comments';
 import { getTeams } from '../../store/teams';
 import './mainUserPage.css';
-import { getGames, getWeek, storeGames } from '../../store/games';
+import { getAPIGames, getAPIWeek, storeGames, storeWeek } from '../../store/games';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 
 const MainUserPage = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
-  const comments = useSelector((state) => state.comments.allComments);
   const currentWeek = Number(useSelector((state) => state.games.currentWeek));
   const allGames = useSelector((state) => state.games.allGames);
-  const allTeams = useSelector((state) => state.teams.allTeams)
+  const allTeams = useSelector((state) => state.teams.allTeams);
 
   useEffect(() => {
+
+    const lastGamesFetchTimestamp = localStorage.getItem('lastGamesFetchTimestamp');
+    const lastWeekFetchTimestamp = localStorage.getItem('lastWeekFetchTimestamp');
+    const currentTime = Date.now();
+
+
+    const fetchGamesAndWeek = async () => {
+      try {
+        localStorage.setItem('lastGamesFetchTimestamp', String(currentTime));
+        localStorage.setItem('lastWeekFetchTimestamp', String(currentTime));
+          dispatch(getAPIGames());
+          dispatch(getAPIWeek());
+          dispatch(storeGames());
+          dispatch(storeWeek());
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    if (
+      !lastGamesFetchTimestamp ||
+      !lastWeekFetchTimestamp ||
+      currentTime - Number(lastGamesFetchTimestamp) > 24 * 60 * 60 * 1000 ||
+      currentTime - Number(lastWeekFetchTimestamp) > 24 * 60 * 60 * 1000
+    ) {
+      fetchGamesAndWeek();
+    }
+
+    // Fetch non-API backend data
     dispatch(getTeams());
     dispatch(getComments());
+    dispatch(storeWeek());
     dispatch(storeGames());
-    dispatch(getWeek());
+
   }, [dispatch]);
+
 
   if (!currentWeek || !allGames) {
     return <p>Loading...</p>;
