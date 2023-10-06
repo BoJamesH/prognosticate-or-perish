@@ -40,7 +40,6 @@ export const getComments = () => async (dispatch) => {
         console.log('ALL COMMENTS------ ', allComments)
         dispatch(setComments(allComments))
     }
-    console.log("Bad Response")
 }
 
 export const createComment = (comment) => async (dispatch) => {
@@ -59,14 +58,19 @@ export const createComment = (comment) => async (dispatch) => {
     }
 }
 
-// export const deleteReaction = (reaction_id, message_id) => async (dispatch) => {
-//     const response = await fetch(`/api/reactions/${reaction_id}`, {
-//         method: 'DELETE',
-//     })
-//     if (response.ok) {
-//         dispatch(getReactions(message_id))
-//     }
-// }
+export const deleteComment = (comment_id) => async (dispatch) => {
+    try {
+        const response = await fetch(`/api/comments/${comment_id}`, {
+            method: 'DELETE',
+        })
+        console.log('resonse: ', response)
+        if (response.ok) {
+            dispatch(getComments())
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
 
 const initialState = {
     allComments: {}

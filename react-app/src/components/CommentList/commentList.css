@@ -13,7 +13,6 @@
     flex: 0 0 20%;
     padding: 10px;
     box-sizing: border-box;
-    background-color: #f2f2f2;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,10 +32,10 @@
   }
 
   .comment-text-div {
-    width: 30vw;
-    margin: 20px;
+    width: 45vw;
+    margin: 20px 20px 20px 0px;
     flex: 1;
-    padding: 20px;
+    padding: 20px 20px 20px 0px;
     box-sizing: border-box;
     overflow-wrap: break-word;
   }
