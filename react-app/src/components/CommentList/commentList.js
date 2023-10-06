@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { deleteComment, getComments } from '../../store/comments';
-import { updateComment } from '../../store/comments';
+import { deleteComment, getComments, updateComment } from '../../store/comments';
 import './commentList.css';
 
 
@@ -43,7 +42,7 @@ const CommentList = () => {
         setEditCommentText(comment_text)
     }
 
-    const updateComment = async (commentId, comment_text, e) => {
+    const submitUpdatedComment = async (commentId, comment_text, e) => {
         e.preventDefault()
         if (comment_text.length > 4000) {
             alert('Please limit comments to less than 4,000 characters.')
@@ -53,8 +52,9 @@ const CommentList = () => {
             alert('Comments must have something in them!')
             return
         }
-        dispatch(updateComment(commentId, comment_text))
         setEditComment(false)
+        dispatch(updateComment(commentId, comment_text))
+        dispatch(getComments())
     }
 
     return (
@@ -69,7 +69,7 @@ const CommentList = () => {
                       <img className='comment-profile-img' src={comment.user_profile_image} alt='User profile image' />
                     </div>
                   </div>
-                  {editCommentText && editCommentId === comment.id ? (
+                  {editComment && editCommentId === comment.id ? (
                         <div>
                         <input
                             type="text"
@@ -79,7 +79,7 @@ const CommentList = () => {
                             value={editCommentText}
                             onChange={(e) => setEditCommentText(e.target.value)}
                         />
-                        <button onClick={(e) => updateComment(comment.id, editCommentText, e)} className="message-edit-button">
+                        <button onClick={(e) => submitUpdatedComment(comment.id, editCommentText, e)} className="message-edit-button">
                             Update Comment
                         </button>
                     </div>

@@ -27,7 +27,6 @@ def create_games():
         for game_data in all_games_data:
             print('ENTERED LOOP FOR ADDING AND UPDATING GAMES!!!')
             espn_id = int(game_data['espn_id'])
-            print('ESPN ID OF SENT GAME DATA--------- ', espn_id)
             # Check if a game with the same espn_id exists
             existing_game = Game.query.filter_by(espn_id=espn_id).first()
 
@@ -47,7 +46,7 @@ def create_games():
                 existing_game.completed = game_data['completed']
             else:
                 # Create a new game record
-                print('ENTERE GAME CREATION STEP!!!!!!!!!')
+                print('ENTERED GAME CREATION STEP!!!!!!!!!')
                 # if game_data['odds'] == 'Game finished':
                 #     game_data['odds']['overUnder'] == 0
                 #     game_data['odds']['details'] == 'Game finished'
@@ -80,7 +79,6 @@ def get_games():
     try:
         games = Game.query.all()
         game_data = [game.to_dict() for game in games]
-        print(game_data)
         return jsonify({'games': game_data})
     except Exception as e:
         return jsonify({'error': 'Error retrieving games', 'details': str(e)})
