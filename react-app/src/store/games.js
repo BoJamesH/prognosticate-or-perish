@@ -47,7 +47,7 @@ export const getAPIGames = () => async (dispatch) => {
     try {
         const firstResponse = await fetch(`http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`)
         const response = await firstResponse.json()
-        if(response) {
+        if(response.ok) {
             const events = response.events;
             let allCompetitors = [];
             let allOdds = [];

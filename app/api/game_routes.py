@@ -29,6 +29,9 @@ def create_games():
                     away_team_name=competitor2['team']['name'],
                     spread=odds['details'],
                     over_under=int(odds['overUnder']),
+                    home_team_score=competitor1['score'],
+                    away_team_score=competitor2['score'],
+                    status = 
                 )
                 db.session.add(game)
 
