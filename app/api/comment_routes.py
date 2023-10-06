@@ -15,7 +15,6 @@ def all_comments():
     """
     try:
         comments = Comment.query.order_by(Comment.created_at.desc()).limit(50).all()
-        print(comments)
         return {'comments': [comment.to_dict() for comment in comments]}
     except Exception as e:
         return jsonify({'error': 'Error fetching comments', 'details': str(e)})
@@ -47,9 +46,7 @@ def delete_comment(comment_id):
     """
     Delete a comment by the owner of the comment
     """
-    print('ENTERED DELETE COMMENT HANDLER')
     try:
-        print('ENTERED DELETE COMMENT HANDLER')
         comment_to_delete = Comment.query.get(comment_id)
         db.session.delete(comment_to_delete)
         db.session.commit()

@@ -14,52 +14,35 @@ const MainUserPage = () => {
   const allTeams = useSelector((state) => state.teams.allTeams);
 
   useEffect(() => {
-    // Check if a day has passed since the last fetch of games and week
+
     const lastGamesFetchTimestamp = localStorage.getItem('lastGamesFetchTimestamp');
     const lastWeekFetchTimestamp = localStorage.getItem('lastWeekFetchTimestamp');
     const currentTime = Date.now();
 
-    // Define a function to fetch games and week
+
     const fetchGamesAndWeek = async () => {
       try {
-        // Fetch games
-        const gamesResponse = await fetch('/api/games');
-        if (gamesResponse.ok) {
-          const gamesData = await gamesResponse.json();
-          dispatch(storeGames(gamesData)); // Update the Redux store with games
-          localStorage.setItem('lastGamesFetchTimestamp', String(currentTime));
-
-          // Trigger the API call to get games if a day has passed
+        localStorage.setItem('lastGamesFetchTimestamp', String(currentTime));
+        localStorage.setItem('lastWeekFetchTimestamp', String(currentTime));
           dispatch(getAPIGames());
-        }
-
-        // Fetch week
-        const weekResponse = await fetch('/api/week');
-        if (weekResponse.ok) {
-          const weekData = await weekResponse.json();
-          const currentWeekFromBackend = Number(weekData.week);
-          dispatch(storeWeek(currentWeekFromBackend)); // Update the Redux store with the current week
-          localStorage.setItem('lastWeekFetchTimestamp', String(currentTime));
-
-          // Trigger the API call to get the week if a day has passed
           dispatch(getAPIWeek());
-        }
+          dispatch(storeGames());
+          dispatch(storeWeek());
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    // Check if a day has passed for both games and week fetches
     if (
       !lastGamesFetchTimestamp ||
       !lastWeekFetchTimestamp ||
       currentTime - Number(lastGamesFetchTimestamp) > 24 * 60 * 60 * 1000 ||
       currentTime - Number(lastWeekFetchTimestamp) > 24 * 60 * 60 * 1000
     ) {
-      fetchGamesAndWeek(); // Fetch games and week if necessary
+      fetchGamesAndWeek();
     }
 
-    // Fetch other data
+    // Fetch non-API backend data
     dispatch(getTeams());
     dispatch(getComments());
     dispatch(storeWeek());

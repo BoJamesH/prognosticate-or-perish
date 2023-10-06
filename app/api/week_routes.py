@@ -12,12 +12,11 @@ def get_week():
     """
     Query for the current week to prevent excessive API calls
     """
+    print('ENTERED BACKEND WEEK GET ROUTE!!!!!!!!!!')
     try:
         week = Week.query.first()
-        if week:
-            return {'week': week.to_dict()}
-        else:
-            return {'week': None} 
+        print('GET WEEK', week)
+        return {'week': week.to_dict()}
     except Exception as e:
         return jsonify({'error': 'Error fetching week', 'details': str(e)})
 

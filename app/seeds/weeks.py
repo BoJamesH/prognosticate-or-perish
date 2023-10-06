@@ -3,11 +3,10 @@ from sqlalchemy.sql import text
 
 
 # Adds a demo user, you can add other users here if you want
-def seed_weeks():
+def seed_week():
     starting_week = Week(current_week = 5)
     db.session.add(starting_week)
     db.session.commit()
-
 
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
@@ -16,7 +15,7 @@ def seed_weeks():
 # incrementing primary key, CASCADE deletes any dependent entities.  With
 # sqlite3 in development you need to instead use DELETE to remove all data and
 # it will reset the primary keys for you as well.
-def undo_comments():
+def undo_week():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.weeks RESTART IDENTITY CASCADE;")
     else:

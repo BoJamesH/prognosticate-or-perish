@@ -17,9 +17,7 @@ export const getAPIWeek = () => async (dispatch) => {
     try {
         const firstResponse = await fetch(`http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`)
         const response = await firstResponse.json()
-        console.log('GET WEEK RESPONSE', response)
         const currentWeek = response.week.number
-        console.log('currentWEEK', currentWeek)
         dispatch(setWeek(currentWeek))
         const backendSetWeek = await fetch('/api/week', {
             method: "PUT",
@@ -37,11 +35,8 @@ export const storeWeek = () => async (dispatch) => {
     try {
         const response = await fetch(`/api/week`);
         const res = await response.json();
-        console.log('RES', res)
-        const week = res.week.current_week
-        console.log('WEEK IN STORE WEEK', week)
-        console.log('BACKEND WEEK IN STORE--------- ', week)
-        dispatch(setWeek(Number(week)));
+        const currentWeek = res.week.current_week
+        dispatch(setWeek(Number(currentWeek)));
     } catch (e) {
         console.error('Error fetching week:', e);
     }
@@ -90,7 +85,6 @@ export const getAPIGames = () => async (dispatch) => {
             }
             // game_week_data.week = response.week.number
             // game_week_data.year = response.season.year
-            console.log('game_week_data_frontend', game_week_data)
             const backResponse = await fetch('/api/games', {
                 method: 'POST',
                 headers: {
