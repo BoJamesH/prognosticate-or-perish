@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from datetime import datetime, timedelta
-from app.models import db, Game, LastFetch
+from app.models import db, Game, LastFetch, Week
 
 game_routes = Blueprint('games', __name__)
 
@@ -9,44 +9,71 @@ game_routes = Blueprint('games', __name__)
 @login_required
 def create_games():
     try:
-        # Check the last fetch timestamp from the database
-        last_fetch_record = LastFetch.query.first()
-        print(last_fetch_record)
+        print('ENTERED BACKEND GAMES ROUTE')
+        data = request.get_json()
+        all_games_data = data
+        # Check and update the current week and year in the weeks table
+        current_week_record = Week.query.first()
+        # print('CURRENT WEEK RECORD ---------', current_week_record)
+        if not current_week_record or (current_week_record.year != all_games_data[0]['year'] or current_week_record.week != all_games_data[0]['week']):
+            if not current_week_record:
+                current_week_record = Week()
+            print('ENTERED CONDITIONAL FOR CHECKING CURRENT WEEK')
+            current_week_record.year = all_games_data[0]['year']
+            current_week_record.week = all_games_data[0]['week']
+            db.session.add(current_week_record)
+            db.session.commit()
+        print('DIRECTLY ABOVE LOOP FOR ADDING GAMES')
+        for game_data in all_games_data:
+            print('ENTERED LOOP FOR ADDING AND UPDATING GAMES!!!')
+            espn_id = int(game_data['espn_id'])
+            print('ESPN ID OF SENT GAME DATA--------- ', espn_id)
+            # Check if a game with the same espn_id exists
+            existing_game = Game.query.filter_by(espn_id=espn_id).first()
 
-        if not last_fetch_record or (datetime.utcnow() - last_fetch_record.last_fetch_timestamp >= timedelta(days=7)):
-            data = request.get_json()
-            all_games_data = data
-            for game_data in all_games_data:
-                competitor1 = game_data['competitor1']
-                competitor2 = game_data['competitor2']
-                odds = game_data['odds']
-                game_week = game_data['week']
-                game_year = game_data['year']
+            if existing_game:
+                # Update the existing game record
+                # if game_data['odds'] == 'Game finished':
+                #     game_data['odds']['overUnder'] == 'Game finished'
+                #     game_data['odds']['details'] == 'Game finished'
+                existing_game.week = int(game_data['week'])
+                existing_game.year = int(game_data['year'])
+                existing_game.home_team_name = game_data['competitor1']['team']['name']
+                existing_game.away_team_name = game_data['competitor2']['team']['name']
+                existing_game.spread = game_data['odds']['details']
+                existing_game.over_under = int(game_data['odds']['overUnder'])
+                existing_game.home_team_score = int(game_data['competitor1']['score'])
+                existing_game.away_team_score = int(game_data['competitor2']['score'])
+                existing_game.completed = game_data['completed']
+            else:
+                # Create a new game record
+                print('ENTERE GAME CREATION STEP!!!!!!!!!')
+                # if game_data['odds'] == 'Game finished':
+                #     game_data['odds']['overUnder'] == 0
+                #     game_data['odds']['details'] == 'Game finished'
+                #     print('GAME DATA ODDS ADJUSTMENT')
+                # print(game_data)
                 game = Game(
-                    week=game_week,
-                    year=game_year,
-                    home_team_name=competitor1['team']['name'],
-                    away_team_name=competitor2['team']['name'],
-                    spread=odds['details'],
-                    over_under=int(odds['overUnder']),
-                    home_team_score=competitor1['score'],
-                    away_team_score=competitor2['score'],
-                    status = 
+                    espn_id=int(espn_id),
+                    week=int(game_data['week']),
+                    year=int(game_data['year']),
+                    home_team_name=game_data['competitor1']['team']['name'],
+                    away_team_name=game_data['competitor2']['team']['name'],
+                    spread=game_data['odds']['details'],
+                    over_under=int(game_data['odds']['overUnder']),
+                    home_team_score=int(game_data['competitor1']['score']),
+                    away_team_score=int(game_data['competitor2']['score']),
+                    completed=game_data['completed']
                 )
                 db.session.add(game)
+                db.session.commit()
 
-            if not last_fetch_record:
-                last_fetch_record = LastFetch()
-                db.session.add(last_fetch_record)
+        db.session.commit()
 
-            last_fetch_record.last_fetch_timestamp = datetime.utcnow()
-            db.session.commit()
-
-            return jsonify({'message': 'Game records created and data updated successfully'})
-        print('HITTING DATA FETCHED MESSAGE')
-        return jsonify({'message': 'Data was fetched within the last week'})
+        return jsonify({'message': 'Game records created and data updated successfully'})
     except Exception as e:
-        return jsonify({'error': 'Error creating game records', 'details': str(e)})
+        return jsonify({'error': 'Error creating or updating game records', 'details': str(e)})
+
 
 @game_routes.route('')
 def get_games():

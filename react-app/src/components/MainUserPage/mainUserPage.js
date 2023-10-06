@@ -14,18 +14,13 @@ const MainUserPage = () => {
   const allTeams = useSelector((state) => state.teams.allTeams);
 
   useEffect(() => {
-
     const lastGamesFetchTimestamp = localStorage.getItem('lastGamesFetchTimestamp');
-    const lastWeekFetchTimestamp = localStorage.getItem('lastWeekFetchTimestamp');
     const currentTime = Date.now();
-
-
     const fetchGamesAndWeek = async () => {
       try {
         localStorage.setItem('lastGamesFetchTimestamp', String(currentTime));
-        localStorage.setItem('lastWeekFetchTimestamp', String(currentTime));
           dispatch(getAPIGames());
-          dispatch(getAPIWeek());
+          // dispatch(getAPIWeek());
           dispatch(storeGames());
           dispatch(storeWeek());
       } catch (error) {
@@ -34,14 +29,9 @@ const MainUserPage = () => {
     };
 
     if (
-      !lastGamesFetchTimestamp ||
-      !lastWeekFetchTimestamp ||
-      currentTime - Number(lastGamesFetchTimestamp) > 24 * 60 * 60 * 1000 ||
-      currentTime - Number(lastWeekFetchTimestamp) > 24 * 60 * 60 * 1000
-    ) {
+      !lastGamesFetchTimestamp || currentTime - Number(lastGamesFetchTimestamp) > 10 * 60 * 1000) {
       fetchGamesAndWeek();
     }
-
     // Fetch non-API backend data
     dispatch(getTeams());
     dispatch(getComments());
@@ -55,16 +45,20 @@ const MainUserPage = () => {
     return <p>Loading...</p>;
   }
 
-  const games = allGames.filter((game) => game.week == currentWeek);
+  let games;
+
+  if (allGames) {
+    games = allGames.filter((game) => game.week == currentWeek);
+  }
 
   return (
     <>
     <div className='main-page-all-container-div'>
       <div className='main-page-title-div'>
         <h1>MAIN USER PAGE</h1>
-        {currentWeek && <h3>WEEK {currentWeek} GAMES</h3>}
+        {currentWeek && <h3>WEEK {currentWeek} ELIMINATOR</h3>}
       </div>
-        {games.length ? (
+        {games && games.length ? (
             <div className='main-page-all-games-div'>
                 {games.map((game) => {
                 const homeTeam = allTeams.find((team) => team.name === game.home_team_name);
