@@ -40,6 +40,24 @@ def post_comment():
     except Exception as e:
         return jsonify({'error': 'Error posting comment', 'details': str(e)})
 
+@comment_routes.route('/<comment_id>', methods=['PUT'])
+@login_required
+def update_comment(comment_id):
+    """
+    Update a comment by the owner of the comment
+    """
+    print('ENTERED UPDATE COMMENT ROUTE')
+    data = request.get_json()
+    print('UPDATE COMMENT ROUTE DATA', data)
+    try:
+        comment_to_update = Comment.query.get(comment_id)
+        comment_to_update.comment_text = data
+        db.session.commit()
+        return {"Success": "Comment update success"}
+    except Exception as e:
+        return jsonify({'error': 'Error updating comment', 'details': str(e)})
+
+
 @comment_routes.route('/<comment_id>', methods=['DELETE'])
 @login_required
 def delete_comment(comment_id):

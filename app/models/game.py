@@ -9,12 +9,17 @@ class Game(db.Model):
 
     # Columns
     id = db.Column(db.Integer, primary_key=True)
+    espn_id = db.Column(db.Integer)
     week = db.Column(db.Integer)
     year = db.Column(db.Integer)
     home_team_name = db.Column(db.String)
     away_team_name = db.Column(db.String)
+    home_team_score = db.Column(db.Integer)
+    away_team_score = db.Column(db.Integer)
     spread = db.Column(db.String)
     over_under = db.Column(db.Integer)
+    completed = db.Column(db.Boolean)
+
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -29,12 +34,16 @@ class Game(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
+            'espn_id': self.espn_id,
             'week': self.week,
             'year': self.year,
             'home_team_name': self.home_team_name,
             'away_team_name': self.away_team_name,
+            'home_team_score': self.home_team_score,
+            'away_team_score': self.away_team_score,
             'spread': self.spread,
             'over_under': self.over_under,
+            'completed': self.completed,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         }

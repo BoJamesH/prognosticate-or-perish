@@ -9,6 +9,7 @@ class Week(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     current_week = db.Column(db.Integer)
+    current_year = db.Column(db.Integer)
 
     def to_dict(self):
         return {
