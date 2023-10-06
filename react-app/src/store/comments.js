@@ -6,30 +6,6 @@ export const setComments = (comments) => ({
     payload: comments
 })
 
-// export const postComments = (comment) => ({
-//     type: POST_COMMENTS,
-//     payload: comment
-// })
-
-
-// export const postReactions = (message_id, reaction_type) => async (dispatch)=> {
-//     console.log('REACTION STRING', reaction_type)
-//     const response = await fetch(`/api/reactions/${message_id}`, {
-// 		method: "POST",
-// 		headers: {
-// 			"Content-Type": "application/json",
-// 		},
-// 		body: JSON.stringify({reaction_type})
-//     })
-//         console.log('POST MESSAGE RESPONSE', response)
-//     if (response){
-//         const newReaction = await response.json()
-//         console.log(newReaction)
-//         // server id in response?
-//         dispatch(getReactions())
-//     }
-// }
-
 export const getComments = () => async (dispatch) => {
     const response = await fetch(`/api/comments`)
     console.log('resonse: ', response)
@@ -55,6 +31,23 @@ export const createComment = (comment) => async (dispatch) => {
     if (response.ok) {
         const newMessage = await response.json();
         dispatch(getComments());
+    }
+}
+
+export const updateComment = (comment_id, comment_text) => async (dispatch) => {
+    try {
+        const response = await fetch(`/api/comments/${comment_id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(comment_text),
+        });
+        if (response.ok) {
+            dispatch(getComments())
+        }
+    } catch (e) {
+        console.error('Error message: ', e)
     }
 }
 

@@ -29,7 +29,7 @@ const MainUserPage = () => {
     };
 
     if (
-      !lastGamesFetchTimestamp || currentTime - Number(lastGamesFetchTimestamp) > 10 * 60 * 1000) {
+      !lastGamesFetchTimestamp || currentTime - Number(lastGamesFetchTimestamp) > 30 * 60 * 1000) {
       fetchGamesAndWeek();
     }
     // Fetch non-API backend data
@@ -70,9 +70,18 @@ const MainUserPage = () => {
                         <img className='main-page-team-logo' src={awayTeam.logo_small} alt={`${awayTeam.name} logo`}  />
                         {game.away_team_name} AT {game.home_team_name}
                         <img className='main-page-team-logo' src={homeTeam.logo_small} alt={`${homeTeam.name} logo`} />
+                        {game.completed ? (
+                            <div className='main-page-final-score'>Final: {game.home_team_score} - {game.away_team_score}</div>
+                          ) : (
+                            <div className='main-page-current-score'>Current: {game.home_team_score} - {game.away_team_score}</div>
+                          )}
                     </div>
-                    <div className='main-page-game-spread-div'>SPREAD: {game.spread}</div>
-                    <div className='main-page-game-over-under-div'>OVER/UNDER: {game.over_under}</div>
+                    {!game.completed && (
+                        <>
+                          <div className='main-page-game-spread-div'>Spread: {game.spread}</div>
+                          <div className='main-page-game-over-under-div'>Over/Under: {game.over_under}</div>
+                        </>
+                      )}
                     </div>
                 );
                 })}
