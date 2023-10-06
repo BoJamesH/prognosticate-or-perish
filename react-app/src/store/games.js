@@ -12,24 +12,24 @@ export const setWeek = (week) => ({
     payload: week
 })
 
-export const getAPIWeek = () => async (dispatch) => {
-    console.log('HITTING API WEEK FETCH!!!!!!!!!')
-    try {
-        const firstResponse = await fetch(`http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`)
-        const response = await firstResponse.json()
-        const currentWeek = response.week.number
-        dispatch(setWeek(currentWeek))
-        const backendSetWeek = await fetch('/api/week', {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(currentWeek)
-        });
-    } catch (e) {
-        console.error('Error fetching API week:', e);
-    }
-}
+// export const getAPIWeek = () => async (dispatch) => {
+//     console.log('HITTING API WEEK FETCH!!!!!!!!!')
+//     try {
+//         const firstResponse = await fetch(`http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`)
+//         const response = await firstResponse.json()
+//         const currentWeek = response.week.number
+//         dispatch(setWeek(currentWeek))
+//         const backendSetWeek = await fetch('/api/week', {
+//             method: "PUT",
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify(currentWeek)
+//         });
+//     } catch (e) {
+//         console.error('Error fetching API week:', e);
+//     }
+// }
 
 export const storeWeek = () => async (dispatch) => {
     try {
@@ -47,24 +47,36 @@ export const getAPIGames = () => async (dispatch) => {
     try {
         const firstResponse = await fetch(`http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`)
         const response = await firstResponse.json()
-        if(response) {
+        if(true) {
             const events = response.events;
+            console.log('EVENTSSSSS IN BACKEND ----------', events)
             let allCompetitors = [];
             let allOdds = [];
             const allGames = [];
             let allTeams = [];
-
+            const allStatuses = [];
             for (let i = 0; i < events.length; i++) {
                 const games = events[i].competitions;
-                for (let i = 0; i < games.length; i++) {
-                    const competitors = games[i].competitors;
-                    const odds = games[i].odds;
-                    for (let i = 0; i < odds.length; i++) {
-                        allOdds.push(odds[i]);
+                for (let k = 0; k < games.length; k++) {
+                    const competitors = games[k].competitors;
+                    const status = games[k].status.type.completed
+                    if (games[k].odds) {
+                        const odds = games[k].odds;
+                        allOdds.push(odds[0])
+                    } else {
+                        const odds = {}
+                        odds.overUnder = 0
+                        odds.details = 'Game finished'
+                        allOdds.push(odds);
                     }
-                    for (let i = 0; i < competitors.length; i++) {
-                        allCompetitors.push(competitors[i]);
-                        const team = competitors[i].team;
+                    allStatuses.push(status)
+                    // const statuses = games[k].status.type.completed
+                    // for (let j = 0; j < games.length; j++) {
+                    //     allStatuses.push(statuses[k])
+                    // }
+                    for (let l = 0; l < competitors.length; l++) {
+                        allCompetitors.push(competitors[l]);
+                        const team = competitors[l].team;
                         allTeams.push(team);
                     }
                 }
@@ -75,6 +87,7 @@ export const getAPIGames = () => async (dispatch) => {
                     competitor2: allCompetitors[i + 1],
                     odds: allOdds[i / 2],
                     teams: [allTeams[i], allTeams[i + 1]],
+                    completed: allStatuses[i / 2]
                 };
                 allGames.push(game);
             }
@@ -82,8 +95,9 @@ export const getAPIGames = () => async (dispatch) => {
             for (let i = 0; i < game_week_data.length; i++) {
                 game_week_data[i].week = response.week.number
                 game_week_data[i].year = response.season.year
+                game_week_data[i].espn_id = events[i].id
             }
-            // game_week_data.week = response.week.number
+            console.log('GAME WEEK API DATA!!!!!!!!!!!!--', game_week_data)
             // game_week_data.year = response.season.year
             const backResponse = await fetch('/api/games', {
                 method: 'POST',
@@ -93,11 +107,9 @@ export const getAPIGames = () => async (dispatch) => {
                 body: JSON.stringify(game_week_data),
             })
         }
-
     } catch (e) {
-        console.log(e)
+        console.error(e)
     }
-    dispatch(storeGames())
 }
 
 export const storeGames = () => async (dispatch) => {

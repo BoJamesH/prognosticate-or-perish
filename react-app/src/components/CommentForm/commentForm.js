@@ -7,7 +7,6 @@ function CommentForm() {
     const dispatch = useDispatch()
     const user_profile_image = useSelector(state => state.session.user.profile_image)
     const user_username = useSelector(state => state.session.user.username)
-    const user_id = useSelector(state => state.session.user.id)
     const [comment_text, set_comment_text] = useState('');
 
     const handleCommentChange = (e) => {
@@ -16,6 +15,10 @@ function CommentForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (comment_text.length > 4000) {
+            alert('Please limit comments to less than 4,000 characters.')
+            return
+        }
         const newComment = {
             comment_text,
             user_profile_image,
@@ -23,6 +26,7 @@ function CommentForm() {
         };
         dispatch(createComment(newComment))
         set_comment_text('');
+
     };
 
     return (
