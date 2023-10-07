@@ -1,12 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { deleteComment, getComments, updateComment } from '../../store/comments';
 import './commentList.css';
 
 
 const CommentList = () => {
-    const history = useHistory();
     const dispatch = useDispatch();
     const comments = useSelector(state => state.comments.allComments);
     const sessionUserId = useSelector(state => state.session.user.id)
@@ -18,18 +16,6 @@ const CommentList = () => {
         dispatch(getComments());
     }, [dispatch]);
 
-    // const updateMessageHandler = async (messageId, message_text, e) => {
-    //     e.preventDefault()
-    //     setEditMessageId(messageId)
-    //     setEditMessage(true)
-    //     setEditMessageText(message_text)
-    // }
-
-    // const submitEditCommentHandler = async(messageId, message_text, e) => {
-    //     e.preventDefault()
-    //     dispatch(updateMessage(serverId, channelId, messageId, message_text))
-    //     setEditMessage(false)
-    // }
     const deleteCommentHandler = (commentId, e) => {
         e.preventDefault()
         dispatch(deleteComment(commentId))
@@ -66,7 +52,7 @@ const CommentList = () => {
                   <div className='comment-img-username'>
                     <div className='comment-username-div'>{comment.user_username}</div>
                     <div className='comment-img-div'>
-                      <img className='comment-profile-img' src={comment.user_profile_image} alt='User profile image' />
+                      <img className='comment-profile-img' src={comment.user_profile_image} alt='User profile' />
                     </div>
                   </div>
                   {editComment && editCommentId === comment.id ? (
@@ -79,8 +65,8 @@ const CommentList = () => {
                             value={editCommentText}
                             onChange={(e) => setEditCommentText(e.target.value)}
                         />
-                        <button onClick={(e) => submitUpdatedComment(comment.id, editCommentText, e)} className="message-edit-button">
-                            Update Comment
+                        <button onClick={(e) => submitUpdatedComment(comment.id, editCommentText, e)} className="comment-edit-confirm-button">
+                            Update
                         </button>
                     </div>
                   ) : (
