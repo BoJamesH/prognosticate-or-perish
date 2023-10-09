@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: aa6502a82564
+Revision ID: 472ea0f36098
 Revises: 
-Create Date: 2023-10-06 11:04:29.179837
+Create Date: 2023-10-09 13:20:06.241413
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'aa6502a82564'
+revision = '472ea0f36098'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -25,10 +25,10 @@ def upgrade():
     sa.Column('year', sa.Integer(), nullable=True),
     sa.Column('home_team_name', sa.String(), nullable=True),
     sa.Column('away_team_name', sa.String(), nullable=True),
-    sa.Column('spread', sa.String(), nullable=True),
-    sa.Column('over_under', sa.Integer(), nullable=True),
     sa.Column('home_team_score', sa.Integer(), nullable=True),
     sa.Column('away_team_score', sa.Integer(), nullable=True),
+    sa.Column('spread', sa.String(), nullable=True),
+    sa.Column('over_under', sa.Integer(), nullable=True),
     sa.Column('completed', sa.Boolean(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
@@ -101,12 +101,11 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('week', sa.Integer(), nullable=True),
     sa.Column('game_id', sa.Integer(), nullable=True),
-    sa.Column('selected_team_id', sa.Integer(), nullable=True),
+    sa.Column('selected_team_name', sa.String(), nullable=True),
     sa.Column('status', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['game_id'], ['games.id'], ),
-    sa.ForeignKeyConstraint(['selected_team_id'], ['teams.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
