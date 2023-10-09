@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react';
 import { getComments } from '../../store/comments';
 import { getTeams } from '../../store/teams';
 import { getAPIGames, storeGames, storeWeek } from '../../store/games';
+import { getUserElimPicks, postUserElimPick } from '../../store/elimPicks';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
+import Notification from '../Notification/notification';
 import './eliminator.css';
 
 const EliminatorPage = () => {
@@ -12,7 +14,11 @@ const EliminatorPage = () => {
   const currentWeek = Number(useSelector((state) => state.games.currentWeek));
   const allGames = useSelector((state) => state.games.allGames);
   const allTeams = useSelector((state) => state.teams.allTeams);
-  // const [isCompleted, setIsCompleted] = useState(false);
+  const userEliminatorPicks = useSelector(state => state.eliminatorPicks.userElimPicks)
+  const [userElimPick, setUserElimPick] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationDuration, setNotificationDuration] = useState(0);
+  // const [userElimTeamPick, setUserElimTeamPick] = useState(null)
 
   useEffect(() => {
     const lastGamesFetchTimestamp = localStorage.getItem('lastGamesFetchTimestamp');
@@ -34,21 +40,35 @@ const EliminatorPage = () => {
       fetchGamesAndWeek();
     }
     // Fetch non-API backend data
-    // dispatch(getAPIGames());
+    dispatch(getAPIGames());
     dispatch(getTeams());
     dispatch(getComments());
     dispatch(storeWeek());
     dispatch(storeGames());
+    dispatch(getUserElimPicks())
+
 
   }, [dispatch]);
 
-  const elimPickHandler = (teamName, gameIdESPN, week, completed, e) => {
+  const elimPickHandler = (teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore, e) => {
     e.preventDefault()
     if (completed) {
-      alert('You cannot pick a completed game in eliminator!')
+      setNotificationMessage(`Wouldn't be much of a contest if you could select a team whose game has already started!`);
+      setNotificationDuration(3000); // Display for 3 seconds (3000 milliseconds)
+      return;
     }
-    dispatch(createElimPick(teamName, gameIdESPN, week, completed))
-}
+    dispatch(postUserElimPick(teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore))
+    setUserElimPick(true)
+  }
+
+  const getTeamClassName = (game, teamName) => {
+    const userPick = userEliminatorPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
+    if (userPick) {
+      return 'current-elim-pick-div';
+    }
+    return '';
+  };
+
 
 
 
@@ -77,14 +97,18 @@ const EliminatorPage = () => {
             return (
               <div className={`eliminator-single-game-div ${game.completed ? 'completed' : ''}`} key={game.id}>
                 <div className='eliminator-game-teams-div'>
-                  <div onClick={(e) => elimPickHandler(awayTeam.name, game.espn_id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)} className='eliminator-team-left'>
+                  <div onClick={(e) => elimPickHandler(awayTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
+                  className={`eliminator-team-left ${getTeamClassName(game, awayTeam.name)}`}
+                  >
                     <img className='eliminator-team-logo' src={awayTeam.logo_small} alt={`${awayTeam.name} logo`} />
                     {game.away_team_name}
                   </div>
                   <div className='eliminator-at-between-logos'>
                     @
                   </div>
-                  <div className='eliminator-team-right'>
+                  <div onClick={(e) => elimPickHandler(homeTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
+                  className={`eliminator-team-right ${getTeamClassName(game, homeTeam.name)}`}
+                  >
                     <img className='eliminator-team-logo' src={homeTeam.logo_small} alt={`${homeTeam.name} logo`} />
                     {game.home_team_name}
                   </div>
@@ -108,6 +132,9 @@ const EliminatorPage = () => {
         </div>
       ) : (
         <p>No games available for the current week.</p>
+      )}
+      {notificationMessage && (
+        <Notification message={notificationMessage} duration={notificationDuration} />
       )}
 
             <div className='main-commentform-div'>

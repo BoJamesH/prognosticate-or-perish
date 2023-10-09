@@ -1,0 +1,13 @@
+.notification {
+    position: fixed;
+    top: 50;
+    left: 10;
+    width: 100%;
+    background-color: #272625;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 50vw;
+    /* transition: opacity 0.5s;
+    opacity: 0; */
+  }

@@ -4,12 +4,14 @@ import session from './session'
 import comments from './comments'
 import games from './games'
 import teams from './teams'
+import eliminatorPicks from './elimPicks'
 
 const rootReducer = combineReducers({
   session,
   comments,
   games,
   teams,
+  eliminatorPicks,
 });
 
 

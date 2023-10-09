@@ -4,8 +4,8 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_elim_picks():
-    sample_pick = Elim_Pick(user_id=3, week=5, game_id=1, selected_team_id=1, status='OPEN')
-    db.session.add(sample_pick)
+    # sample_pick = Elim_Pick(user_id=3, week=5, game_id=1, selected_team_id=1, status='OPEN')
+    # db.session.add(sample_pick)
     db.session.commit()
 
 

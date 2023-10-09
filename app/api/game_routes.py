@@ -10,8 +10,7 @@ game_routes = Blueprint('games', __name__)
 def create_games():
     try:
         print('ENTERED BACKEND GAMES ROUTE')
-        data = request.get_json()
-        all_games_data = data
+        all_games_data = request.get_json()
         # print('BACKEND ALL GAMES API DATA------ ', all_games_data)
         # Check and update the current week and year in the weeks table
         current_week_record = Week.query.first()
@@ -20,8 +19,8 @@ def create_games():
             if not current_week_record:
                 current_week_record = Week()
             print('ENTERED CONDITIONAL FOR CHECKING CURRENT WEEK')
-            current_week_record.current_week = all_games_data[0]['year']
-            current_week_record.current_year = all_games_data[0]['week']
+            current_week_record.current_week = all_games_data[0]['week']
+            current_week_record.current_year = all_games_data[0]['year']
             db.session.add(current_week_record)
             db.session.commit()
         print('DIRECTLY ABOVE LOOP FOR ADDING GAMES')
@@ -46,13 +45,7 @@ def create_games():
                 existing_game.away_team_score = int(game_data['competitor2']['score'])
                 existing_game.completed = game_data['completed']
             else:
-                # Create a new game record
                 print('ENTERED GAME CREATION STEP!!!!!!!!!')
-                # if game_data['odds'] == 'Game finished':
-                #     game_data['odds']['overUnder'] == 0
-                #     game_data['odds']['details'] == 'Game finished'
-                #     print('GAME DATA ODDS ADJUSTMENT')
-                # print(game_data)
                 game = Game(
                     espn_id=int(espn_id),
                     week=int(game_data['week']),

@@ -1,24 +1,24 @@
 const SET_ELIM_PICKS= 'comments/SET_ELIM_PICKS'
 
-export const setElimPicks = (pick) => ({
+export const setElimPicks = (picks) => ({
     type: SET_ELIM_PICKS,
-    payload: pick
+    payload: picks
 })
 
 export const getUserElimPicks = () => async (dispatch) => {
     const response = await fetch(`/api/elim_picks`)
-    console.log('resonse: ', response)
+    console.log('response: ', response)
     if(response.ok) {
         const getUserElimPicks = await response.json();
         console.log('getUserElimPicks:', getUserElimPicks)
-        const userElimPicks = getUserElimPicks.elim_picks
+        const userElimPicks = getUserElimPicks.user_elim_picks
         console.log('USER ELIM PICKS ------ ', userElimPicks)
         dispatch(setElimPicks(userElimPicks))
     }
 }
 
-export const postElimPick = (name, gameIdESPN, week, completed) => async (dispatch) => {
-    const pickBody = { name, gameIdESPN, week, completed };
+export const postUserElimPick = (name, gameId, week, completed, selectedTeamScore, opposingTeamScore) => async (dispatch) => {
+    const pickBody = { name, gameId, week, completed, selectedTeamScore, opposingTeamScore };
     try {
         const response = await fetch('/api/elim_picks', {
             method: "POST",
@@ -27,7 +27,6 @@ export const postElimPick = (name, gameIdESPN, week, completed) => async (dispat
             },
             body: JSON.stringify(pickBody)
         });
-
         if (response.ok) {
             const newPick = await response.json();
             dispatch(getUserElimPicks());
@@ -39,23 +38,17 @@ export const postElimPick = (name, gameIdESPN, week, completed) => async (dispat
     }
 };
 
-
-// export const updateComment = (comment_id, comment_text) => async (dispatch) => {
-//     try {
-//         const response = await fetch(`/api/comments/${comment_id}`, {
-//             method: 'PUT',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(comment_text),
-//         });
-//         if (response.ok) {
-//             dispatch(getComments())
-//         }
-//     } catch (e) {
-//         console.error('Error message: ', e)
-//     }
-// }
+export const checkUserElimPicks = () => async (dispatch) => {
+    const response = await fetch(`/api/elim_picks/check`)
+    console.log('response: ', response)
+    if(response.ok) {
+        const checkUserElimPicks = await response.json();
+        console.log('getUserElimPicks:', getUserElimPicks)
+        const userElimPicks = getUserElimPicks.user_elim_picks
+        console.log('USER ELIM PICKS ------ ', userElimPicks)
+        dispatch(setElimPicks(userElimPicks))
+    }
+}
 
 // export const deleteComment = (comment_id) => async (dispatch) => {
 //     try {
@@ -72,7 +65,7 @@ export const postElimPick = (name, gameIdESPN, week, completed) => async (dispat
 // }
 
 const initialState = {
-    userElimPicks: {}
+    userElimPicks: []
 }
 
 export default function elimPicksReducer(state = initialState, action) {

@@ -61,8 +61,18 @@
 .eliminator-team-right {
     display: flex;
     align-items: center;
+    padding-right: 20px;
+    cursor: pointer;
+    padding-left: 20px;
 }
 
+.eliminator-team-right {
+    margin-top: 10px;
+}
+
+.eliminator-team-left {
+    margin-bottom: 10px;
+}
 
 
 .eliminator-game-details {
@@ -74,6 +84,11 @@
 
 .completed {
   background-color: rgba(112, 10, 10, 0.5);
+}
+
+.current-elim-pick-div {
+    background-color: rgba(6, 104, 71, 0.527);
+    border-radius: 10px;
 }
 
 /* .completed::before,
