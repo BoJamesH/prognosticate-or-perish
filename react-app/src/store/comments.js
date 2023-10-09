@@ -29,7 +29,7 @@ export const createComment = (comment) => async (dispatch) => {
 
     console.log('RESPONSE POST COMMENT-----', response);
     if (response.ok) {
-        const newMessage = await response.json();
+        const newComment = await response.json();
         dispatch(getComments());
     }
 }

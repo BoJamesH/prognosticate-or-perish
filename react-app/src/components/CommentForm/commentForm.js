@@ -31,9 +31,9 @@ function CommentForm() {
 
     return (
     <div>
-        <h2>Leave a Comment</h2>
+        <h3 className='leave-comment-title-h3'>Leave a Comment</h3>
         <form onSubmit={handleSubmit}>
-        <div>
+        <div className='textarea-input-div'>
             <textarea
             id="comment"
             value={comment_text}
@@ -43,8 +43,8 @@ function CommentForm() {
             placeholder='Got something to share?'
             ></textarea>
         </div>
-        <div>
-            <button type="submit">Submit</button>
+        <div className='submit-comment-div'>
+            <button className='submit-comment-button' type="submit">Comment</button>
         </div>
         </form>
     </div>

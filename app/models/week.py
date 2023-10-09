@@ -15,4 +15,5 @@ class Week(db.Model):
         return {
             'id': self.id,
             'current_week': self.current_week,
+            'current_year': self.current_year,
         }
