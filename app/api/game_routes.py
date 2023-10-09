@@ -12,24 +12,25 @@ def create_games():
         print('ENTERED BACKEND GAMES ROUTE')
         data = request.get_json()
         all_games_data = data
+        print('BACKEND ALL GAMES API DATA------ ', all_games_data)
         # Check and update the current week and year in the weeks table
         current_week_record = Week.query.first()
-        # print('CURRENT WEEK RECORD ---------', current_week_record)
-        if not current_week_record or (current_week_record.year != all_games_data[0]['year'] or current_week_record.week != all_games_data[0]['week']):
-            if not current_week_record:
-                current_week_record = Week()
-            print('ENTERED CONDITIONAL FOR CHECKING CURRENT WEEK')
-            current_week_record.year = all_games_data[0]['year']
-            current_week_record.week = all_games_data[0]['week']
-            db.session.add(current_week_record)
-            db.session.commit()
+        print('CURRENT WEEK RECORD ---------', current_week_record)
+        # if not current_week_record or (current_week_record.year != all_games_data[0]['year'] or current_week_record.week != all_games_data[0]['week']):
+        #     if not current_week_record:
+        #         current_week_record = Week()
+        #     print('ENTERED CONDITIONAL FOR CHECKING CURRENT WEEK')
+        #     current_week_record.year = all_games_data[0]['year']
+        #     current_week_record.week = all_games_data[0]['week']
+        #     db.session.add(current_week_record)
+        #     db.session.commit()
         print('DIRECTLY ABOVE LOOP FOR ADDING GAMES')
         for game_data in all_games_data:
             print('ENTERED LOOP FOR ADDING AND UPDATING GAMES!!!')
             espn_id = int(game_data['espn_id'])
             # Check if a game with the same espn_id exists
             existing_game = Game.query.filter_by(espn_id=espn_id).first()
-
+            print('DID WE FIND AN EXISTING GAME??? ', existing_game)
             if existing_game:
                 # Update the existing game record
                 # if game_data['odds'] == 'Game finished':

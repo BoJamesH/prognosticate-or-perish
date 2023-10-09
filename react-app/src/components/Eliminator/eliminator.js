@@ -34,6 +34,7 @@ const EliminatorPage = () => {
       fetchGamesAndWeek();
     }
     // Fetch non-API backend data
+    // dispatch(getAPIGames());
     dispatch(getTeams());
     dispatch(getComments());
     dispatch(storeWeek());
