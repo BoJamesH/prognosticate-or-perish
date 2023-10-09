@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getComments } from '../../store/comments';
 import { getTeams } from '../../store/teams';
 import { getAPIGames, storeGames, storeWeek } from '../../store/games';
-import { getUserElimPicks, postUserElimPick } from '../../store/elimPicks';
+import { checkUserElimPicks, deleteUserElimPick, getUserElimPicks, postUserElimPick } from '../../store/elimPicks';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import Notification from '../Notification/notification';
@@ -36,27 +36,34 @@ const EliminatorPage = () => {
     };
 
     if (
-      !lastGamesFetchTimestamp || currentTime - Number(lastGamesFetchTimestamp) > 30 * 60 * 1000) {
+      !lastGamesFetchTimestamp || currentTime - Number(lastGamesFetchTimestamp) > 5 * 60 * 1000) {
       fetchGamesAndWeek();
     }
     // Fetch non-API backend data
-    dispatch(getAPIGames());
+    // dispatch(getAPIGames());
     dispatch(getTeams());
     dispatch(getComments());
     dispatch(storeWeek());
     dispatch(storeGames());
     dispatch(getUserElimPicks())
-
-
+    dispatch(checkUserElimPicks());
   }, [dispatch]);
 
   const elimPickHandler = (teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore, e) => {
     e.preventDefault()
     if (completed) {
-      setNotificationMessage(`Wouldn't be much of a contest if you could select a team whose game has already started!`);
-      setNotificationDuration(3000); // Display for 3 seconds (3000 milliseconds)
+      // setNotificationMessage(`Wouldn't be much of a contest if you could select a team whose game has already started!`);
+      // setNotificationDuration(3000);
+      alert(`Wouldn't be much of a contest if you could select a team whose game has already started!`)
       return;
     }
+    const currWeekUserPick = userEliminatorPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
+    if (currWeekUserPick && currWeekUserPick.selected_team_name == teamName) {
+      dispatch(deleteUserElimPick(week))
+      return;
+    }
+    setNotificationMessage('');
+    setNotificationDuration(0);
     dispatch(postUserElimPick(teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore))
     setUserElimPick(true)
   }
@@ -86,7 +93,13 @@ const EliminatorPage = () => {
     <>
     <div className='eliminator-all-container-div'>
       <div className='eliminator-title-div'>
-        {currentWeek && <h3>WEEK {currentWeek} ELIMINATOR</h3>}
+        <h2>ELIMINATOR</h2>
+        {currentWeek && <h3 className='week-title'>WEEK {currentWeek}</h3>}
+      </div>
+      <div className='eliminator-instruction-div'>
+        Select a team each week who you believe will win their game.
+        You may only select a team once per season, and teams in games which have already started (bordered in red) may not be selected.
+        The user with the best overall record at the end of the season will be the winner!
       </div>
       {games && games.length && allTeams && allTeams.length ? (
         <div className='eliminator-all-games-div'>
@@ -114,10 +127,18 @@ const EliminatorPage = () => {
                   </div>
                 </div>
                 <div className='eliminator-game-details'>
-                  {game.completed ? (
-                    <div className='eliminator-final-score'>Final: {game.home_team_score} - {game.away_team_score}</div>
+                {game.completed ? (
+                    <div className='eliminator-final-score'>
+                      Final: {game.away_team_score} - {game.home_team_score}
+                      <br />
+                      {game.away_team_score > game.home_team_score
+                        ? `${game.away_team_name} victory`
+                        : `${game.home_team_name} victory`}
+                    </div>
                   ) : (
-                    <div className='eliminator-current-score'>Current: {game.home_team_score} - {game.away_team_score}</div>
+                    <div className='eliminator-current-score'>
+                      Current: {game.home_team_score} - {game.away_team_score}
+                    </div>
                   )}
                   {!game.completed && (
                     <>

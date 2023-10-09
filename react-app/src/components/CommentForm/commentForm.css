@@ -1,7 +1,26 @@
 .comment-field {
     background-color: rgb(68, 68, 68);
     color: white;
-    width: 50vw;
+    width: 60vw;
     height: 80px;
     border-radius: 10px;
+}
+
+.leave-comment-title-h3 {
+    text-align: center;
+}
+
+.submit-comment-div {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.submit-comment-button {
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    width: 200px;
+    height: 30px;
 }

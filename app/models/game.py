@@ -47,3 +47,11 @@ class Game(db.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         }
+
+    def determine_winning_team(self):
+        if self.home_team_score > self.away_team_score:
+            return self.home_team_name
+        elif self.away_team_score > self.home_team_score:
+            return self.away_team_name
+        else:
+            return 'Tie'

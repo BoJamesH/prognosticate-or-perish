@@ -6,10 +6,25 @@
     align-items: center;
 }
 
+.eliminator-title-div {
+    text-align: center;
+}
+
+.week-title {
+    color: rgb(170, 170, 170);
+}
+
+.eliminator-instruction-div {
+    width: 670px;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
 .eliminator-all-games-div {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns with equal width */
-    gap: 20px; /* Adjust the gap between the columns */
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
 
   .eliminator-single-game-div {
@@ -52,9 +67,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #ccc;
+    border: 3px solid #136813;
     padding: 10px;
-    margin-bottom: 20px;
+    /* margin-bottom: 10px; */
+    border-radius: 10px;
 }
 
 .eliminator-team-left,
@@ -83,7 +99,8 @@
 }
 
 .completed {
-  background-color: rgba(112, 10, 10, 0.5);
+  /* background-color: rgba(134, 155, 15, 0.158); */
+  border: 3px solid rgba(155, 15, 15, 0.356);
 }
 
 .current-elim-pick-div {

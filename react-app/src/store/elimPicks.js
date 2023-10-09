@@ -39,30 +39,34 @@ export const postUserElimPick = (name, gameId, week, completed, selectedTeamScor
 };
 
 export const checkUserElimPicks = () => async (dispatch) => {
-    const response = await fetch(`/api/elim_picks/check`)
-    console.log('response: ', response)
-    if(response.ok) {
-        const checkUserElimPicks = await response.json();
-        console.log('getUserElimPicks:', getUserElimPicks)
-        const userElimPicks = getUserElimPicks.user_elim_picks
-        console.log('USER ELIM PICKS ------ ', userElimPicks)
-        dispatch(setElimPicks(userElimPicks))
+    try {
+        const response = await fetch(`/api/elim_picks/check`);
+        console.log('response: ', response);
+        if (response.ok) {
+            const checkUserElimPicks = await response.json();
+            console.log('CHECK USER ELIM PICK RESPONSE:', checkUserElimPicks);
+            // Dispatch any actions or handle the response as needed here
+        } else {
+            console.error('Error checking user elim picks');
+        }
+    } catch (error) {
+        console.error('Error in checkUserElimPicks:', error);
+    }
+};
+
+
+export const deleteUserElimPick = (week) => async (dispatch) => {
+    try {
+        const response = await fetch(`/api/elim_picks/${week}`, {
+            method: 'DELETE',
+        })
+        if (response.ok) {
+            dispatch(getUserElimPicks())
+        }
+    } catch (e) {
+        console.error('Error in deleteUserElimPicks:', e);
     }
 }
-
-// export const deleteComment = (comment_id) => async (dispatch) => {
-//     try {
-//         const response = await fetch(`/api/comments/${comment_id}`, {
-//             method: 'DELETE',
-//         })
-//         console.log('resonse: ', response)
-//         if (response.ok) {
-//             dispatch(getComments())
-//         }
-//     } catch (e) {
-//         console.log(e)
-//     }
-// }
 
 const initialState = {
     userElimPicks: []
