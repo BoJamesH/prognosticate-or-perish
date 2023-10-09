@@ -12,7 +12,7 @@ const EliminatorPage = () => {
   const currentWeek = Number(useSelector((state) => state.games.currentWeek));
   const allGames = useSelector((state) => state.games.allGames);
   const allTeams = useSelector((state) => state.teams.allTeams);
-  const [isCompleted, setIsCompleted] = useState(false);
+  // const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
     const lastGamesFetchTimestamp = localStorage.getItem('lastGamesFetchTimestamp');
@@ -42,6 +42,15 @@ const EliminatorPage = () => {
 
   }, [dispatch]);
 
+  const elimPickHandler = (teamName, gameIdESPN, week, completed, e) => {
+    e.preventDefault()
+    if (completed) {
+      alert('You cannot pick a completed game in eliminator!')
+    }
+    dispatch(createElimPick(teamName, gameIdESPN, week, completed))
+}
+
+
 
   if (!currentWeek || !allGames) {
     return <p>Loading...</p>;
@@ -68,7 +77,7 @@ const EliminatorPage = () => {
             return (
               <div className={`eliminator-single-game-div ${game.completed ? 'completed' : ''}`} key={game.id}>
                 <div className='eliminator-game-teams-div'>
-                  <div className='eliminator-team-left'>
+                  <div onClick={(e) => elimPickHandler(awayTeam.name, game.espn_id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)} className='eliminator-team-left'>
                     <img className='eliminator-team-logo' src={awayTeam.logo_small} alt={`${awayTeam.name} logo`} />
                     {game.away_team_name}
                   </div>

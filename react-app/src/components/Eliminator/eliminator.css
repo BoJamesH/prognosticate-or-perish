@@ -73,27 +73,15 @@
 }
 
 .completed {
-    position: relative;
-    background-color: rgba(90, 90, 90, 0.5);
-    display: inline-block;
-    padding: 20px;
-  }
+  background-color: rgba(112, 10, 10, 0.5);
+}
 
-  .completed::before,
-  .completed::after {
-    content: "";
-    position: absolute;
-    width: 85%; /* Adjust the width to set the line length */
-    height: 2px;
-    background-color: white;
-    top: 50%;
-    left: 10;
-  }
-
-  .completed::before {
-    transform: translateY(-45%) rotate(45deg);
-  }
-
-  .completed::after {
-    transform: translateY(-45%) rotate(-45deg);
-  }
+/* .completed::before,
+.completed::after {
+  content: "COMPLETE";
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}  */
