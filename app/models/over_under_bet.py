@@ -12,7 +12,7 @@ class Over_Under_Bet(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     week = db.Column(db.Integer)
     game_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('games.id')))
-    selected_team_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('teams.id')))
+    selected_team_name = db.Column(db.String)
     progs_wagered = db.Column(db.Integer)
     payout = db.Column(db.Float)
     status = db.Column(db.String, default='OPEN')
@@ -22,7 +22,7 @@ class Over_Under_Bet(db.Model):
     # Relationships
     user_over_under_bets = db.relationship('User', back_populates='over_under_bets_user')
     game_over_under_bets = db.relationship('Game', back_populates='over_under_bets_game')
-    team_over_under_bets = db.relationship('Team', back_populates='over_under_bets_team')
+    # team_over_under_bets = db.relationship('Team', back_populates='over_under_bets_team')
 
 
     def to_dict(self):
@@ -31,7 +31,7 @@ class Over_Under_Bet(db.Model):
             'user_id': self.user_id,
             'week': self.week,
             'game_id': self.game_id,
-            'selected_team_id': self.selected_team_id,
+            'selected_team_name': self.selected_team_name,
             'progs_wagered': self.progs_wagered,
             'payout': self.payout,
             'status': self.status,
