@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
+import { Link } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import './Navigation.css'
+import { useHistory } from "react-router-dom";
 
 function ProfileButton({ user }) {
+  const history = useHistory()
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -32,6 +36,7 @@ function ProfileButton({ user }) {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    history.push('/')
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -39,16 +44,20 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+      <button  className='profile-dropdown-button' onClick={openMenu}>
+        <i id='profile-icon-id' className="fas fa-user-circle" />
       </button>
-      <ul className={ulClassName} ref={ulRef}>
+      <ul id='dropdown-menu' className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={handleLogout}>Log Out</button>
+            <Link to="/user"
+            onClick={closeMenu}>
+              <img className='comment-profile-img' src={user.profile_image} alt='User profile' />
+            </Link>
+            <li className="dropdown-item">{user.username}</li>
+            <li className="dropdown-item">{user.email}</li>
+            <li className="dropdown-item">
+              <button className='profile-logout-button' onClick={handleLogout}>Log Out</button>
             </li>
           </>
         ) : (
