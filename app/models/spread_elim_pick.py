@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 
 class Spread_Elim_Pick(db.Model):
-    __tablename__ = 'spread_ elim_picks'
+    __tablename__ = 'spread_elim_picks'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
