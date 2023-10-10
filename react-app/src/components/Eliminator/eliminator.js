@@ -57,6 +57,10 @@ const EliminatorPage = () => {
       alert(`Wouldn't be much of a contest if you could select a team whose game has already started!`)
       return;
     }
+    if (isTeamPickedInPreviousWeeks) {
+      alert(`You've already picked the ${teamName} in a previous week!`);
+      return;
+    }
     const currWeekUserPick = userEliminatorPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
     if (currWeekUserPick && currWeekUserPick.selected_team_name == teamName) {
       dispatch(deleteUserElimPick(week))
@@ -69,13 +73,31 @@ const EliminatorPage = () => {
   }
 
   const getTeamClassName = (game, teamName) => {
-    const userPick = userEliminatorPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
+    const userPick = userEliminatorPicks.find(
+      (pick) => pick.week === currentWeek && pick.selected_team_name === teamName
+    );
+
+    const isPickedInPreviousWeeks = isTeamPickedInPreviousWeeks(
+      teamName,
+      currentWeek,
+      userEliminatorPicks
+    );
+
     if (userPick) {
-      return 'current-elim-pick-div';
+      return `current-elim-pick-div ${isPickedInPreviousWeeks ? 'picked-in-previous-weeks' : ''}`;
     }
-    return '';
+
+    return isPickedInPreviousWeeks ? 'picked-in-previous-weeks' : '';
   };
 
+  const isTeamPickedInPreviousWeeks = (teamName, currentWeek, userEliminatorPicks) => {
+    for (const pick of userEliminatorPicks) {
+      if (pick.week < currentWeek && pick.selected_team_name == teamName) {
+        return true;
+      }
+    }
+    return false;
+  };
 
 
 
