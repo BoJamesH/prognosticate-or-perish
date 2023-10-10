@@ -57,7 +57,7 @@ const CommentList = () => {
                   </div>
                   {editComment && editCommentId === comment.id ? (
                         <div>
-                        <input
+                        <textarea
                             type="text"
                             required
                             className="comment-edit-field"
