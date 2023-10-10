@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import EliminatorPage from "./components/Eliminator/eliminator";
 import UserPage from "./components/UserPage/userPage";
+import Footer from "./components/SiteFooter/siteFooter";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }
