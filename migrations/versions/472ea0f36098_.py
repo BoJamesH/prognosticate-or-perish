@@ -193,7 +193,7 @@ def upgrade():
     if environment == "production":
         op.execute(f"ALTER TABLE results SET SCHEMA {SCHEMA};")
 
-    op.create_table('spread_ elim_picks',
+    op.create_table('spread_elim_picks',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('week', sa.Integer(), nullable=True),
