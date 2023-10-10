@@ -36,7 +36,7 @@ const EliminatorPage = () => {
     };
 
     if (
-      !lastGamesFetchTimestamp || currentTime - Number(lastGamesFetchTimestamp) > 5 * 60 * 1000) {
+      !lastGamesFetchTimestamp || currentTime - Number(lastGamesFetchTimestamp) > 1 * 60 * 1000) {
       fetchGamesAndWeek();
     }
     // Fetch non-API backend data

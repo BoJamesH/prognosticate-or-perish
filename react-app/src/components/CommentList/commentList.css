@@ -64,13 +64,20 @@
 
 .comment-edit-field {
   width: 45vw;
-  height: 70%;
+  height: 50%;
+  background-color: rgb(68, 68, 68);
+  color: white;
+  width: 45vw;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 4px;
 }
 
 .comment-edit-confirm-button {
-  height: 30px;
+  height: 20px;
   width: 120px;
-  background-color: #181a1c;
+  background-color: rgb(68, 68, 68);
   color: white;
   border-radius: 5px;
+  margin-top: 4px;
 }
