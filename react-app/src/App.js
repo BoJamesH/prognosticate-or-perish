@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import EliminatorPage from "./components/Eliminator/eliminator";
 import UserPage from "./components/UserPage/userPage";
 import Footer from "./components/SiteFooter/siteFooter";
+import SplashPage from "./components/SplashPage/splashPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,8 +31,11 @@ function App() {
           <Route exact path='/eliminator'>
             <EliminatorPage />
           </Route>
-          <Route exact path='/'>
+          <Route exact path='/user'>
             <UserPage />
+          </Route>
+          <Route exact path='/'>
+            <SplashPage />
           </Route>
         </Switch>
       )}
