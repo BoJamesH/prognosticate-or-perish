@@ -87,8 +87,8 @@ def delete_elim_pick(week):
 @login_required
 def check_eliminator_picks():
     user_id = int(current_user.get_id())
-    current_week = Week.query.first()
-
+    week = Week.query.first()
+    current_week = week.current_week
     try:
         current_pick = Elim_Pick.query.filter_by(user_id=user_id, week=current_week).first()
 
