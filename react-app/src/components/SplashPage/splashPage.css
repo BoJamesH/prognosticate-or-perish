@@ -7,6 +7,17 @@
     align-items: center;
 }
 
+.splash-title {
+    color: #4b0082;
+    background-image: linear-gradient(to right, #5c2583, #089ba0); /* Gradient from purple to blue */
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    transition: background-position 0.3s;
+    text-decoration: none;
+    font-size: 30px;
+}
+
 .splash-gamelist-ul {
     list-style: none;
 }
@@ -29,15 +40,26 @@
     padding: 10px;
   }
 
+  .splash-game-link {
+    text-decoration: none;
+    color: rgb(120, 28, 156);;
+  }
+
   .splash-gamelist-title {
     width: 20%;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 600;
   }
 
   .splash-gamelist-description {
     width: 60%;
+    margin-left: 10px;
+    font-size: 14px;
   }
 
   .splash-gamelist-status {
     width: 20%;
     text-align: right;
+    margin-right: 10px;
   }

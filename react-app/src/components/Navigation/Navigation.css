@@ -19,12 +19,12 @@
   justify-content: space-between;
   background-color: #181818;
   padding: 20px;
-  width: 96.8vw;
+  width: 96.1vw;
 }
 
 .p-or-p-title {
     font-size: 2rem;
-    color: #4b0082;
+    color: #5c2583;
     background-image: linear-gradient(to right, #5c2583, #089ba0); /* Gradient from purple to blue */
     background-clip: text;
     -webkit-background-clip: text;
