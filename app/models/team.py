@@ -25,12 +25,12 @@ class Team(db.Model):
     # Relationships
     # result_winner = db.relationship('Result', back_populates='winner_result')
     # result_loser = db.relationship('Result', back_populates='loser_result')
-    spread_elim_picks_team = db.relationship('Spread_Elim_Pick', back_populates='team_spread_elim_picks', cascade='all, delete-orphan')
-    over_under_bets_team = db.relationship('Over_Under_Bet', back_populates='team_over_under_bets', cascade='all, delete-orphan')
-    spread_bets_team = db.relationship('Spread_Bet', back_populates='team_spread_bets', cascade='all, delete-orphan')
+    # spread_elim_picks_team = db.relationship('Spread_Elim_Pick', back_populates='team_spread_elim_picks', cascade='all, delete-orphan')
+    # over_under_bets_team = db.relationship('Over_Under_Bet', back_populates='team_over_under_bets', cascade='all, delete-orphan')
+    # spread_bets_team = db.relationship('Spread_Bet', back_populates='team_spread_bets', cascade='all, delete-orphan')
     # elim_picks_team = db.relationship('Elim_Pick', back_populates='team_elim_picks', cascade='all, delete-orphan')
-    pickem_picks_team = db.relationship('Pickem_Pick', back_populates='team_pickem_picks', cascade='all, delete-orphan')
-    spread_elim_picks_team = db.relationship('Spread_Elim_Pick', back_populates='team_spread_elim_picks', cascade='all, delete-orphan')
+    # pickem_picks_team = db.relationship('Pickem_Pick', back_populates='team_pickem_picks', cascade='all, delete-orphan')
+    # spread_elim_picks_team = db.relationship('Spread_Elim_Pick', back_populates='team_spread_elim_picks', cascade='all, delete-orphan')
 
 
     def to_dict(self):
