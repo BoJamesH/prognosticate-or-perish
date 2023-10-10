@@ -45,7 +45,7 @@ export const storeWeek = () => async (dispatch) => {
 export const getAPIGames = () => async (dispatch) => {
     console.log('HITTING API GAMES FETCH!!!!!!!!!')
     try {
-        const firstResponse = await fetch(`http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`)
+        const firstResponse = await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`)
         const response = await firstResponse.json()
         if(true) {
             const events = response.events;
