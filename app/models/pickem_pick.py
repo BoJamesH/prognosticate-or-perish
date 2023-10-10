@@ -12,7 +12,7 @@ class Pickem_Pick(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     week = db.Column(db.Integer)
     game_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('games.id')))
-    selected_team_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('teams.id')))
+    selected_team_name = db.Column(db.String)
     status = db.Column(db.String, default='OPEN')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -20,7 +20,7 @@ class Pickem_Pick(db.Model):
     # Relationships
     user_pickem_picks = db.relationship('User', back_populates='pickem_picks_user')
     game_pickem_picks = db.relationship('Game', back_populates='pickem_picks_game')
-    team_pickem_picks = db.relationship('Team', back_populates='pickem_picks_team')
+    # team_pickem_picks = db.relationship('Team', back_populates='pickem_picks_team')
 
 
     def to_dict(self):
@@ -29,7 +29,7 @@ class Pickem_Pick(db.Model):
             'user_id': self.user_id,
             'week': self.week,
             'game_id': self.game_id,
-            'selected_team_id': self.selected_team_id,
+            'selected_team_name': self.selected_team_name,
             'status': self.status,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
