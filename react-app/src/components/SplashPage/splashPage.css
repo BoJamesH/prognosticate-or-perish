@@ -1,0 +1,43 @@
+.splash-overall-div {
+    width: '50vw';
+    height: '100vh';
+    background: '#f0f0f0';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.splash-gamelist-ul {
+    list-style: none;
+}
+
+.splash-gamelist-ul {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding: 0;
+    list-style: none;
+  }
+
+  .splash-gamelist-li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 1px solid #089ba0;
+    padding: 10px;
+  }
+
+  .splash-gamelist-title {
+    width: 20%;
+  }
+
+  .splash-gamelist-description {
+    width: 60%;
+  }
+
+  .splash-gamelist-status {
+    width: 20%;
+    text-align: right;
+  }

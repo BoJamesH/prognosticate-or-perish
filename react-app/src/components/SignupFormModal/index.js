@@ -10,13 +10,14 @@ function SignupFormModal() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [profileImgUrl, setprofileImgUrl] = useState("");
 	const [errors, setErrors] = useState([]);
 	const { closeModal } = useModal();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (password === confirmPassword) {
-			const data = await dispatch(signUp(username, email, password));
+			const data = await dispatch(signUp(username, email, password, profileImgUrl));
 			if (data) {
 				setErrors(data);
 			} else {
@@ -31,8 +32,9 @@ function SignupFormModal() {
 
 	return (
 		<>
+		<div className="signup-form-overall-div">
 			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit}>
+			<form className="signup-form-form" onSubmit={handleSubmit}>
 				<ul>
 					{errors.map((error, idx) => (
 						<li key={idx}>{error}</li>
@@ -40,42 +42,57 @@ function SignupFormModal() {
 				</ul>
 				<label>
 					Email
+				</label>
 					<input
 						type="text"
 						value={email}
+						className="signup-form-input-field"
 						onChange={(e) => setEmail(e.target.value)}
 						required
-					/>
-				</label>
+						/>
 				<label>
 					Username
+				</label>
 					<input
 						type="text"
 						value={username}
+						className="signup-form-input-field"
 						onChange={(e) => setUsername(e.target.value)}
 						required
-					/>
+						/>
+				<label>
+					Profile Image URL
 				</label>
+					<input
+						type="url"
+						className="signup-form-input-field"
+						value={profileImgUrl}
+						onChange={(e) => setprofileImgUrl(e.target.value)}
+						required
+						/>
 				<label>
 					Password
+					</label>
 					<input
 						type="password"
+						className="signup-form-input-field"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required
-					/>
-				</label>
+						/>
 				<label>
 					Confirm Password
+				</label>
 					<input
 						type="password"
+						className="signup-form-input-field"
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}
 						required
-					/>
-				</label>
-				<button type="submit">Sign Up</button>
+						/>
+				<button className='signup-submit-button' type="submit">Sign Up</button>
 			</form>
+			</div>
 		</>
 	);
 }

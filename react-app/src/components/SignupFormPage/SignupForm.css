@@ -1,0 +1,10 @@
+.signup-form-overall-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-form-form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
