@@ -8,13 +8,13 @@ function SplashPage() {
         <>
         <div className='splash-overall-div'>
           <div className='splash-welcome-div'>
-            <h2>Welcome to Prognosticate or Perish</h2>
+            <h2>Welcome to <span className='splash-title'>Prognosticate or Perish</span></h2>
             <h5>Casual NFL predictive games for friends and family!</h5>
             <div className='splash-gamelist-div'>
               <ul className='splash-gamelist-ul'>
                 <li className='splash-gamelist-li'>
                   <span className='splash-gamelist-title'>
-                    <Link to='/eliminator'>Eliminator</Link>
+                    <Link className='splash-game-link' to='/eliminator'>Eliminator</Link>
                   </span>
                   <span className='splash-gamelist-description'>
                     Choose one team each week (no repeats). If they win, so do you. Best record at the end of the season wins.
