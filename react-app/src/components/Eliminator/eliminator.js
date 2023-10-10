@@ -54,7 +54,7 @@ const EliminatorPage = () => {
     if (completed) {
       // setNotificationMessage(`Wouldn't be much of a contest if you could select a team whose game has already started!`);
       // setNotificationDuration(3000);
-      alert(`Wouldn't be much of a contest if you could select a team whose game has already started!`)
+      alert(`This game has already started! Choose another game.`)
       return;
     }
     if (isTeamPickedInPreviousWeeks) {
