@@ -241,8 +241,8 @@ def downgrade():
     op.drop_table('elim_picks')
     op.drop_table('comments')
     op.drop_table('weeks')
-    op.drop_table('users')
     op.drop_table('teams')
     op.drop_table('last_fetch')
     op.drop_table('games')
+    op.drop_table('users')
     # ### end Alembic commands ###
