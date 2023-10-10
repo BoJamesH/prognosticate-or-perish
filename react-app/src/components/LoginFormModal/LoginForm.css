@@ -1,0 +1,30 @@
+.login-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.email-login-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.password-login-div {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.login-submit-button {
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    width: 200px;
+    height: 30px;
+    margin-top: 20px;
+}
