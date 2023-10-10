@@ -67,6 +67,15 @@ def upgrade():
     if environment == "production":
         op.execute(f"ALTER TABLE games SET SCHEMA {SCHEMA};")
 
+    op.create_table('last_fetch',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('last_fetch_timestamp', sa.DateTime(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE last_fetch SET SCHEMA {SCHEMA};")
+
     op.create_table('teams',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('city', sa.String(length=50), nullable=True),
@@ -136,14 +145,13 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('week', sa.Integer(), nullable=True),
     sa.Column('game_id', sa.Integer(), nullable=True),
-    sa.Column('selected_team_id', sa.Integer(), nullable=True),
+    sa.Column('selected_team_name', sa.String(), nullable=True),
     sa.Column('progs_wagered', sa.Integer(), nullable=True),
     sa.Column('payout', sa.Float(), nullable=True),
     sa.Column('status', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['game_id'], ['games.id'], ),
-    sa.ForeignKeyConstraint(['selected_team_id'], ['teams.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -156,12 +164,11 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('week', sa.Integer(), nullable=True),
     sa.Column('game_id', sa.Integer(), nullable=True),
-    sa.Column('selected_team_id', sa.Integer(), nullable=True),
+    sa.Column('selected_team_name', sa.String(), nullable=True),
     sa.Column('status', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['game_id'], ['games.id'], ),
-    sa.ForeignKeyConstraint(['selected_team_id'], ['teams.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -191,12 +198,11 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('week', sa.Integer(), nullable=True),
     sa.Column('game_id', sa.Integer(), nullable=True),
-    sa.Column('selected_team_id', sa.Integer(), nullable=True),
+    sa.Column('selected_team_name', sa.String(), nullable=True),
     sa.Column('status', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['game_id'], ['games.id'], ),
-    sa.ForeignKeyConstraint(['selected_team_id'], ['teams.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -209,28 +215,18 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('week', sa.Integer(), nullable=True),
     sa.Column('game_id', sa.Integer(), nullable=True),
-    sa.Column('selected_team_id', sa.Integer(), nullable=True),
+    sa.Column('selected_team_name', sa.String(), nullable=True),
     sa.Column('progs_wagered', sa.Integer(), nullable=True),
     sa.Column('status', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['game_id'], ['games.id'], ),
-    sa.ForeignKeyConstraint(['selected_team_id'], ['teams.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
 
     if environment == "production":
         op.execute(f"ALTER TABLE spread_bets SET SCHEMA {SCHEMA};")
-
-    op.create_table('last_fetch',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('last_fetch_timestamp', sa.DateTime(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
-    )
-
-    if environment == "production":
-        op.execute(f"ALTER TABLE last_fetch SET SCHEMA {SCHEMA};")
 
     # ### end Alembic commands ###
 
@@ -245,8 +241,8 @@ def downgrade():
     op.drop_table('elim_picks')
     op.drop_table('comments')
     op.drop_table('weeks')
+    op.drop_table('users')
     op.drop_table('teams')
     op.drop_table('last_fetch')
     op.drop_table('games')
-    op.drop_table('users')
     # ### end Alembic commands ###
