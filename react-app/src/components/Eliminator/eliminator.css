@@ -117,3 +117,8 @@
   left: 0;
   transform: translateY(-50%);
 }  */
+
+.picked-in-previous-weeks {
+    background-color: rgba(175, 175, 175, 0.411);
+    cursor: auto;
+  }
