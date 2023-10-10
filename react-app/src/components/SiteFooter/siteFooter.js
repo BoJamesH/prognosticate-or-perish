@@ -14,6 +14,9 @@ function Footer() {
           <a href="https://www.linkedin.com/in/bo-j-1a1312276/" target="_blank"><img className='footer-linkedin-logo' src='https://i.imgur.com/cEP0sss.png' alt='LinkedIn Logo'></img></a>
           <a href="mailto:RobertJamesH@gmail.com" target="_blank"><img className='footer-email-logo' src='https://i.imgur.com/RZMdEMn.png' alt='Email Icon'></img></a>
         </div>
+        <span className='favicon-attribution'>
+        <a className='favicon-attribution' href="https://www.flaticon.com/free-icons/letter-p" title="letter p icons">Favicon Source</a>
+        </span>
       </div>
     </footer>
   );
