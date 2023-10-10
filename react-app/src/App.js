@@ -6,6 +6,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import EliminatorPage from "./components/Eliminator/eliminator";
+import UserPage from "./components/UserPage/userPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route exact path='/eliminator'>
             <EliminatorPage />
+          </Route>
+          <Route exact path='/'>
+            <UserPage />
           </Route>
         </Switch>
       )}
