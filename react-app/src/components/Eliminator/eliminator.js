@@ -19,7 +19,6 @@ const EliminatorPage = () => {
   const [userElimPick, setUserElimPick] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [notificationDuration, setNotificationDuration] = useState(0);
-  // const [userElimTeamPick, setUserElimTeamPick] = useState(null)
 
   useEffect(() => {
     const lastGamesFetchTimestamp = localStorage.getItem('lastGamesFetchTimestamp');
@@ -53,17 +52,15 @@ const EliminatorPage = () => {
   const elimPickHandler = (teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore, e) => {
     e.preventDefault()
     if (completed) {
-      // setNotificationMessage(`Wouldn't be much of a contest if you could select a team whose game has already started!`);
-      // setNotificationDuration(3000);
       alert(`This game has already started! Choose another game.`)
       return;
     }
-    if (isTeamPickedInPreviousWeeks) {
+    if (isTeamPickedInPreviousWeeks(teamName, currentWeek, userEliminatorPicks)) {
       alert(`You've already picked the ${teamName} in a previous week!`);
       return;
     }
     const currWeekUserPick = userEliminatorPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
-    if (currWeekUserPick && currWeekUserPick.selected_team_name == teamName) {
+    if (currWeekUserPick && currWeekUserPick.selected_team_name === teamName) {
       dispatch(deleteUserElimPick(week))
       return;
     }
@@ -93,7 +90,7 @@ const EliminatorPage = () => {
 
   const isTeamPickedInPreviousWeeks = (teamName, currentWeek, userEliminatorPicks) => {
     for (const pick of userEliminatorPicks) {
-      if (pick.week < currentWeek && pick.selected_team_name == teamName) {
+      if (pick.week < currentWeek && pick.selected_team_name === teamName) {
         return true;
       }
     }
