@@ -19,6 +19,11 @@
     object-fit: cover;
 }
 
+.user-games-div {
+    display: flex;
+    flex-direction: row;
+}
+
 .user-elim-link {
     text-decoration: none;
     color: rgb(120, 28, 156);
@@ -28,4 +33,7 @@
 
 .user-elim-record {
     margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 60px;
 }

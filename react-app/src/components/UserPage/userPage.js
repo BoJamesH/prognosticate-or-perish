@@ -11,6 +11,7 @@ const UserPage = () => {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.session.user);
     const eliminatorPicks = useSelector((state) => state.eliminatorPicks.userElimPicks);
+    const pickEmPicks = useSelector((state) => state.pickEmPicks.userPickEmPicks)
 
     useEffect(() => {
         dispatch(getUserElimPicks())
@@ -33,11 +34,10 @@ const UserPage = () => {
             <p>Email: {user.email}</p>
         </div>
         </div>
-        <h3><Link className='user-elim-link' to='/eliminator'>Eliminator</Link> Picks</h3>
-        <div className='eliminator-record'>
+        <div className='user-games-div'>
+        <div className='user-elim-record'>
+        <h3><Link className='user-elim-link' to='/eliminator'>Eliminator</Link></h3>
             Eliminator record: {user.elim_wins} - {user.elim_losses} - {user.elim_ties}
-        </div>
-        <div className="user-elim-record">
         {eliminatorPicks && eliminatorPicks.map((pick) => (
             <div key={pick.id} className="eliminator-pick">
             <p>Week {pick.week}</p>
@@ -45,6 +45,13 @@ const UserPage = () => {
             <p>Status: {pick.status}</p>
             </div>
         ))}
+        </div>
+        <span className='user-pickem-record'>
+            <h3><Link className='user-elim-link' to='/pickem'>Pick 'Em</Link></h3>
+            <div className='eliminator-record'>
+            Pick 'em record: {user.pick_wins} - {user.pick_losses} - {user.pick_ties}
+            </div>
+        </span>
         </div>
         {user && (
                 <>
