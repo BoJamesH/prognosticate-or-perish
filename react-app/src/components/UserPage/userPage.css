@@ -18,3 +18,14 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
+.user-elim-link {
+    text-decoration: none;
+    color: rgb(120, 28, 156);
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.user-elim-record {
+    margin-bottom: 40px;
+}

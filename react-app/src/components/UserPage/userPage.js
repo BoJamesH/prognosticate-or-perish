@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserElimPicks, checkUserElimPicks } from '../../store/elimPicks';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import './userPage.css'
@@ -32,12 +33,12 @@ const UserPage = () => {
             <p>Email: {user.email}</p>
         </div>
         </div>
-        <h2>Eliminator Picks</h2>
+        <h3><Link className='user-elim-link' to='/eliminator'>Eliminator</Link> Picks</h3>
         <div className='eliminator-record'>
             Eliminator record: {user.elim_wins} - {user.elim_losses} - {user.elim_ties}
         </div>
-        <div className="eliminator-picks">
-        {eliminatorPicks.map((pick) => (
+        <div className="user-elim-record">
+        {eliminatorPicks && eliminatorPicks.map((pick) => (
             <div key={pick.id} className="eliminator-pick">
             <p>Week {pick.week}</p>
             <p>Selected Team: {pick.selected_team_name}</p>
