@@ -26,8 +26,14 @@ function CommentForm() {
         };
         dispatch(createComment(newComment))
         set_comment_text('');
-
     };
+
+    const handleTextareaKeyDown = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          handleSubmit(e);
+        }
+      }
 
     return (
     <div>
@@ -38,14 +44,16 @@ function CommentForm() {
             id="comment"
             value={comment_text}
             onChange={handleCommentChange}
+            onKeyDown={handleTextareaKeyDown}
             required
             className='comment-field'
             placeholder='Got something to share?'
             ></textarea>
         </div>
-        <div className='submit-comment-div'>
+        <span className='submit-comment-span'>
+        <span className='comment-explanation-span'>Create line break: Shift + Enter</span>
             <button className='submit-comment-button' type="submit">Comment</button>
-        </div>
+        </span>
         </form>
     </div>
     );
