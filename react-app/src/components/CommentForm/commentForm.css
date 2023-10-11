@@ -6,15 +6,19 @@
     border-radius: 10px;
 }
 
+#comment {
+    padding: 10px;
+}
+
 .leave-comment-title-h3 {
     text-align: center;
 }
 
-.submit-comment-div {
+.submit-comment-span {
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
     margin-bottom: 10px;
-    margin-top: 20px;
+    margin-top: 4px;
 }
 
 .submit-comment-button {
@@ -23,4 +27,9 @@
     border-radius: 5px;
     width: 200px;
     height: 30px;
+}
+
+.comment-explanation-span {
+    font-size: 8px;
+    margin-left: 5px;
 }

@@ -12,6 +12,14 @@ function Navigation({ isLoaded }){
 			<li>
 				<NavLink className='p-or-p-title' exact to="/">PROGNOSTICATE or PERISH</NavLink>
 			</li>
+			{sessionUser &&
+				<li>
+					<NavLink className='nav-user-profile' exact to="/user">My Profile</NavLink>
+				</li>}
+			{sessionUser &&
+				<li>
+					<NavLink className='nav-user-profile' exact to="/">Games</NavLink>
+				</li>}
 			{isLoaded && (
 				<li>
 					<ProfileButton user={sessionUser} />
