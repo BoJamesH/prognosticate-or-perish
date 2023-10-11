@@ -64,7 +64,7 @@ function SplashPage() {
                       Pick ALL the games each week, the player with the best record wins.
                     </span>
                     <span className='splash-gamelist-status'>
-                      Coming Soon
+                      Open!
                     </span>
                   </li>
                   <li className='splash-gamelist-li'>
