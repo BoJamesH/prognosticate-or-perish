@@ -1,6 +1,9 @@
 .user-profile-page {
     margin-left: 60px;
     margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .user-avatar {

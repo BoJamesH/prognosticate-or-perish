@@ -14,6 +14,7 @@ const EliminatorPage = () => {
   const currentWeek = Number(useSelector((state) => state.games.currentWeek));
   const allGames = useSelector((state) => state.games.allGames);
   const allTeams = useSelector((state) => state.teams.allTeams);
+  const sessionUser = useSelector((state) => state.session.user)
   const userEliminatorPicks = useSelector(state => state.eliminatorPicks.userElimPicks)
   const [userElimPick, setUserElimPick] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
@@ -99,10 +100,12 @@ const EliminatorPage = () => {
     return false;
   };
 
-
+  if (!sessionUser) {
+    return <p className='eliminator-loading-ph'>Please log in to play a game!</p>
+  }
 
   if (!currentWeek || !allGames) {
-    return <p>Loading...</p>;
+    return <p className='eliminator-loading-ph'>Loading...</p>;
   }
 
   let games;
@@ -180,12 +183,16 @@ const EliminatorPage = () => {
         <Notification message={notificationMessage} duration={notificationDuration} />
       )}
 
-            <div className='main-commentform-div'>
-            <CommentForm />
-            </div>
-            <div className='main-commentlist-div'>
-              <CommentList />
-            </div>
+        {sessionUser && (
+                <>
+                <div className='main-commentform-div'>
+                <CommentForm />
+              </div>
+              <div className='main-commentlist-div'>
+                <CommentList />
+              </div>
+                </>
+            )}
       </div>
     </>
   );
