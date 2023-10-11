@@ -68,7 +68,6 @@ function SignupFormModal() {
 						className="signup-form-input-field"
 						value={profileImgUrl}
 						onChange={(e) => setprofileImgUrl(e.target.value)}
-						required
 						/>
 				<label>
 					Password

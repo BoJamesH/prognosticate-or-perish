@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    profile_image = db.Column(db.String(1000))
+    profile_image = db.Column(db.String(1000), default='https://i.imgur.com/Da15Xe3.jpg')
     prognosticoins = db.Column(db.Integer(), default=0)
     pick_wins = db.Column(db.Integer(), default=0)
     pick_losses = db.Column(db.Integer(), default=0)

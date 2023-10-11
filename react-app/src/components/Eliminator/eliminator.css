@@ -105,6 +105,7 @@
 .completed {
   /* background-color: rgba(134, 155, 15, 0.158); */
   border: 3px solid rgba(155, 15, 15, 0.356);
+  cursor: not-allowed;
 }
 
 .current-elim-pick-div {
@@ -126,4 +127,4 @@
     border-radius: 10px;
     background-color: rgba(175, 175, 175, 0.411);
     cursor: not-allowed;
-  }
+}
