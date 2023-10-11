@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getComments } from '../../store/comments';
 import { getTeams } from '../../store/teams';
 import { getAPIGames, storeGames, storeWeek } from '../../store/games';
-import { checkUserElimPicks, deleteUserElimPick, getUserElimPicks, postUserElimPick } from '../../store/elimPicks';
+import { getUserPickEmPicks, postUserPickEmPick } from '../../store/pickEmPicks';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import './pickEm.css';
@@ -42,20 +42,25 @@ const PickEmPage = () => {
     dispatch(storeWeek());
     dispatch(storeGames());
     dispatch(getUserPickEmPicks());
-    dispatch(checkUserPickEmPicks());
+    // dispatch(checkUserPickEmPicks());
   }, [dispatch]);
 
-  
+  const getTeamClassName = (game, teamName) => {
+    const currWeekUserPickEmPick = userPickEmPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
+
+    if (currWeekUserPickEmPick) {
+      return 'current-pickem-pick-div';
+    } else {
+        return '';
+    }
+  };
+
+
 
   const pickEmPickHandler = (teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore, e) => {
     e.preventDefault()
     if (completed) {
       alert(`This game has already started! Choose another game.`)
-      return;
-    }
-    const currWeekUserPick = userPickEmPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
-    if (currWeekUserPick && currWeekUserPick.selected_team_name === teamName) {
-      dispatch(deleteUserElimPick(week))
       return;
     }
     dispatch(postUserPickEmPick(teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore))
@@ -84,7 +89,6 @@ const PickEmPage = () => {
       </div>
       <div className='pickem-instruction-div'>
         Choose the winner of every game, without taking the spread into account.
-        You may only select a team once per season, and teams in games which have already started (bordered in red) may not be selected.
         The user with the best overall record at the end of the season will be the winner!
       </div>
       {games && games.length && allTeams && allTeams.length ? (
@@ -96,7 +100,7 @@ const PickEmPage = () => {
             return (
               <div className={`pickem-single-game-div ${game.completed ? 'completed' : ''}`} key={game.id}>
                 <div className='pickem-game-teams-div'>
-                  <div onClick={(e) => elimPickHandler(awayTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
+                  <div onClick={(e) => pickEmPickHandler(awayTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
                   className={`pickem-team-left ${getTeamClassName(game, awayTeam.name)}`}
                   >
                     <img className='pickem-team-logo' src={awayTeam.logo_small} alt={`${awayTeam.name} logo`} />
@@ -105,7 +109,7 @@ const PickEmPage = () => {
                   <div className='pickem-at-between-logos'>
                     @
                   </div>
-                  <div onClick={(e) => elimPickHandler(homeTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
+                  <div onClick={(e) => pickEmPickHandler(homeTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
                   className={`pickem-team-right ${getTeamClassName(game, homeTeam.name)}`}
                   >
                     <img className='pickem-team-logo' src={homeTeam.logo_small} alt={`${homeTeam.name} logo`} />
