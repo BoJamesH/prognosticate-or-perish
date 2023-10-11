@@ -12,6 +12,7 @@ from .api.game_routes import game_routes
 from .api.team_routes import team_routes
 from .api.week_routes import week_routes
 from .api.elim_picks_routes import elim_pick_routes
+from .api.pick_em_routes import pick_em_pick_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -38,6 +39,7 @@ app.register_blueprint(game_routes, url_prefix='/api/games')
 app.register_blueprint(team_routes, url_prefix='/api/teams')
 app.register_blueprint(week_routes, url_prefix='/api/week')
 app.register_blueprint(elim_pick_routes, url_prefix='/api/elim_picks')
+app.register_blueprint(pick_em_pick_routes, url_prefix='/api/pick_em_picks')
 db.init_app(app)
 Migrate(app, db)
 

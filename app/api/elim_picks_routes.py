@@ -21,7 +21,7 @@ def user_elim_picks():
 
 @elim_pick_routes.route('', methods=['POST'])
 @login_required
-def post_comment():
+def post_elim_pick():
     """
     Select an eliminator pick as a logged-in user.
     """

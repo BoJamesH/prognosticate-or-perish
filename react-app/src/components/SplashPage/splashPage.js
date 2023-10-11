@@ -57,8 +57,8 @@ function SplashPage() {
                     </span>
                   </li>
                   <li className='splash-gamelist-li'>
-                    <span className='splash-gamelist-title'>
-                      Pick 'Em
+                  <span className='splash-gamelist-title'>
+                      <Link className='splash-game-link' to='/pickem'>Pick 'Em</Link>
                     </span>
                     <span className='splash-gamelist-description'>
                       Pick ALL the games each week, the player with the best record wins.
