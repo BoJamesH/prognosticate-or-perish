@@ -124,5 +124,5 @@
 
 .picked-in-previous-weeks {
     background-color: rgba(175, 175, 175, 0.411);
-    cursor: auto;
+    cursor: not-allowed;
   }
