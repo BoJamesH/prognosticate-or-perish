@@ -25,6 +25,26 @@ function LoginFormModal() {
     }
   };
 
+  const handleDemoUserOneLogin = async () => {
+    const data = await dispatch(login('demo1@aa.io', 'password'));
+    if (data) {
+      setErrors(data);
+    } else {
+      history.push('/')
+      closeModal()
+    }
+  }
+
+  const handleDemoUserTwoLogin = async () => {
+    const data = await dispatch(login('demo2@aa.io', 'password'));
+    if (data) {
+      setErrors(data);
+    } else {
+      history.push('/')
+      closeModal()
+    }
+  }
+
   return (
     <>
       <div className="login-form-container">
@@ -56,6 +76,8 @@ function LoginFormModal() {
             />
           </div>
           <button className='login-submit-button' type="submit">Log In</button>
+          <div className="demo-user-login" onClick={handleDemoUserOneLogin}>Demo User 1</div>
+          <div className="demo-user-login" onClick={handleDemoUserTwoLogin}>Demo User 2</div>
         </form>
       </div>
     </>
