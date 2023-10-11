@@ -14,7 +14,7 @@ function Navigation({ isLoaded }){
 			</li>
 			{sessionUser &&
 				<li>
-					<NavLink className='nav-user-profile' exact to="/user">My Profile</NavLink>
+					<NavLink className='nav-user-profile' exact to="/">Games</NavLink>
 				</li>}
 			{sessionUser &&
 				<li>
@@ -22,7 +22,7 @@ function Navigation({ isLoaded }){
 				</li>}
 			{sessionUser &&
 				<li>
-					<NavLink className='nav-user-profile' exact to="/">Games</NavLink>
+					<NavLink className='nav-user-profile' exact to="/user">My Profile</NavLink>
 				</li>}
 			{isLoaded && (
 				<li>
