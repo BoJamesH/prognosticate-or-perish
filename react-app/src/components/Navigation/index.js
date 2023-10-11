@@ -18,6 +18,10 @@ function Navigation({ isLoaded }){
 				</li>}
 			{sessionUser &&
 				<li>
+					<NavLink className='nav-user-profile' exact to="/leaderboard">Leaderboard</NavLink>
+				</li>}
+			{sessionUser &&
+				<li>
 					<NavLink className='nav-user-profile' exact to="/">Games</NavLink>
 				</li>}
 			{isLoaded && (

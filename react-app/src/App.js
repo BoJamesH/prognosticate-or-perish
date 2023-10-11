@@ -10,6 +10,7 @@ import UserPage from "./components/UserPage/userPage";
 import Footer from "./components/SiteFooter/siteFooter";
 import SplashPage from "./components/SplashPage/splashPage";
 import PickEmPage from "./components/PickEm/pickEm";
+import LeaderboardPage from "./components/Leaderboards/leaderboards";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route exact path='/user'>
             <UserPage />
+          </Route>
+          <Route exact path='/leaderboard'>
+            <LeaderboardPage />
           </Route>
           <Route exact path='/'>
             <SplashPage />
