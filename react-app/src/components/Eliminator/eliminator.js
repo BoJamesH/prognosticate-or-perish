@@ -55,10 +55,10 @@ const EliminatorPage = () => {
       alert(`This game has already started! Choose another game.`)
       return;
     }
-    if (isTeamPickedInPreviousWeeks(teamName, currentWeek, userEliminatorPicks)) {
-      alert(`You've already picked the ${teamName} in a previous week!`);
-      return;
-    }
+    // if (isTeamPickedInPreviousWeeks(teamName, currentWeek, userEliminatorPicks)) {
+    //   alert(`You've already picked the ${teamName} in a previous week!`);
+    //   return;
+    // }
     const currWeekUserPick = userEliminatorPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
     if (currWeekUserPick && currWeekUserPick.selected_team_name === teamName) {
       dispatch(deleteUserElimPick(week))
