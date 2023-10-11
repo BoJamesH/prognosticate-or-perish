@@ -18,6 +18,10 @@
     font-size: 30px;
 }
 
+.splash-login-button {
+    margin-right: 20px;
+}
+
 .splash-gamelist-ul {
     list-style: none;
 }
@@ -42,7 +46,9 @@
 
   .splash-game-link {
     text-decoration: none;
-    color: rgb(120, 28, 156);;
+    color: rgb(120, 28, 156);
+    font-size: 16px;
+    font-weight: 600;
   }
 
   .splash-gamelist-title {
@@ -55,7 +61,7 @@
   .splash-gamelist-description {
     width: 60%;
     margin-left: 10px;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .splash-gamelist-status {
@@ -63,3 +69,18 @@
     text-align: right;
     margin-right: 10px;
   }
+
+.main-commentform-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-commentlist-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+}

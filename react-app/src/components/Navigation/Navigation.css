@@ -9,17 +9,24 @@
   background-color: #181818;;
 }
 
+.navbar-div {
+  width: 100vh;
+  background-color:  #181818;
+}
+
 .hidden {
   display: none;
 }
 
 .nav-ul {
+  margin: 0px;
   list-style: none;
   display: flex;
   justify-content: space-between;
   background-color: #181818;
   padding: 20px;
-  width: 96.1vw;
+  max-width: 100vw;
+  /* width: 96.8vw; */
 }
 
 .p-or-p-title {

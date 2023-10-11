@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserElimPicks, checkUserElimPicks } from '../../store/elimPicks';
 import { useEffect } from 'react';
+import CommentForm from '../CommentForm/commentForm';
+import CommentList from '../CommentList/commentList';
 import './userPage.css'
 
 
@@ -8,7 +10,6 @@ const UserPage = () => {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.session.user);
     const eliminatorPicks = useSelector((state) => state.eliminatorPicks.userElimPicks);
-
 
     useEffect(() => {
         dispatch(getUserElimPicks())
@@ -44,6 +45,16 @@ const UserPage = () => {
             </div>
         ))}
         </div>
+        {user && (
+                <>
+                <div className='main-commentform-div'>
+                <CommentForm />
+              </div>
+              <div className='main-commentlist-div'>
+                <CommentList />
+              </div>
+                </>
+            )}
     </div>
     );
 };
