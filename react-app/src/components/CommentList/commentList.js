@@ -29,19 +29,21 @@ const CommentList = () => {
     }
 
     const submitUpdatedComment = async (commentId, comment_text, e) => {
-        e.preventDefault()
-        if (comment_text.length > 4000) {
-            alert('Please limit comments to less than 4,000 characters.')
-            return
-        }
-        if (comment_text.trim().length < 1) {
-            alert('Comments must have something in them!')
-            return
-        }
-        setEditComment(false)
-        dispatch(updateComment(commentId, comment_text))
-        dispatch(getComments())
-    }
+      e.preventDefault();
+      const trimmedCommentText = comment_text.trim();
+
+      if (trimmedCommentText.length > 4000) {
+        alert('Please limit comments to less than 4,000 characters.');
+        return;
+      }
+      if (trimmedCommentText.length < 1) {
+        alert('Comments must have something in them!');
+        return;
+      }
+      setEditComment(false);
+      dispatch(updateComment(commentId, trimmedCommentText));
+      dispatch(getComments());
+    };
 
     return (
         <>
