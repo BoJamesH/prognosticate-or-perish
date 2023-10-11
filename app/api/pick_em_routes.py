@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.models import db, Pickem_Pick
+from app.models import db, Pickem_Pick, Game, Week
 from flask_login import current_user, login_required
 
 pick_em_pick_routes = Blueprint('pick_em_picks', __name__)
@@ -50,67 +50,59 @@ def post_pick_em():
     except Exception as e:
         return jsonify({'error': 'Error posting pick', 'details': str(e)})
 
-
-# # @comment_routes.route('/<comment_id>', methods=['DELETE'])
-# # @login_required
-# # def delete_comment(comment_id):
-# #     """
-# #     Delete a comment by the owner of the comment
-# #     """
-# #     try:
-# #         comment_to_delete = Comment.query.get(comment_id)
-# #         db.session.delete(comment_to_delete)
-# #         db.session.commit()
-# #         return {'Success': 'Comment deleted'}
-# #     except Exception as e:
-# #         return jsonify({'error': 'Error deleting comment', 'details': str(e)})
-
-# @elim_pick_routes.route('/<int:week>', methods=['DELETE'])
-# @login_required
-# def delete_elim_pick(week):
-#     """
-#     Delete the eliminator pick of the current user for the specified week.
-#     """
-#     user_id = int(current_user.get_id())
-#     try:
-#         pick = Elim_Pick.query.filter_by(user_id=user_id, week=week).first()
-#         if pick:
-#             db.session.delete(pick)
-#             db.session.commit()
-#             return jsonify({'message': 'Eliminator pick deleted successfully'})
-#         else:
-#             return jsonify({'message': 'Eliminator pick not found for the specified week'})
-#     except Exception as e:
-#         return jsonify({'error': 'Error deleting user pick', 'details': str(e)})
+@pick_em_pick_routes.route('/<int:game_id>', methods=['DELETE'])
+@login_required
+def delete_pick_em_pick(game_id):
+    """
+    Delete the pick_em pick of the current user for the specified week.
+    """
+    user_id = int(current_user.get_id())
+    try:
+        pick = Pickem_Pick.query.filter_by(user_id=user_id, game_id=game_id).first()
+        if pick:
+            db.session.delete(pick)
+            db.session.commit()
+            return jsonify({'message': 'Pick em pick deleted successfully'})
+        else:
+            return jsonify({'message': 'Pick em pick not found for the specified week'})
+    except Exception as e:
+        return jsonify({'error': 'Error deleting user pick', 'details': str(e)})
 
 
-# @elim_pick_routes.route('/check')
-# @login_required
-# def check_eliminator_picks():
-#     user_id = int(current_user.get_id())
-#     week = Week.query.first()
-#     current_week = week.current_week
-#     try:
-#         current_pick = Elim_Pick.query.filter_by(user_id=user_id, week=current_week).first()
+@pick_em_pick_routes.route('/check', methods=['POST'])
+@login_required
+def check_pick_em_picks():
+    user_id = current_user.get_id()
+    week = Week.query.first()
+    current_week = week.current_week
 
-#         if current_pick.status in ('WIN', 'LOSS', 'TIE'):
-#             return jsonify({'message': 'Pick status is already final'})
+    try:
+        # Get all the pick em picks for the current week for the user
+        current_picks = Pickem_Pick.query.filter_by(user_id=user_id, week=current_week).all()
 
-#         game = Game.query.get(current_pick.game_id)
-#         if game.completed:
-#             winning_team_name = game.determine_winning_team()
-#             if winning_team_name == 'TIE':
-#                 current_pick.status = 'TIE'
-#                 current_user.elim_ties += 1
-#             if winning_team_name == current_pick.selected_team_name:
-#                 current_pick.status = 'WIN'
-#                 current_user.elim_wins += 1
-#             else:
-#                 current_pick.status = 'LOSS'
-#                 current_user.elim_losses += 1
+        if not current_picks:
+            return jsonify({'message': 'No picks found for the current week'})
 
-#         db.session.commit()
+        for current_pick in current_picks:
+            if current_pick.status in ('WIN', 'LOSS', 'TIE'):
+                continue
 
-#         return jsonify({'message': 'Eliminator picks updated successfully'})
-#     except Exception as e:
-#         return jsonify({'error': 'Error updating eliminator picks', 'details': str(e)})
+            game = Game.query.get(current_pick.game_id)
+
+            if game.completed:
+                game_final_status = game.determine_winning_team()
+                if game_final_status == 'TIE':
+                    current_pick.status = 'TIE'
+                    current_user.elim_ties += 1
+                elif game_final_status == current_pick.selected_team_name:
+                    current_pick.status = 'WIN'
+                    current_user.elim_wins += 1
+                else:
+                    current_pick.status = 'LOSS'
+                    current_user.elim_losses += 1
+
+        db.session.commit()
+
+        return jsonify({'message': 'Pick em picks updated successfully'})
+    except Exception as e:
+        return jsonify({'error': 'Error updating pick em picks', 'details': str(e)})

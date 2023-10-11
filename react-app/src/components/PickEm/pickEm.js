@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getComments } from '../../store/comments';
 import { getTeams } from '../../store/teams';
 import { getAPIGames, storeGames, storeWeek } from '../../store/games';
-import { getUserPickEmPicks, postUserPickEmPick } from '../../store/pickEmPicks';
+import { getUserPickEmPicks, postUserPickEmPick, deleteUserPickEmPick } from '../../store/pickEmPicks';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import './pickEm.css';
@@ -46,25 +46,32 @@ const PickEmPage = () => {
   }, [dispatch]);
 
   const getTeamClassName = (game, teamName) => {
-    const currWeekUserPickEmPick = userPickEmPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
+    const currWeekUserPickEmPicks = userPickEmPicks.filter((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
 
-    if (currWeekUserPickEmPick) {
-      return 'current-pickem-pick-div';
+    if (currWeekUserPickEmPicks.length > 0) {
+      const className = 'current-pickem-pick-div';
+      return className;
     } else {
-        return '';
+      return '';
     }
   };
 
 
-
   const pickEmPickHandler = (teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore, e) => {
-    e.preventDefault()
-    if (completed) {
-      alert(`This game has already started! Choose another game.`)
-      return;
+    e.preventDefault();
+    const existingPick = userPickEmPicks.find(
+      (pick) => pick.week === week && pick.selected_team_name === teamName
+    );
+
+    if (existingPick) {
+      // If a pick for the same week and team already exists, delete it
+      dispatch(deleteUserPickEmPick(existingPick.game_id));
+    } else if (completed) {
+      alert(`This game has already started! Choose another game.`);
+    } else {
+      dispatch(postUserPickEmPick(teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore));
     }
-    dispatch(postUserPickEmPick(teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore))
-  }
+  };
 
   if (!sessionUser) {
     return <p className='pickem-loading-ph'>Please log in to play a game!</p>

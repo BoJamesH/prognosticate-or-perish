@@ -38,35 +38,34 @@ export const postUserPickEmPick = (selected_team_name, gameId, week, completed, 
     }
 };
 
-// export const checkUserPickEmPicks = () => async (dispatch) => {
-//     try {
-//         const response = await fetch(`/api/elim_picks/check`);
-//         console.log('response: ', response);
-//         if (response.ok) {
-//             const checkUserElimPicks = await response.json();
-//             console.log('CHECK USER ELIM PICK RESPONSE:', checkUserElimPicks);
-//             // Dispatch any actions or handle the response as needed here
-//         } else {
-//             console.error('Error checking user elim picks');
-//         }
-//     } catch (error) {
-//         console.error('Error in checkUserElimPicks:', error);
-//     }
-// };
+export const checkUserPickEmPicks = () => async (dispatch) => {
+    try {
+        const response = await fetch(`/api/elim_picks/check`);
+        console.log('response: ', response);
+        if (response.ok) {
+            const checkUserElimPicks = await response.json();
+            console.log('CHECK USER ELIM PICK RESPONSE:', checkUserElimPicks);
+        } else {
+            console.error('Error checking user elim picks');
+        }
+    } catch (error) {
+        console.error('Error in checkUserElimPicks:', error);
+    }
+};
 
 
-// export const deleteUserPickEmPick = (week) => async (dispatch) => {
-//     try {
-//         const response = await fetch(`/api/pick_em_picks/${week}`, {
-//             method: 'DELETE',
-//         })
-//         if (response.ok) {
-//             dispatch(getUserPickEmPicks())
-//         }
-//     } catch (e) {
-//         console.error('Error in deleteUserElimPicks:', e);
-//     }
-// }
+export const deleteUserPickEmPick = (game_id) => async (dispatch) => {
+    try {
+        const response = await fetch(`/api/pick_em_picks/${game_id}`, {
+            method: 'DELETE',
+        })
+        if (response.ok) {
+            dispatch(getUserPickEmPicks())
+        }
+    } catch (e) {
+        console.error('Error in deleteUserPickEmPick:', e);
+    }
+}
 
 const initialState = {
     userPickEmPicks: []
