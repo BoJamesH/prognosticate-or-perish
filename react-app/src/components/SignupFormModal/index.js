@@ -16,8 +16,12 @@ function SignupFormModal() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		if (username.length > 20) {
+			setErrors(["Username should be 20 characters or less",])
+			return
+		}
 		if (password === confirmPassword) {
-			const data = await dispatch(signUp(username, email, password, profileImgUrl));
+			const data = await dispatch(signUp(username.replace(/\s/g, ''), email.replace(/\s/g, ''), password.replace(/\s/g, ''), profileImgUrl.replace(/\s/g, '')));
 			if (data) {
 				setErrors(data);
 			} else {
@@ -68,7 +72,6 @@ function SignupFormModal() {
 						className="signup-form-input-field"
 						value={profileImgUrl}
 						onChange={(e) => setprofileImgUrl(e.target.value)}
-						required
 						/>
 				<label>
 					Password
