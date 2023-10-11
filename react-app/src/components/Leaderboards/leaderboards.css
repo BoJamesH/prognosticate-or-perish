@@ -7,8 +7,9 @@
 
 .leaderboard-page {
     display: flex;
+    flex-wrap: wrap;
     margin: 40px;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .leaderboard-title {
@@ -17,7 +18,7 @@
 }
 
 .leaderboard {
-    margin-right: 100px;
+    /* margin-right: 100px; */
     margin-bottom: 100px;
     font-size: 14px;
 }
@@ -29,6 +30,7 @@
 table {
     border-collapse: separate;
     border-spacing: 10px;
+    width: 500px;
 }
 
 th, td {
