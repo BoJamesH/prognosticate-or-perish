@@ -1,0 +1,44 @@
+.leaderboard-all-comments-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.leaderboard-page {
+    display: flex;
+    margin: 40px;
+    justify-content: space-between;
+}
+
+.leaderboard-title {
+    margin-left: 14px;
+    color: #089ba0;
+}
+
+.leaderboard {
+    margin-right: 100px;
+    margin-bottom: 100px;
+    font-size: 14px;
+}
+
+.leaderboard:last-child {
+    margin-right: 0;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
+th, td {
+    padding: 8px;
+}
+
+th.leaderboard-username {
+    text-align: left;
+}
+
+.leaderboard-header {
+    font-size: 18px;
+}
