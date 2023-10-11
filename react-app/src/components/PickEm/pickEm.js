@@ -6,15 +6,16 @@ import { getAPIGames, storeGames, storeWeek } from '../../store/games';
 import { checkUserElimPicks, deleteUserElimPick, getUserElimPicks, postUserElimPick } from '../../store/elimPicks';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
-import './eliminator.css';
+import './pickEm.css';
 
-const EliminatorPage = () => {
+const PickEmPage = () => {
   const dispatch = useDispatch();
   const currentWeek = Number(useSelector((state) => state.games.currentWeek));
   const allGames = useSelector((state) => state.games.allGames);
   const allTeams = useSelector((state) => state.teams.allTeams);
   const sessionUser = useSelector((state) => state.session.user)
-  const userEliminatorPicks = useSelector(state => state.eliminatorPicks.userElimPicks)
+  const userPickEmPicks = useSelector(state => state.pickEmPicks.userPickEmPicks)
+
 
   useEffect(() => {
     const lastGamesFetchTimestamp = localStorage.getItem('lastGamesFetchTimestamp');
@@ -40,56 +41,32 @@ const EliminatorPage = () => {
     dispatch(getComments());
     dispatch(storeWeek());
     dispatch(storeGames());
-    dispatch(getUserElimPicks());
-    dispatch(checkUserElimPicks());
+    dispatch(getUserPickEmPicks());
+    dispatch(checkUserPickEmPicks());
   }, [dispatch]);
 
-  const isTeamPickedInPreviousWeeks = (teamName, currentWeek, userEliminatorPicks) => {
-    for (const pick of userEliminatorPicks) {
-      if (pick.week < currentWeek && pick.selected_team_name == teamName) {
-        return true;
-      }
-    }
-    return false;
-  };
+  
 
-  const elimPickHandler = (teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore, e) => {
+  const pickEmPickHandler = (teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore, e) => {
     e.preventDefault()
     if (completed) {
       alert(`This game has already started! Choose another game.`)
       return;
     }
-    if (isTeamPickedInPreviousWeeks(teamName, currentWeek, userEliminatorPicks)) {
-      alert(`You've already picked the ${teamName} in a previous week!`);
-      return;
-    }
-    const currWeekUserPick = userEliminatorPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
+    const currWeekUserPick = userPickEmPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
     if (currWeekUserPick && currWeekUserPick.selected_team_name === teamName) {
       dispatch(deleteUserElimPick(week))
       return;
     }
-    dispatch(postUserElimPick(teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore))
+    dispatch(postUserPickEmPick(teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore))
   }
 
-  const getTeamClassName = (game, teamName) => {
-    const isPickedInPreviousWeeks = isTeamPickedInPreviousWeeks(teamName, currentWeek, userEliminatorPicks);
-    const currWeekUserPick = userEliminatorPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
-
-    if (currWeekUserPick) {
-      return 'current-elim-pick-div';
-    } else if (isPickedInPreviousWeeks) {
-      return 'picked-in-previous-weeks';
-    }
-
-    return '';
-  };
-
   if (!sessionUser) {
-    return <p className='eliminator-loading-ph'>Please log in to play a game!</p>
+    return <p className='pickem-loading-ph'>Please log in to play a game!</p>
   }
 
   if (!currentWeek || !allGames) {
-    return <p className='eliminator-loading-ph'>Loading...</p>;
+    return <p className='pickem-loading-ph'>Loading...</p>;
   }
 
   let games;
@@ -100,44 +77,44 @@ const EliminatorPage = () => {
 
   return (
     <>
-    <div className='eliminator-all-container-div'>
-      <div className='eliminator-title-div'>
-        <h2>ELIMINATOR</h2>
+    <div className='pickem-all-container-div'>
+      <div className='pickem-title-div'>
+        <h2>PICK 'EM</h2>
         {currentWeek && <h3 className='week-title'>WEEK {currentWeek}</h3>}
       </div>
-      <div className='eliminator-instruction-div'>
-        Select a team each week who you believe will win their game.
+      <div className='pickem-instruction-div'>
+        Choose the winner of every game, without taking the spread into account.
         You may only select a team once per season, and teams in games which have already started (bordered in red) may not be selected.
         The user with the best overall record at the end of the season will be the winner!
       </div>
       {games && games.length && allTeams && allTeams.length ? (
-        <div className='eliminator-all-games-div'>
+        <div className='pickem-all-games-div'>
           {games.map((game) => {
               const homeTeam = allTeams.find((team) => team.name === game.home_team_name);
               const awayTeam = allTeams.find((team) => team.name === game.away_team_name);
 
             return (
-              <div className={`eliminator-single-game-div ${game.completed ? 'completed' : ''}`} key={game.id}>
-                <div className='eliminator-game-teams-div'>
+              <div className={`pickem-single-game-div ${game.completed ? 'completed' : ''}`} key={game.id}>
+                <div className='pickem-game-teams-div'>
                   <div onClick={(e) => elimPickHandler(awayTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
-                  className={`eliminator-team-left ${getTeamClassName(game, awayTeam.name)}`}
+                  className={`pickem-team-left ${getTeamClassName(game, awayTeam.name)}`}
                   >
-                    <img className='eliminator-team-logo' src={awayTeam.logo_small} alt={`${awayTeam.name} logo`} />
+                    <img className='pickem-team-logo' src={awayTeam.logo_small} alt={`${awayTeam.name} logo`} />
                     {game.away_team_name}
                   </div>
-                  <div className='eliminator-at-between-logos'>
+                  <div className='pickem-at-between-logos'>
                     @
                   </div>
                   <div onClick={(e) => elimPickHandler(homeTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
-                  className={`eliminator-team-right ${getTeamClassName(game, homeTeam.name)}`}
+                  className={`pickem-team-right ${getTeamClassName(game, homeTeam.name)}`}
                   >
-                    <img className='eliminator-team-logo' src={homeTeam.logo_small} alt={`${homeTeam.name} logo`} />
+                    <img className='pickem-team-logo' src={homeTeam.logo_small} alt={`${homeTeam.name} logo`} />
                     {game.home_team_name}
                   </div>
                 </div>
-                <div className='eliminator-game-details'>
+                <div className='pickem-game-details'>
                 {game.completed ? (
-                    <div className='eliminator-final-score'>
+                    <div className='pickem-final-score'>
                       Final: {game.away_team_score} - {game.home_team_score}
                       <br />
                       {game.away_team_score > game.home_team_score
@@ -145,14 +122,14 @@ const EliminatorPage = () => {
                         : `${game.home_team_name} victory`}
                     </div>
                   ) : (
-                    <div className='eliminator-current-score'>
+                    <div className='pickem-current-score'>
                       Current: {game.home_team_score} - {game.away_team_score}
                     </div>
                   )}
                   {!game.completed && (
                     <>
-                      <div className='eliminator-game-spread-div'>Spread: {game.spread}</div>
-                      <div className='eliminator-game-over-under-div'>Over/Under: {game.over_under}</div>
+                      <div className='pickem-game-spread-div'>Spread: {game.spread}</div>
+                      <div className='pickem-game-over-under-div'>Over/Under: {game.over_under}</div>
                     </>
                   )}
                 </div>
@@ -178,4 +155,4 @@ const EliminatorPage = () => {
   );
 };
 
-export default EliminatorPage;
+export default PickEmPage;

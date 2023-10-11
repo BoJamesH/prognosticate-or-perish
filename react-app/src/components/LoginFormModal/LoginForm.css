@@ -30,3 +30,8 @@
     height: 30px;
     margin-top: 20px;
 }
+
+.demo-user-login {
+    color: #089ba0;
+    cursor: pointer;
+}
