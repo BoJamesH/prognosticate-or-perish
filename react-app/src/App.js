@@ -9,6 +9,7 @@ import EliminatorPage from "./components/Eliminator/eliminator";
 import UserPage from "./components/UserPage/userPage";
 import Footer from "./components/SiteFooter/siteFooter";
 import SplashPage from "./components/SplashPage/splashPage";
+import PickEmPage from "./components/PickEm/pickEm";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,9 @@ function App() {
           </Route>
           <Route exact path='/eliminator'>
             <EliminatorPage />
+          </Route>
+          <Route exact path='/pickem'>
+            <PickEmPage />
           </Route>
           <Route exact path='/user'>
             <UserPage />
