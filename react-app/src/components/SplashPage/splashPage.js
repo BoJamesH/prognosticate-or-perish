@@ -83,7 +83,7 @@ function SplashPage() {
                       Spread Bets
                     </span>
                     <span className='splash-gamelist-description'>
-                      Use a set amount of prognosticoins to out-bet your competition and earn the most prognosticoins!
+                      Use a set amount of prognosticoins to out-bet your competition and earn the most by the end of the season betting against the spread!
                     </span>
                     <span className='splash-gamelist-status'>
                       Coming Soon
@@ -94,7 +94,7 @@ function SplashPage() {
                       Over/Under Bets
                     </span>
                     <span className='splash-gamelist-description'>
-                      Use a set amount of prognosticoins to out-bet your competition and earn the most prognosticoins!
+                      Use a set amount of prognosticoins to out-bet your competition and earn the most by the end of the season betting on the over/under!
                     </span>
                     <span className='splash-gamelist-status'>
                       Coming Soon
