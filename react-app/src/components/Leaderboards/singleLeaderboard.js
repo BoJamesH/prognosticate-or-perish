@@ -13,28 +13,30 @@ function Leaderboard({ users, gameType }) {
     });
 
     return (
-      <div className="leaderboard">
-        <h2 className='leaderboard-title'>{gameType === 'elim' ? 'Eliminator' : `Pick 'Em`} Leaderboard</h2>
-        <table>
-          <thead>
-            <tr>
-              <th className='leaderboard-username leaderboard-header'>Username</th>
-              <th className='leaderboard-header'>Wins</th>
-              <th className='leaderboard-header'>Losses</th>
-              <th className='leaderboard-header'>Ties</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedUsers.map((user) => (
-              <tr key={user.id}>
-                <td>{user.username}</td>
-                <td>{user[`${gameType}_wins`]}</td>
-                <td>{user[`${gameType}_losses`]}</td>
-                <td>{user[`${gameType}_ties`]}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="leaderboard">
+            <h2 className='leaderboard-title'>{gameType === 'elim' ? `Eliminator` : `Pick 'Em`} Leaderboard</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th className='leaderboard-header'>Rank</th>
+                        <th className='leaderboard-username leaderboard-header'>Username</th>
+                        <th className='leaderboard-header'>Wins</th>
+                        <th className='leaderboard-header'>Losses</th>
+                        <th className='leaderboard-header'>Ties</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {sortedUsers.map((user, index) => (
+                <tr key={user.id}>
+                    <td>{index + 1}</td>
+                    <td>{user.username}</td>
+                    <td>{user[`${gameType}_wins`]}</td>
+                    <td>{user[`${gameType}_losses`]}</td>
+                    <td>{user[`${gameType}_ties`]}</td>
+                </tr>
+                ))}
+                </tbody>
+            </table>
       </div>
     );
   }
