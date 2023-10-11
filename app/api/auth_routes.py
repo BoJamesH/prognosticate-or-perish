@@ -62,11 +62,15 @@ def sign_up():
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        if form.data['profile_image']:
+            profile_image = form.data['profile_image']
+        else:
+            profile_image = 'https://i.imgur.com/Da15Xe3.jpg'
         user = User(
             username=form.data['username'],
             email=form.data['email'],
             password=form.data['password'],
-            profile_image=form.data['profile_image']
+            profile_image=profile_image,
         )
         db.session.add(user)
         db.session.commit()
