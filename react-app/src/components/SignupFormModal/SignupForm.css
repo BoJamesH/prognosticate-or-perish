@@ -1,6 +1,10 @@
 .signup-form-overall-div {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-height: 75vh;
 }
 
 .signup-form-form {
@@ -20,4 +24,25 @@
     color: white;
     border-radius: 5px;
     margin-top: 4px;
+}
+
+.error {
+    color: rgb(255, 255, 255);
+    font-size: 10px;
+    margin-bottom: 10px;
+    max-width: 400px;
+}
+
+label {
+    font-size: 14px;
+}
+
+ul {
+    margin-top: 0px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
