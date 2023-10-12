@@ -49,7 +49,7 @@ export const checkUserPickEmPicks = () => async (dispatch) => {
             console.error('Error checking user elim picks');
         }
     } catch (error) {
-        console.error('Error in checkUserElimPicks:', error);
+        console.error('Error checking user pick em picks:', error);
     }
 };
 
@@ -63,7 +63,7 @@ export const deleteUserPickEmPick = (game_id) => async (dispatch) => {
             dispatch(getUserPickEmPicks())
         }
     } catch (e) {
-        console.error('Error in deleteUserPickEmPick:', e);
+        console.error('Error deleting user pick em pick:', e);
     }
 }
 

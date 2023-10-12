@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify
-from flask_login import login_required
-from app.models import User
+from flask import Blueprint, jsonify, request
+from flask_login import login_required, current_user
+from app.models import db, User
 
 user_routes = Blueprint('users', __name__)
 
@@ -23,3 +23,19 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+@user_routes.route('/profile_image', methods=['PUT'])
+@login_required
+def change_profile_image():
+    """
+    Change a user's profile image
+    """
+    try:
+        user_id = int(current_user.get_id())
+        fetch_data = request.get_json()
+        user = User.query.get(user_id)
+        user.profile_image = fetch_data['profile_image']
+        db.session.commit()
+        return {"Success": "Profile image update success"}
+    except Exception as e:
+        return jsonify({'error': 'Error updating profile image', 'details': str(e)})
