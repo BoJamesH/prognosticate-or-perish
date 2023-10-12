@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserElimPicks, checkUserElimPicks } from '../../store/elimPicks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
@@ -12,13 +12,13 @@ const UserPage = () => {
     const user = useSelector((state) => state.session.user);
     const eliminatorPicks = useSelector((state) => state.eliminatorPicks.userElimPicks);
     const pickEmPicks = useSelector((state) => state.pickEmPicks.userPickEmPicks)
-
+    const [showChangeProfile, setShowChangeProfile] = useState(false);
     useEffect(() => {
         dispatch(getUserElimPicks())
         dispatch(checkUserElimPicks());
     }, [dispatch]);
 
-    if (!eliminatorPicks || !user) {
+    if (!user) {
         return <p>Loading . . .</p>
     }
 
@@ -29,6 +29,16 @@ const UserPage = () => {
         <div className="user-avatar">
             <img className='user-page-profile-img' src={user.profile_image} alt={`${user.username}'s Profile`} />
         </div>
+        {showChangeProfile ? (
+          <div className="change-profile">
+            <input type="text" className='user-profile-img-change-field' placeholder="New Profile Image URL" />
+            <div>
+            <button className="submit-profile-button">Submit</button>
+            </div>
+          </div>
+        ) : (
+          <button className="user-change-profile-img" onClick={() => setShowChangeProfile(true)}>Change Profile Image</button>
+        )}
         <div className="user-info">
             <h2>{user.username}</h2>
             <p>Email: {user.email}</p>
