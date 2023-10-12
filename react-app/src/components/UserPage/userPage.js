@@ -33,6 +33,7 @@ const UserPage = () => {
           <div className="change-profile">
             <input type="text" className='user-profile-img-change-field' placeholder="New Profile Image URL" />
             <div>
+            <button className="submit-profile-button" onClick={() => setShowChangeProfile(false)}>Cancel</button>
             <button className="submit-profile-button">Submit</button>
             </div>
           </div>
