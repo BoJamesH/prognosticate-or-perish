@@ -21,3 +21,10 @@
     border-radius: 5px;
     margin-top: 4px;
 }
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
+    max-width: 200px;
+}
