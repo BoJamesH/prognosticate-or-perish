@@ -96,7 +96,7 @@ function SignupFormModal() {
           <ul>
             {errors.general && <li>{errors.general}</li>}
           </ul>
-            <label>Username</label>
+            <label>*Username</label>
           <div className="form-input">
             <input
               type="text"
@@ -107,7 +107,7 @@ function SignupFormModal() {
             />
             {errors.username && <div className="error">{errors.username}</div>}
           </div>
-            <label>Email</label>
+            <label>*Email</label>
           <div className="form-input">
             <input
               type="text"
@@ -127,7 +127,7 @@ function SignupFormModal() {
               onChange={(e) => handleProfileImgUrlChange(e.target.value)}
             />
           </div>
-            <label>Password</label>
+            <label>*Password</label>
           <div className="form-input">
             <input
               type="password"
@@ -138,7 +138,7 @@ function SignupFormModal() {
             />
             {errors.password && <div className="error">{errors.password}</div>}
           </div>
-            <label>Confirm Password</label>
+            <label>*Confirm Password</label>
           <div className="form-input">
             <input
               type="password"
