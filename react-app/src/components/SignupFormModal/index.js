@@ -34,10 +34,6 @@ function SignupFormModal() {
       newErrors.email = "Invalid email address.";
     }
 
-    if (password !== confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match.";
-    }
-
     setErrors(newErrors);
   };
 
@@ -69,7 +65,12 @@ function SignupFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+	const newErrors = {};
+	if (password.trim() !== confirmPassword.trim()) {
+		newErrors.confirmPassword = "Passwords do not match.";
+		setErrors(newErrors)
+		return
+	}
     if (Object.keys(errors).length === 0) {
       const data = await dispatch(
         signUp(
