@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import './userPage.css'
+import { changeProfileImg } from '../../store/session';
 
 
 const UserPage = () => {
@@ -13,13 +14,21 @@ const UserPage = () => {
     const eliminatorPicks = useSelector((state) => state.eliminatorPicks.userElimPicks);
     const pickEmPicks = useSelector((state) => state.pickEmPicks.userPickEmPicks)
     const [showChangeProfile, setShowChangeProfile] = useState(false);
+    const [newProfileImage, setNewProfileImage] = useState('');
+
     useEffect(() => {
         dispatch(getUserElimPicks())
         dispatch(checkUserElimPicks());
     }, [dispatch]);
 
+    const changeProfilePicHandler = (profile_image, e) => {
+        e.preventDefault();
+        dispatch(changeProfileImg(profile_image))
+        setShowChangeProfile(false)
+      };
+
     if (!user) {
-        return <p>Loading . . .</p>
+        return <p>Please log in to view the user page . . .</p>
     }
 
     return (
@@ -31,10 +40,13 @@ const UserPage = () => {
         </div>
         {showChangeProfile ? (
           <div className="change-profile">
-            <input type="text" className='user-profile-img-change-field' placeholder="New Profile Image URL" />
+            <input type="url"
+            className='user-profile-img-change-field'
+            value={newProfileImage} placeholder="New Profile Image URL"
+            onChange={(e) => setNewProfileImage(e.target.value)} />
             <div>
             <button className="submit-profile-button" onClick={() => setShowChangeProfile(false)}>Cancel</button>
-            <button className="submit-profile-button">Submit</button>
+            <button className="submit-profile-button" onClick={(e) => changeProfilePicHandler(newProfileImage, e)}>Submit</button>
             </div>
           </div>
         ) : (
