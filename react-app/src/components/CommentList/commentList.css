@@ -81,3 +81,14 @@
   border-radius: 5px;
   margin-top: 4px;
 }
+
+.comment-date-time-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
+.comment-date-time-span {
+  color: rgb(148, 148, 148);
+  font-size: 12px;
+}

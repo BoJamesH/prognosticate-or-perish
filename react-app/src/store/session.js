@@ -95,6 +95,22 @@ export const signUp = (username, email, password, profile_image) => async (dispa
 	}
 };
 
+export const changeProfileImg = (profile_image) => async (dispatch) => {
+	try {
+		const response = await fetch(`/api/users/profile_image`, {
+		method: 'PUT',
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			profile_image,
+		})
+	})
+	} catch (e) {
+		console.error('Error updating user profile image:', e);
+	}
+}
+
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
