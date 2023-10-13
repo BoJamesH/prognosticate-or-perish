@@ -40,11 +40,11 @@ export const postUserPickEmPick = (selected_team_name, gameId, week, completed, 
 
 export const checkUserPickEmPicks = () => async (dispatch) => {
     try {
-        const response = await fetch(`/api/elim_picks/check`);
+        const response = await fetch(`/api/pick_em_picks/check`);
         console.log('response: ', response);
         if (response.ok) {
             const checkUserElimPicks = await response.json();
-            console.log('CHECK USER ELIM PICK RESPONSE:', checkUserElimPicks);
+            console.log('CHECK USER PICK EM PICK RESPONSE:', checkUserElimPicks);
         } else {
             console.error('Error checking user elim picks');
         }
