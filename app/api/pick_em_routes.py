@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.models import db, Pickem_Pick, Game, Week
+from app.models import db, Pickem_Pick, Game, Week, User
 from flask_login import current_user, login_required
 
 pick_em_pick_routes = Blueprint('pick_em_picks', __name__)
@@ -86,14 +86,18 @@ def check_pick_em_picks():
             if current_pick.status in ('WIN', 'LOSS', 'TIE'):
                 continue  # Skip picks that are already final
             game = Game.query.get(current_pick.game_id)
+            pick_user = User.query.get(current_pick.user_id)
             if game.completed:
                 game_final_status = game.determine_winning_team()
                 if game_final_status == 'TIE':
                     current_pick.status = 'TIE'
+                    pick_user.pick_ties += 1
                 elif game_final_status == current_pick.selected_team_name:
                     current_pick.status = 'WIN'
+                    pick_user.pick_wins += 1
                 else:
                     current_pick.status = 'LOSS'
+                    pick_user.pick_losses += 1
 
         db.session.commit()
 

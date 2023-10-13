@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.models import db, Elim_Pick, Week, Game
+from app.models import db, Elim_Pick, Week, Game, User
 from flask_login import current_user, login_required
 
 elim_pick_routes = Blueprint('elim_picks', __name__)
@@ -96,19 +96,20 @@ def check_eliminator_picks():
         for current_pick in current_picks:
             if current_pick.status in ('WIN', 'LOSS', 'TIE'):
                 continue
-
+            print('INSIDE ELIM PICK CHECK ROUTE LOOP CURRENT PICK---- ', current_pick)
             game = Game.query.get(current_pick.game_id)
+            pick_user = User.query.get(current_pick.user_id)
             if game.completed:
                 winning_team_name = game.determine_winning_team()
                 if winning_team_name == 'TIE':
                     current_pick.status = 'TIE'
-                    current_user.elim_ties += 1
+                    pick_user.elim_ties += 1
                 elif winning_team_name == current_pick.selected_team_name:
                     current_pick.status = 'WIN'
-                    current_user.elim_wins += 1
+                    pick_user.elim_wins += 1
                 else:
                     current_pick.status = 'LOSS'
-                    current_user.elim_losses += 1
+                    pick_user.elim_losses += 1
 
         db.session.commit()
 
