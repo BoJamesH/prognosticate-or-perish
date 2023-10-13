@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
-import './userPage.css'
 import { changeProfileImg } from '../../store/session';
+import { checkUserPickEmPicks, getUserPickEmPicks } from '../../store/pickEmPicks';
+import './userPage.css'
 
 
 const UserPage = () => {
@@ -19,6 +20,8 @@ const UserPage = () => {
     useEffect(() => {
         dispatch(getUserElimPicks())
         dispatch(checkUserElimPicks());
+        dispatch(getUserPickEmPicks())
+        dispatch(checkUserPickEmPicks())
     }, [dispatch]);
 
     const changeProfilePicHandler = (profile_image, e) => {

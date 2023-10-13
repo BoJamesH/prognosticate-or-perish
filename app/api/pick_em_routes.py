@@ -78,7 +78,7 @@ def check_pick_em_picks():
     current_week = week.current_week
     try:
         current_picks = Pickem_Pick.query.filter_by(week=current_week).all()
-
+        print('CURRENT WEEK PICK EM PICKS------------- ', current_picks)
         if not current_picks:
             return jsonify({'message': 'No picks found for the current week'})
 
