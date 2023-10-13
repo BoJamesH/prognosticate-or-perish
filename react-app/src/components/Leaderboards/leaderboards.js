@@ -6,6 +6,7 @@ import { getAllUsers } from '../../store/allUsers';
 import Leaderboard from './singleLeaderboard';
 import './leaderboards.css'
 import { checkUserElimPicks } from '../../store/elimPicks';
+import { checkUserPickEmPicks } from '../../store/pickEmPicks';
 
 function LeaderboardPage() {
     const dispatch = useDispatch()
@@ -14,7 +15,8 @@ function LeaderboardPage() {
 
     useEffect(() => {
         dispatch(getAllUsers())
-        dispatch(checkUserElimPicks)
+        dispatch(checkUserElimPicks())
+        dispatch(checkUserPickEmPicks())
     }, [dispatch])
 
     return (
