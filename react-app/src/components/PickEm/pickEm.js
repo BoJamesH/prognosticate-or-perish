@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { getComments } from '../../store/comments';
 import { getTeams } from '../../store/teams';
 import { getAPIGames, storeGames, storeWeek } from '../../store/games';
-import { getUserPickEmPicks, postUserPickEmPick, deleteUserPickEmPick } from '../../store/pickEmPicks';
+import { getUserPickEmPicks, postUserPickEmPick, deleteUserPickEmPick, checkUserPickEmPicks } from '../../store/pickEmPicks';
+import { getUserElimPicks, checkUserElimPicks } from '../../store/elimPicks';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import './pickEm.css';
@@ -27,6 +28,7 @@ const PickEmPage = () => {
           dispatch(getAPIGames());
           dispatch(storeGames());
           dispatch(storeWeek());
+          dispatch(checkUserPickEmPicks())
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -41,8 +43,10 @@ const PickEmPage = () => {
     dispatch(getComments());
     dispatch(storeWeek());
     dispatch(storeGames());
-    dispatch(getUserPickEmPicks());
-    // dispatch(checkUserPickEmPicks());
+    dispatch(getUserElimPicks());
+    dispatch(checkUserElimPicks());
+    dispatch(getUserPickEmPicks())
+    dispatch(checkUserPickEmPicks)
   }, [dispatch]);
 
   const getTeamClassName = (game, teamName) => {

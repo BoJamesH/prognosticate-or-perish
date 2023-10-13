@@ -148,7 +148,6 @@ const CommentList = () => {
                           Delete
                         </button>
                         <div className='comment-date-time-div'>
-                          {console.log(comment.updated_at)}
                         <span className='comment-date-time-span'>{formatDate(comment.updated_at)}</span>
                         </div>
                       </div>

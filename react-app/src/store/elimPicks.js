@@ -45,7 +45,6 @@ export const checkUserElimPicks = () => async (dispatch) => {
         if (response.ok) {
             const checkUserElimPicks = await response.json();
             console.log('CHECK USER ELIM PICK RESPONSE:', checkUserElimPicks);
-            // Dispatch any actions or handle the response as needed here
         } else {
             console.error('Error checking user elim picks');
         }
