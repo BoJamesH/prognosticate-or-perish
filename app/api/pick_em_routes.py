@@ -83,8 +83,8 @@ def check_pick_em_picks():
             return jsonify({'message': 'No picks found for the current week'})
 
         for current_pick in current_picks:
-            # if current_pick.status in ('WIN', 'LOSS', 'TIE'):
-            #     continue
+            if current_pick.status in ('WIN', 'LOSS', 'TIE'):
+                continue
             game = Game.query.get(current_pick.game_id)
             pick_user = User.query.get(current_pick.user_id)
             if game.completed:
