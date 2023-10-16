@@ -1,46 +1,32 @@
-# Flask React Project
+# Prognosticate or Perish
 
-This is the starter for the Flask React project.
+A casual sports prediction game for friends and family.
 
-## Getting started
-1. Clone this repository (only this branch)
+## Details
 
-2. Install dependencies
+This site uses a flask backend, react frontend and free ESPN API to provide games to predict.  Simply sign up, and go to the game you would like to play to start partiipating!
 
-      ```bash
-      pipenv install -r requirements.txt
-      ```
+## Backend
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
+![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/22209119-8c96-45fc-b064-d6e7a574ccb2)
 
-4. Make sure the SQLite3 database connection URL is in the **.env** file
+## Wireframes
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
+Landing Page
 
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
+![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/99827c20-a5fd-4cb4-9fe5-ce6a33e685e9)
 
-   ```bash
-   pipenv shell
-   ```
+User Page
 
-   ```bash
-   flask db upgrade
-   ```
+![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/e9def6a7-1265-437c-805d-ea20c868f3a2)
 
-   ```bash
-   flask seed all
-   ```
+Game Forms
 
-   ```bash
-   flask run
-   ```
+![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/fce28b16-a0aa-4555-a080-d391995f1234)
 
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+Comments
 
+![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/06191bde-de20-4181-84a4-6bfa893b4710)
 
 ## Deployment through Render.com
 
