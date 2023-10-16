@@ -15,6 +15,7 @@ Clone the Repository:
 
 git clone [https://github.com/your-username/nfl-game-predictor.git](https://github.com/BoJamesH/prognosticate-or-perish)
 cd p-or-p
+
 Set Up Environment:
 Ensure you have the necessary dependencies installed. You might want to use a virtual environment for this.
 
