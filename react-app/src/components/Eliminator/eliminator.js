@@ -7,6 +7,7 @@ import { checkUserElimPicks, deleteUserElimPick, getUserElimPicks, postUserElimP
 import { checkUserPickEmPicks, getUserPickEmPicks } from '../../store/pickEmPicks';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
+import CommentListGuest from '../CommentListGuest/commentListGuest';
 import './eliminator.css';
 
 const EliminatorPage = () => {
@@ -88,7 +89,14 @@ const EliminatorPage = () => {
   };
 
   if (!sessionUser) {
-    return <p className='eliminator-loading-ph'>Please log in to play a game!</p>
+    return (
+      <>
+        <div className='eliminator-no-user-div'>
+        <p className='eliminator-loading-ph'>Please log in to play a game!</p>
+        <CommentListGuest />
+        </div>
+      </>
+    );
   }
 
   if (!currentWeek || !allGames) {

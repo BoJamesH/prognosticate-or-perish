@@ -7,6 +7,7 @@ import { getUserPickEmPicks, postUserPickEmPick, deleteUserPickEmPick, checkUser
 import { getUserElimPicks, checkUserElimPicks } from '../../store/elimPicks';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
+import CommentListGuest from '../CommentListGuest/commentListGuest';
 import './pickEm.css';
 
 const PickEmPage = () => {
@@ -78,7 +79,14 @@ const PickEmPage = () => {
   };
 
   if (!sessionUser) {
-    return <p className='pickem-loading-ph'>Please log in to play a game!</p>
+    return (
+      <>
+        <div className='pickem-no-user-div'>
+        <p className='pickem-loading-ph'>Please log in to play a game!</p>
+        <CommentListGuest />
+        </div>
+      </>
+    );
   }
 
   if (!currentWeek || !allGames) {

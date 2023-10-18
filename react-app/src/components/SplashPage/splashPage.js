@@ -4,6 +4,7 @@ import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
+import CommentListGuest from '../CommentListGuest/commentListGuest';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './splashPage.css'
@@ -103,7 +104,7 @@ function SplashPage() {
                 </ul>
               </div>
             </div>
-            {sessionUser && (
+            {sessionUser ? (
                 <>
                 <div className='main-commentform-div'>
                 <CommentForm />
@@ -112,7 +113,8 @@ function SplashPage() {
                 <CommentList />
               </div>
                 </>
-            )}
+            ):
+            <CommentListGuest />}
           </div>
         </>
       );

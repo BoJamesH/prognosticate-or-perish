@@ -37,7 +37,7 @@ function CommentForm() {
 
     return (
     <div>
-        <h3 className='leave-comment-title-h3'>Leave a Comment</h3>
+        <h3 className='leave-comment-title-h3'>Chatter</h3>
         <form onSubmit={handleSubmit}>
         <div className='textarea-input-div'>
             <textarea
