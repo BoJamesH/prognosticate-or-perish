@@ -1,46 +1,69 @@
-# Flask React Project
+# Prognosticate or Perish
 
-This is the starter for the Flask React project.
+A casual sports prediction game for friends and family.
+## Prognosticate or Perish!
 
-## Getting started
-1. Clone this repository (only this branch)
+Welcome to the NFL Game Predictor repository! This web application is designed to help users predict the outcomes of NFL games using various methods. Whether you're a sports enthusiast, a data science enthusiast, or just looking to have some fun with NFL game predictions, this site has something for you.
 
-2. Install dependencies
+Features:
+User Predictions: Users can input their predictions and see how they stack up against our models.
+User comments: Users can chat with each other about the results or games to come!
+Leaderboard: Compete with other users and climb the leaderboard based on the accuracy of your predictions.
 
-      ```bash
-      pipenv install -r requirements.txt
-      ```
+Getting Started:
+Clone the Repository:
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
+git clone [https://github.com/your-username/nfl-game-predictor.git](https://github.com/BoJamesH/prognosticate-or-perish)
+cd p-or-p
 
-4. Make sure the SQLite3 database connection URL is in the **.env** file
+Set Up Environment:
+Ensure you have the necessary dependencies installed. You might want to use a virtual environment for this.
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
+pip install -r requirements.txt
+Configure the Database:
+Set up a database for the application, and configure the database settings in config.py.
 
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
+Run the Backend/Frontend:
 
-   ```bash
-   pipenv shell
-   ```
+pipenv shell
+flask run
+cd react-app
+npm start
+Access the Site:
+Open your web browser and go to http://localhost:3000 to access the NFL Game Predictor site.
 
-   ```bash
-   flask db upgrade
-   ```
+Contributing:
+We welcome contributions from the open-source community. If you have ideas, bug fixes, or new features to add, please feel free to open issues or submit pull requests.
 
-   ```bash
-   flask seed all
-   ```
+License:
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-   ```bash
-   flask run
-   ```
+Contact:
+If you have any questions or need assistance, you can reach out to the project maintainer at [RobertJamesH@gmail.com].
 
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+Enjoy predicting NFL games with NFL Game Predictor!
 
+## Backend
+
+![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/22209119-8c96-45fc-b064-d6e7a574ccb2)
+
+## Wireframes
+
+Landing Page
+
+![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/99827c20-a5fd-4cb4-9fe5-ce6a33e685e9)
+
+User Page
+
+![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/e9def6a7-1265-437c-805d-ea20c868f3a2)
+
+Game Forms
+
+![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/fce28b16-a0aa-4555-a080-d391995f1234)
+
+Comments
+
+![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/06191bde-de20-4181-84a4-6bfa893b4710)
 
 ## Deployment through Render.com
 
