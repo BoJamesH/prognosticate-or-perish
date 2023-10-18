@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
-import './userPage.css'
+import CommentListGuest from '../CommentListGuest/commentListGuest';
 import { changeProfileImg } from '../../store/session';
+import { checkUserPickEmPicks, getUserPickEmPicks } from '../../store/pickEmPicks';
+import './userPage.css'
 
 
 const UserPage = () => {
@@ -19,6 +21,8 @@ const UserPage = () => {
     useEffect(() => {
         dispatch(getUserElimPicks())
         dispatch(checkUserElimPicks());
+        dispatch(getUserPickEmPicks())
+        dispatch(checkUserPickEmPicks())
     }, [dispatch]);
 
     const changeProfilePicHandler = (profile_image, e) => {
@@ -27,9 +31,14 @@ const UserPage = () => {
         setShowChangeProfile(false)
       };
 
-    if (!user) {
-        return <p>Please log in to view the user page . . .</p>
-    }
+      if (!user) {
+        return (
+          <div className="no-profile-no-user-div">
+            <p className='user-page-ph'>Please log in to view the user page . . .</p>
+            <CommentListGuest />
+          </div>
+        );
+      }
 
     return (
     <div className="user-profile-page">

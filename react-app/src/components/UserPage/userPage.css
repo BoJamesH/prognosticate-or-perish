@@ -69,3 +69,14 @@
     flex-direction: column;
     margin-right: 60px;
 }
+
+.user-page-ph {
+    margin-top: 60px;
+}
+
+.no-profile-no-user-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

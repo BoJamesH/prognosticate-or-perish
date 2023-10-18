@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.models import db, Pickem_Pick, Game, Week
+from app.models import db, Pickem_Pick, Game, Week, User
 from flask_login import current_user, login_required
 
 pick_em_pick_routes = Blueprint('pick_em_picks', __name__)
@@ -69,40 +69,38 @@ def delete_pick_em_pick(game_id):
         return jsonify({'error': 'Error deleting user pick', 'details': str(e)})
 
 
-@pick_em_pick_routes.route('/check', methods=['POST'])
+from flask import jsonify
+
+@pick_em_pick_routes.route('/check')
 @login_required
 def check_pick_em_picks():
-    user_id = current_user.get_id()
     week = Week.query.first()
     current_week = week.current_week
-
     try:
-        # Get all the pick em picks for the current week for the user
-        current_picks = Pickem_Pick.query.filter_by(user_id=user_id, week=current_week).all()
-
+        current_picks = Pickem_Pick.query.filter_by(week=current_week).all()
+        print('CURRENT WEEK PICK EM PICKS------------- ', current_picks)
         if not current_picks:
             return jsonify({'message': 'No picks found for the current week'})
 
         for current_pick in current_picks:
             if current_pick.status in ('WIN', 'LOSS', 'TIE'):
                 continue
-
             game = Game.query.get(current_pick.game_id)
-
+            pick_user = User.query.get(current_pick.user_id)
             if game.completed:
                 game_final_status = game.determine_winning_team()
                 if game_final_status == 'TIE':
                     current_pick.status = 'TIE'
-                    current_user.elim_ties += 1
+                    pick_user.pick_ties += 1
                 elif game_final_status == current_pick.selected_team_name:
                     current_pick.status = 'WIN'
-                    current_user.elim_wins += 1
+                    pick_user.pick_wins += 1
                 else:
                     current_pick.status = 'LOSS'
-                    current_user.elim_losses += 1
+                    pick_user.pick_losses += 1
 
         db.session.commit()
 
-        return jsonify({'message': 'Pick em picks updated successfully'})
+        return jsonify({'message': 'All Pick Em picks for the current week updated successfully'})
     except Exception as e:
-        return jsonify({'error': 'Error updating pick em picks', 'details': str(e)})
+        return jsonify({'error': 'Error updating Pick Em picks', 'details': str(e)})

@@ -4,8 +4,10 @@ import { getComments } from '../../store/comments';
 import { getTeams } from '../../store/teams';
 import { getAPIGames, storeGames, storeWeek } from '../../store/games';
 import { checkUserElimPicks, deleteUserElimPick, getUserElimPicks, postUserElimPick } from '../../store/elimPicks';
+import { checkUserPickEmPicks, getUserPickEmPicks } from '../../store/pickEmPicks';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
+import CommentListGuest from '../CommentListGuest/commentListGuest';
 import './eliminator.css';
 
 const EliminatorPage = () => {
@@ -42,6 +44,8 @@ const EliminatorPage = () => {
     dispatch(storeGames());
     dispatch(getUserElimPicks());
     dispatch(checkUserElimPicks());
+    dispatch(getUserPickEmPicks());
+    dispatch(checkUserPickEmPicks());
   }, [dispatch]);
 
   const isTeamPickedInPreviousWeeks = (teamName, currentWeek, userEliminatorPicks) => {
@@ -85,7 +89,14 @@ const EliminatorPage = () => {
   };
 
   if (!sessionUser) {
-    return <p className='eliminator-loading-ph'>Please log in to play a game!</p>
+    return (
+      <>
+        <div className='eliminator-no-user-div'>
+        <p className='eliminator-loading-ph'>Please log in to play a game!</p>
+        <CommentListGuest />
+        </div>
+      </>
+    );
   }
 
   if (!currentWeek || !allGames) {

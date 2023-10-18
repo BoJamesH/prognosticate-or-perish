@@ -8,7 +8,6 @@ comment_routes = Blueprint('comments', __name__)
 
 
 @comment_routes.route('')
-@login_required
 def all_comments():
     """
     Query for all comments and return them in a list of comments dictionaries.
