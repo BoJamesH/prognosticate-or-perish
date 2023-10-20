@@ -75,12 +75,12 @@ const OverUnderPage = () => {
 
     if (selectedOption) {
       if (selectedOption.over) {
-        status = 'over'
+        status = 'OVER'
       } else if (selectedOption.under) {
-        status = 'under'
+        status = 'UNDER'
       }
     }
-    const payout = betAmount + (betAmount * 1.1);
+    const payout = betAmount + (betAmount / 1.1);
     dispatch(postUserOverUnderBet(gameId, status, betAmount, payout, currentWeek))
     .then(() => {
       setSelectedOptions({});

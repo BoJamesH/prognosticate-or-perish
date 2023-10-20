@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.models import db, Over_Under_Bet, User
+from app.models import db, Over_Under_Bet, User, Week, Game
 from flask_login import current_user, login_required
 
 over_under_routes = Blueprint('over_under_bets', __name__)
@@ -51,57 +51,35 @@ def post_over_under_bet():
         print(str(e))
         return {"Error": "An error occurred while processing the bet"}
 
-# @over_under_routes.route.route('/<int:game_id>', methods=['DELETE'])
-# @login_required
-# def delete_pick_em_pick(game_id):
-#     """
-#     Delete the pick_em pick of the current user for the specified week.
-#     """
-#     user_id = int(current_user.get_id())
-#     try:
-#         pick = Pickem_Pick.query.filter_by(user_id=user_id, game_id=game_id).first()
-#         if pick:
-#             db.session.delete(pick)
-#             db.session.commit()
-#             return jsonify({'message': 'Pick em pick deleted successfully'})
-#         else:
-#             return jsonify({'message': 'Pick em pick not found for the specified week'})
-#     except Exception as e:
-#         return jsonify({'error': 'Error deleting user pick', 'details': str(e)})
+@over_under_routes.route('/check')
+@login_required
+def check_over_under_bets():
+    week = Week.query.first()
+    current_week = week.current_week
+    try:
+        current_over_under_bets = Over_Under_Bet.query.filter_by(week=current_week).all()
+        print('CURRENT WEEK OVER UNDER BETS ------------- ', current_over_under_bets)
+        if not current_over_under_bets:
+            return jsonify({'message': 'No over under bets found for the current week'})
 
-
-# from flask import jsonify
-
-# @over_under_routes.route.route('/check')
-# @login_required
-# def check_pick_em_picks():
-#     week = Week.query.first()
-#     current_week = week.current_week
-#     try:
-#         current_picks = Pickem_Pick.query.filter_by(week=current_week).all()
-#         print('CURRENT WEEK PICK EM PICKS------------- ', current_picks)
-#         if not current_picks:
-#             return jsonify({'message': 'No picks found for the current week'})
-
-#         for current_pick in current_picks:
-#             if current_pick.status in ('WIN', 'LOSS', 'TIE'):
-#                 continue
-#             game = Game.query.get(current_pick.game_id)
-#             pick_user = User.query.get(current_pick.user_id)
-#             if game.completed:
-#                 game_final_status = game.determine_winning_team()
-#                 if game_final_status == 'TIE':
-#                     current_pick.status = 'TIE'
-#                     pick_user.pick_ties += 1
-#                 elif game_final_status == current_pick.selected_team_name:
-#                     current_pick.status = 'WIN'
-#                     pick_user.pick_wins += 1
-#                 else:
-#                     current_pick.status = 'LOSS'
-#                     pick_user.pick_losses += 1
-
-#         db.session.commit()
-
-#         return jsonify({'message': 'All Pick Em picks for the current week updated successfully'})
-#     except Exception as e:
-#         return jsonify({'error': 'Error updating Pick Em picks', 'details': str(e)})
+        for current_bet in current_over_under_bets:
+            if current_bet.status in ('WIN', 'LOSS', 'PUSH'):
+                continue
+            game = Game.query.get(current_bet.game_id)
+            pick_user = User.query.get(current_bet.user_id)
+            if game.completed:
+                game_ou_status = game.determine_over_under_status()
+                if game_ou_status == current_bet.status:
+                    current_bet.status = 'WIN'
+                    pick_user.prognosticoins += current_bet.payout
+                elif game_ou_status != current_bet.status:
+                    current_bet.status = 'LOSS'
+                elif game_ou_status == 'PUSH':
+                    current_bet.status = 'PUSH'
+                    pick_user.prognosticoins += current_bet.progs_wagered
+                else:
+                    return jsonify({'message': 'Unknown status of game or bet, bet not updated.'})
+        db.session.commit()
+        return jsonify({'message': 'All Over/Under Bets for the current week updated successfully'})
+    except Exception as e:
+        return jsonify({'error': 'Error checking Over/Under Bets', 'details': str(e)})

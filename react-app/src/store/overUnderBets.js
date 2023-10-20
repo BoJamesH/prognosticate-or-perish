@@ -46,10 +46,10 @@ export const checkUserOverUnderBets = () => async (dispatch) => {
             const checkUserElimPicks = await response.json();
             console.log('CHECK USER PICK EM PICK RESPONSE:', checkUserElimPicks);
         } else {
-            console.error('Error checking user elim picks');
+            console.error('Error checking over under bets');
         }
     } catch (error) {
-        console.error('Error checking user pick em picks:', error);
+        console.error('Error checking user over under bets:', error);
     }
 };
 

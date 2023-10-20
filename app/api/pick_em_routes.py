@@ -103,4 +103,4 @@ def check_pick_em_picks():
 
         return jsonify({'message': 'All Pick Em picks for the current week updated successfully'})
     except Exception as e:
-        return jsonify({'error': 'Error updating Pick Em picks', 'details': str(e)})
+        return jsonify({'error': 'Error checking Pick Em picks', 'details': str(e)})
