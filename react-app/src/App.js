@@ -11,6 +11,7 @@ import Footer from "./components/SiteFooter/siteFooter";
 import SplashPage from "./components/SplashPage/splashPage";
 import PickEmPage from "./components/PickEm/pickEm";
 import LeaderboardPage from "./components/Leaderboards/leaderboards";
+import OverUnderPage from "./components/OverUnder/overUnder";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,9 @@ function App() {
           </Route>
           <Route exact path='/pickem'>
             <PickEmPage />
+          </Route>
+          <Route path="/overunder">
+            <OverUnderPage />
           </Route>
           <Route exact path='/user'>
             <UserPage />
