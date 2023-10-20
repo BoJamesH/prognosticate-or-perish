@@ -92,7 +92,7 @@ function SplashPage() {
                   </li>
                   <li className='splash-gamelist-li'>
                     <span className='splash-gamelist-title'>
-                      Over/Under Bets
+                    <Link className='splash-game-link' to='/overunder'>Over/Under Bets</Link>
                     </span>
                     <span className='splash-gamelist-description'>
                       Use a set amount of prognosticoins to out-bet your competition and earn the most by the end of the season betting on the over/under!
