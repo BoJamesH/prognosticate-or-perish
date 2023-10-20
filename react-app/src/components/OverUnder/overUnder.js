@@ -9,7 +9,7 @@ import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import CommentListGuest from '../CommentListGuest/commentListGuest';
 import './overUnder.css'
-import { getUserOverUnderBets, postUserOverUnderBet } from '../../store/overUnderBets';
+import { checkUserOverUnderBets, getUserOverUnderBets, postUserOverUnderBet } from '../../store/overUnderBets';
 import { authenticate } from '../../store/session';
 
 const OverUnderPage = () => {
@@ -19,7 +19,7 @@ const OverUnderPage = () => {
   const allTeams = useSelector((state) => state.teams.allTeams);
   const sessionUser = useSelector((state) => state.session.user)
   const userPrognosticoins = sessionUser.prognosticoins
-  const userPickEmPicks = useSelector(state => state.pickEmPicks.userPickEmPicks)
+  const userOverUnderBets = useSelector(state => state.overUnderBets.userOverUnderBets)
   const [betAmount, setBetAmount] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [betAmounts, setBetAmounts] = useState({});
@@ -36,7 +36,7 @@ const OverUnderPage = () => {
           dispatch(getAPIGames());
           dispatch(storeGames());
           dispatch(storeWeek());
-          dispatch(checkUserPickEmPicks())
+          dispatch(checkUserOverUnderBets())
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -54,7 +54,9 @@ const OverUnderPage = () => {
     dispatch(getUserElimPicks());
     dispatch(checkUserElimPicks());
     dispatch(getUserPickEmPicks())
-    dispatch(checkUserPickEmPicks)
+    dispatch(checkUserPickEmPicks())
+    dispatch(getUserOverUnderBets())
+    dispatch(checkUserOverUnderBets())
   }, [dispatch]);
 
   const handleOverChange = (option, gameID) => {
@@ -80,7 +82,7 @@ const OverUnderPage = () => {
         status = 'UNDER'
       }
     }
-    const payout = betAmount + (betAmount / 1.1);
+    const payout = (betAmount + (betAmount / 1.1)).toFixed(2);
     dispatch(postUserOverUnderBet(gameId, status, betAmount, payout, currentWeek))
     .then(() => {
       setSelectedOptions({});
@@ -135,7 +137,7 @@ const OverUnderPage = () => {
               const sliderOption = `slider=${game.id}`
               const currentBetAmount = betAmounts[sliderOption] || 0;
               const calculateReturnOnWin = (betAmount) => {
-                return betAmount + (betAmount * 1.1);
+                return betAmount / 1.1;
               };
             return (
               <div className={`ou-single-game-div ${game.completed ? 'completed' : ''}`} key={game.id}>

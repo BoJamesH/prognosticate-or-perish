@@ -7,7 +7,6 @@ export const setOverUnderBets = (bets) => ({
 
 export const getUserOverUnderBets = () => async (dispatch) => {
     const response = await fetch(`/api/over_under_bets`)
-    console.log('response: ', response)
     if(response.ok) {
         const getUserOverUnderBets = await response.json();
         console.log('getUserOverUnderBets:', getUserOverUnderBets)
@@ -41,10 +40,9 @@ export const postUserOverUnderBet = (gameId, status, betAmount, payout, week) =>
 export const checkUserOverUnderBets = () => async (dispatch) => {
     try {
         const response = await fetch(`/api/over_under_bets/check`);
-        console.log('response: ', response);
         if (response.ok) {
-            const checkUserElimPicks = await response.json();
-            console.log('CHECK USER PICK EM PICK RESPONSE:', checkUserElimPicks);
+            const checkUserOverUnderBets = await response.json();
+            console.log('CHECK OVER UNDER RESPONSE:', checkUserOverUnderBets);
         } else {
             console.error('Error checking over under bets');
         }
