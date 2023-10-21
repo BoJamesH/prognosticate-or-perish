@@ -55,3 +55,11 @@ class Game(db.Model):
             return self.away_team_name
         else:
             return 'Tie'
+
+    def determine_over_under_status(self):
+        if self.home_team_score + self.away_team_score > self.over_under:
+            return 'OVER'
+        elif self.away_team_score + self.home_team_score < self.over_under:
+            return 'UNDER'
+        else:
+            return 'PUSH'

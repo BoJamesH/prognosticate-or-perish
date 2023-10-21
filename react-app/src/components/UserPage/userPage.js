@@ -8,21 +8,33 @@ import CommentListGuest from '../CommentListGuest/commentListGuest';
 import { changeProfileImg } from '../../store/session';
 import { checkUserPickEmPicks, getUserPickEmPicks } from '../../store/pickEmPicks';
 import './userPage.css'
+import { checkUserOverUnderBets, getUserOverUnderBets } from '../../store/overUnderBets';
+import { storeGames, storeWeek } from '../../store/games';
 
 
 const UserPage = () => {
     const dispatch = useDispatch()
+    const currentWeek = Number(useSelector((state) => state.games.currentWeek));
+    console.log('nothing')
     const user = useSelector((state) => state.session.user);
     const eliminatorPicks = useSelector((state) => state.eliminatorPicks.userElimPicks);
     const pickEmPicks = useSelector((state) => state.pickEmPicks.userPickEmPicks)
+    const userOverUnderBets = useSelector(state => state.overUnderBets.userOverUnderBets)
+    const currWeekGames = useSelector(state => state.games.allGames)
+    const currentWeekUserBets = userOverUnderBets.filter((bet) => bet.week === currentWeek);
+
     const [showChangeProfile, setShowChangeProfile] = useState(false);
     const [newProfileImage, setNewProfileImage] = useState('');
 
     useEffect(() => {
+        dispatch(storeWeek())
+        dispatch(storeGames())
         dispatch(getUserElimPicks())
-        dispatch(checkUserElimPicks());
+        dispatch(checkUserElimPicks())
         dispatch(getUserPickEmPicks())
         dispatch(checkUserPickEmPicks())
+        dispatch(getUserOverUnderBets())
+        dispatch(checkUserOverUnderBets())
     }, [dispatch]);
 
     const changeProfilePicHandler = (profile_image, e) => {
@@ -69,7 +81,7 @@ const UserPage = () => {
         <div className='user-games-div'>
         <div className='user-elim-record'>
         <h3><Link className='user-elim-link' to='/eliminator'>Eliminator</Link></h3>
-            Eliminator record: {user.elim_wins} - {user.elim_losses} - {user.elim_ties}
+           <h4>Eliminator record: {user.elim_wins} - {user.elim_losses} - {user.elim_ties}</h4>
         {eliminatorPicks && eliminatorPicks.map((pick) => (
             <div key={pick.id} className="eliminator-pick">
             <p>Week {pick.week}</p>
@@ -81,9 +93,38 @@ const UserPage = () => {
         <span className='user-pickem-record'>
             <h3><Link className='user-elim-link' to='/pickem'>Pick 'Em</Link></h3>
             <div className='eliminator-record'>
-            Pick 'em record: {user.pick_wins} - {user.pick_losses} - {user.pick_ties}
+            <h4>Pick 'em record: {user.pick_wins} - {user.pick_losses} - {user.pick_ties}</h4>
             </div>
         </span>
+        <span className='user-over-under-bets'>
+    <div className="user-over-under-bets">
+        <h3><Link className="user-elim-link" to="/overunder">Over/Under Wagers</Link></h3>
+        <div className="eliminator-record">
+            <h4>Week {currentWeek} Over/Under Bets:</h4>
+            {currentWeekUserBets.length === 0 ? (
+                <p>No bets placed for the current week.</p>
+            ) : (
+                <div>
+                    {currentWeekUserBets.map((bet) => {
+                        const game = currWeekGames.find((game) => game.id === bet.game_id);
+                        if (!game) {
+                            return null;
+                        }
+
+                        return (
+                            <div className='user-ou-bet-game' key={bet.id}>
+                                <div>Game: {game.away_team_name} vs {game.home_team_name}</div>
+                                <div>Over/Under: {game.over_under}</div>
+                                <div>Amount Wagered: {bet.progs_wagered} Prognosticoins</div>
+                                <div>Bet: {bet.status}</div>
+                            </div>
+                        );
+                    })}
+                </div>
+            )}
+        </div>
+    </div>
+</span>
         </div>
         {user && (
                 <>
