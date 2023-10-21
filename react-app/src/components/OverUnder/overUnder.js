@@ -122,7 +122,7 @@ const OverUnderPage = () => {
         {currentWeek && <h3 className='week-title'>WEEK {currentWeek}</h3>}
       </div>
       <div className='ou-instruction-div'>
-        User your prognosticoins (granted weekly) to place over/under bets on total game points.
+        Use your prognosticoins (granted weekly) to place over/under bets on total game points.
         You can check your current bets on your profile.
         All bets are locked in permanently when submitted!
       </div>
