@@ -16,6 +16,8 @@ def create_games():
         current_week_record = Week.query.first()
         all_users = User.query.all()
         print('ALL USERS!!! ', all_users)
+        for user in all_users:
+            user.prognosticoins += 500
         # for user in all_users:
         #     user.prognosticoins += 500
         # print('CURRENT WEEK RECORD ---------', current_week_record)

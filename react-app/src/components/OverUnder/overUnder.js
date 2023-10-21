@@ -19,11 +19,10 @@ const OverUnderPage = () => {
   const allTeams = useSelector((state) => state.teams.allTeams);
   const sessionUser = useSelector((state) => state.session.user)
   const userPrognosticoins = sessionUser.prognosticoins
-  const userOverUnderBets = useSelector(state => state.overUnderBets.userOverUnderBets)
-  const [betAmount, setBetAmount] = useState(0);
+//   const userOverUnderBets = useSelector(state => state.overUnderBets.userOverUnderBets)
+//   const [betAmount, setBetAmount] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [betAmounts, setBetAmounts] = useState({});
-  const [availablePrognosticoins, setAvailablePrognosticoins] = useState(userPrognosticoins);
 
 
   useEffect(() => {
@@ -87,7 +86,6 @@ const OverUnderPage = () => {
     .then(() => {
       setSelectedOptions({});
       setBetAmounts({});
-      setBetAmount(0);
       // Dispatch an action to refresh user information
       dispatch(authenticate())
       dispatch(getUserOverUnderBets());
