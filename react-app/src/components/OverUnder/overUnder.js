@@ -88,7 +88,6 @@ const OverUnderPage = () => {
       setSelectedOptions({});
       setBetAmounts({});
       setBetAmount(0);
-
       // Dispatch an action to refresh user information
       dispatch(authenticate())
       dispatch(getUserOverUnderBets());
@@ -125,6 +124,7 @@ const OverUnderPage = () => {
       </div>
       <div className='ou-instruction-div'>
         User your prognosticoins (granted weekly) to place over/under bets on total game points.
+        You can check your current bets on your profile.
         All bets are locked in permanently when submitted!
       </div>
       {games && games.length && allTeams && allTeams.length ? (
@@ -164,15 +164,13 @@ const OverUnderPage = () => {
                         : `${game.home_team_name} victory`}
                     </div>
                   ) : (
-                    <div className='ou-current-score'>
-                      Current: {game.home_team_score} - {game.away_team_score}
-                    </div>
+null
                   )}
                   {!game.completed && (
                     <>
                       <div className='ou-game-spread-div'>Spread: {game.spread}</div>
                       <div className='ou-game-over-under-div'>Over/Under: {game.over_under}</div>
-                      <div>
+                      <div className='ou-input-overall-div'>
                         <label>
                         <input
                             type="radio"
@@ -187,6 +185,7 @@ const OverUnderPage = () => {
                         <label>
                         <input
                             type="radio"
+                            id='ou-under-radio'
                             name={underOption}
                             value="under"
                             checked={selectedOptions[game.id]?.under === underOption}
@@ -204,8 +203,17 @@ const OverUnderPage = () => {
                             value={currentBetAmount}
                             onChange={(e) => handleOverUnderSliderChange(e, sliderOption)}
                         />
-                        <div>Current Bet:</div><div className='ou-bet-amount'>{currentBetAmount} Prognosticoins</div>
-                        <div>Return on Win: {calculateReturnOnWin(currentBetAmount).toFixed(2)} Prognosticoins</div>
+                        {currentBetAmount > 0 && (
+                        <div>
+                            <div className='ou-current-bet-div'>Current Bet:</div>
+                            <div className='ou-bet-amount'>{currentBetAmount} Prognosticoins</div>
+                        </div>
+                        )}
+                        <div className='ou-return-div'>
+                            {currentBetAmount > 0 && (
+                                <span>Return on Win: {calculateReturnOnWin(currentBetAmount).toFixed(2)}</span>
+                            )}
+                        </div>
                         <button
                         className='ou-submit-button'
                         onClick={() => overUnderBetHandler(game.id, selectedOptions[game.id], currentBetAmount)}
