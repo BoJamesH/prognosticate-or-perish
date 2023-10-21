@@ -16,8 +16,8 @@ def create_games():
         current_week_record = Week.query.first()
         all_users = User.query.all()
         print('ALL USERS!!! ', all_users)
-        # for user in all_users:
-        #     user.prognosticoins += 500
+        for user in all_users:
+            user.prognosticoins += 500
         # print('CURRENT WEEK RECORD ---------', current_week_record)
         if not current_week_record or (current_week_record.current_year != all_games_data[0]['year'] or current_week_record.current_week != all_games_data[0]['week']):
             if not current_week_record:
