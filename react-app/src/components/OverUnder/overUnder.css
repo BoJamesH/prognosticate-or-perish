@@ -20,7 +20,7 @@
 }
 
 .ou-instruction-div {
-    width: 670px;
+    width: 690px;
     text-align: center;
     font-size: 14px;
     margin-bottom: 20px;
@@ -35,15 +35,14 @@
   .ou-single-game-div {
     border: 1px solid #ccc;
     padding: 10px;
-    max-width: 365px;
-    width: 365px;
-    height: 200px;
+    width: 385px;
+    height: 230px;
   }
 
 
 .ou-team-logo {
-    width: 50px;
-    height: 50px;
+    width: 65px;
+    height: 65px;
 }
 
 .ou-at-between-logos {
@@ -126,7 +125,7 @@
 
 .ou-submit-button {
     height: 25px;
-    width: 160px;
+    width: 150px;
     background-color: rgb(68, 68, 68);
     color: white;
     border-radius: 5px;
