@@ -1,5 +1,4 @@
 .user-profile-page {
-    margin-left: 60px;
     margin-top: 40px;
     display: flex;
     flex-direction: column;
@@ -70,6 +69,17 @@
     margin-right: 60px;
 }
 
+.eliminator-pick {
+    font-size: 14px;
+}
+
+.user-pickem-record {
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 60px;
+}
+
 .user-page-ph {
     margin-top: 60px;
 }
@@ -79,4 +89,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.user-ou-bet-game {
+    margin-top: 10px;
 }

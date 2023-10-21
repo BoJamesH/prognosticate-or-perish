@@ -6,10 +6,14 @@ import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import CommentListGuest from '../CommentListGuest/commentListGuest';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './splashPage.css'
+import { checkUserElimPicks } from '../../store/elimPicks';
+import { checkUserPickEmPicks } from '../../store/pickEmPicks';
+import { checkUserOverUnderBets } from '../../store/overUnderBets';
 
 function SplashPage() {
+    const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
     const [showMenu, setShowMenu] = useState(false);
     const [showButtons, setShowButtons] = useState(true)
@@ -20,6 +24,9 @@ function SplashPage() {
         if (sessionUser) {
             setShowButtons(false)
         }
+        dispatch(checkUserElimPicks())
+        dispatch(checkUserPickEmPicks())
+        dispatch(checkUserOverUnderBets())
     }, [sessionUser])
 
     return (
@@ -92,13 +99,13 @@ function SplashPage() {
                   </li>
                   <li className='splash-gamelist-li'>
                     <span className='splash-gamelist-title'>
-                      Over/Under Bets
+                    <Link className='splash-game-link' to='/overunder'>Over/Under Bets</Link>
                     </span>
                     <span className='splash-gamelist-description'>
-                      Use a set amount of prognosticoins to out-bet your competition and earn the most by the end of the season betting on the over/under!
+                      Use a set amount of prognosticoins to out-bet your competition and earn the most by the end of the season wagering on the over/under!
                     </span>
                     <span className='splash-gamelist-status'>
-                      Coming Soon
+                      Open!
                     </span>
                   </li>
                 </ul>
