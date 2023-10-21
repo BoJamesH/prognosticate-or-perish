@@ -66,7 +66,8 @@ const OverUnderPage = () => {
     setSelectedOptions({ ...selectedOptions, [gameID]: { under: option } });
   };
 
-  const handleOverUnderSliderChange = (e, sliderOption) => {
+  const handleOverUnderSliderChange = (sliderOption, e) => {
+    e.preventDefault()
     const newBetAmounts = { ...betAmounts, [sliderOption]: parseInt(e.target.value) };
     setBetAmounts(newBetAmounts);
   };
@@ -199,8 +200,8 @@ null
                             min={0}
                             max={userPrognosticoins}
                             value={currentBetAmount}
-                            onChange={(e) => handleOverUnderSliderChange(e, sliderOption)}
-                        />
+                            onChange={(e) => handleOverUnderSliderChange(sliderOption, e)}
+                        />{console.log('SLIDER OPTIONS!!!!, ', sliderOption, 'CURRENT BET AMOUNT!!!, ', currentBetAmount)}
                         {currentBetAmount > 0 && (
                         <div>
                             <div className='ou-current-bet-div'>Current Bet:</div>
