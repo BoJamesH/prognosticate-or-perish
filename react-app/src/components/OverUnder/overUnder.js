@@ -139,7 +139,7 @@ const OverUnderPage = () => {
                 return betAmount / 1.1;
               };
             return (
-              <div className={`ou-single-game-div ${game.completed ? 'completed' : ''}`} key={game.id}>
+              <div className={`ou-single-game-div ${game.completed ? 'completed' : (game.over_under === 0 ? 'in-progress' : '')}`} key={game.id}>
                 <div className='ou-game-teams-div'>
                   <div className='ou-team-left'>
                     <img className='ou-team-logo' src={awayTeam.logo_small} alt={`${awayTeam.name} logo`} />
@@ -167,11 +167,12 @@ null
                   )}
                   {!game.completed && (
                     <>
-                      <div className='ou-game-spread-div'>Spread: {game.spread}</div>
-                      <div className='ou-game-over-under-div'>Over/Under: {game.over_under}</div>
-                      <div className='ou-input-overall-div'>
+                      <div className='ou-game-spread-div' hidden={game.over_under == 0}>Spread: {game.spread === 'Game finished' ? 'Betting Closed' : game.spread}</div>
+                      <div className='ou-game-over-under-div'>Over/Under: {game.over_under == 0 ? 'Betting Closed' : game.over_under}</div>
+                      <div className='ou-input-overall-div' hidden={game.over_under == 0}>
                         <label>
                         <input
+                            hidden={game.over_under == 0}
                             type="radio"
                             name={overOption}
                             value="over"
@@ -183,6 +184,7 @@ null
 
                         <label>
                         <input
+                            hidden={game.over_under == 0}
                             type="radio"
                             id='ou-under-radio'
                             name={underOption}
@@ -193,8 +195,9 @@ null
                         Under
                         </label>
                     </div>
-                      <div className='ou-bet-range-div'>
+                      <div hidden={game.over_under == 0} className='ou-bet-range-div'>
                         <input
+                            hidden={game.over_under == 0}
                             type="range"
                             name={sliderOption}
                             min={0}
