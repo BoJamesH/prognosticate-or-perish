@@ -7,6 +7,7 @@ import Leaderboard from './singleLeaderboard';
 import './leaderboards.css'
 import { checkUserElimPicks } from '../../store/elimPicks';
 import { checkUserPickEmPicks } from '../../store/pickEmPicks';
+import PrognosticoinLeaderboard from './progLeaderboard';
 
 function LeaderboardPage() {
     const dispatch = useDispatch()
@@ -25,6 +26,7 @@ function LeaderboardPage() {
                 <div className="leaderboard-page">
                 <Leaderboard users={allUsers} gameType="elim" />
                 <Leaderboard users={allUsers} gameType="pick" />
+                <PrognosticoinLeaderboard users={allUsers} />
               </div>
         }
         <div className='leaderboard-all-comments-div'>
