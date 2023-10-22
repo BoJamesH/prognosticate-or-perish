@@ -1,13 +1,13 @@
 import './leaderboards.css';
 
-function Leaderboard({ users, gameType, coins }) {
-  const sortedUsers = users.sort((a, b) => b[coins] - a[coins]);
+function PrognosticoinLeaderboard({ users }) {
+  const sortedUsers = users.sort((a, b) => b.prognosticoins - a.prognosticoins);
 
   let rank = 1;
   let prevUser = sortedUsers[0];
 
   const usersWithRanks = sortedUsers.map((user, index) => {
-    if (user[coins] !== prevUser[coins]) {
+    if (user.prognosticoins !== prevUser.prognosticoins) {
       rank++;
     }
     prevUser = user;
@@ -16,15 +16,13 @@ function Leaderboard({ users, gameType, coins }) {
 
   return (
     <div className="leaderboard">
-      <h2 className='leaderboard-title'>{gameType === 'elim' ? `Eliminator` : `Pick 'Em`} Leaderboard</h2>
+      <h2 className='leaderboard-title'>Prognosticoin Leaderboard</h2>
       <table>
         <thead>
           <tr>
             <th className='leaderboard-header'>Rank</th>
             <th className='leaderboard-username leaderboard-header'>Username</th>
-            <th className='leaderboard-header'>Wins</th>
-            <th className='leaderboard-header'>Losses</th>
-            <th className='leaderboard-header'>Ties</th>
+            <th className='leaderboard-header'>Prognosticoins</th>
           </tr>
         </thead>
         <tbody>
@@ -32,9 +30,7 @@ function Leaderboard({ users, gameType, coins }) {
             <tr key={user.id}>
               <td>{user.rank}</td>
               <td>{user.username}</td>
-              <td>{user[`${gameType}_wins`]}</td>
-              <td>{user[`${gameType}_losses`]}</td>
-              <td>{user[`${gameType}_ties`]}</td>
+              <td>{user.prognosticoins}</td>
             </tr>
           ))}
         </tbody>
@@ -43,5 +39,4 @@ function Leaderboard({ users, gameType, coins }) {
   );
 }
 
-export default Leaderboard;
-
+export default PrognosticoinLeaderboard;
