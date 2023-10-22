@@ -57,9 +57,9 @@ const EliminatorPage = () => {
     return false;
   };
 
-  const elimPickHandler = (teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore, e) => {
+  const elimPickHandler = (over_under, teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore, e) => {
     e.preventDefault()
-    if (completed) {
+    if (over_under == 0) {
       alert(`This game has already started! Choose another game.`)
       return;
     }
@@ -128,9 +128,9 @@ const EliminatorPage = () => {
               const awayTeam = allTeams.find((team) => team.name === game.away_team_name);
 
             return (
-              <div className={`eliminator-single-game-div ${game.completed ? 'completed' : ''}`} key={game.id}>
+              <div className={`eliminator-single-game-div ${game.completed ? 'completed' : (game.over_under === 0 ? 'in-progress' : '')}`} key={game.id}>
                 <div className='eliminator-game-teams-div'>
-                  <div onClick={(e) => elimPickHandler(awayTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
+                  <div onClick={(e) => elimPickHandler(game.over_under, awayTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
                   className={`eliminator-team-left ${getTeamClassName(game, awayTeam.name)}`}
                   >
                     <img className='eliminator-team-logo' src={awayTeam.logo_small} alt={`${awayTeam.name} logo`} />
@@ -139,7 +139,7 @@ const EliminatorPage = () => {
                   <div className='eliminator-at-between-logos'>
                     @
                   </div>
-                  <div onClick={(e) => elimPickHandler(homeTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
+                  <div onClick={(e) => elimPickHandler(game.over_under, homeTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
                   className={`eliminator-team-right ${getTeamClassName(game, homeTeam.name)}`}
                   >
                     <img className='eliminator-team-logo' src={homeTeam.logo_small} alt={`${homeTeam.name} logo`} />
@@ -162,8 +162,10 @@ const EliminatorPage = () => {
                   )}
                   {!game.completed && (
                     <>
-                      <div className='eliminator-game-spread-div'>Spread: {game.spread}</div>
-                      <div className='eliminator-game-over-under-div'>Over/Under: {game.over_under}</div>
+                      <div className='eliminator-game-spread-div'>
+                        Spread: {game.spread === 'Game finished' ? 'Betting Closed' : game.spread}
+                      </div>
+                      <div className='eliminator-game-over-under-div'>Over/Under: {game.over_under == 0 ? 'Betting Closed' : game.over_under}</div>
                     </>
                   )}
                 </div>

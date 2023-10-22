@@ -92,6 +92,10 @@
   border: 3px solid rgba(155, 15, 15, 0.356);
 }
 
+.in-progress {
+    border: 3px solid rgba(189, 164, 25, 0.356);
+}
+
 .ou-input-overall-div {
     margin-top: 10px;
 }
