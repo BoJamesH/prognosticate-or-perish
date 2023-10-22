@@ -7,7 +7,7 @@ over_under_routes = Blueprint('over_under_bets', __name__)
 
 @over_under_routes.route('')
 @login_required
-def user_pick_em_picks():
+def user_over_under_bets():
     """
     Query for all user over/under bets and return them in a list of bet dictionaries.
     """
