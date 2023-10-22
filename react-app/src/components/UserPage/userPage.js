@@ -123,7 +123,7 @@ const UserPage = () => {
                       return (
                           <div className='user-ou-bet-game' key={bet.id}>
                               <div>Game: {game.away_team_name} vs {game.home_team_name}</div>
-                              <div>Over/Under: {game.over_under}</div>
+                              <div>Over/Under: {game.over_under === 0 ? 'Betting Closed' : game.over_under}</div>
                               <div>Amount Wagered: {bet.progs_wagered} Prognosticoins</div>
                               <div>Bet: {bet.status}</div>
                           </div>
