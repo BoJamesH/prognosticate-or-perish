@@ -21,6 +21,7 @@ const UserPage = () => {
   const userOverUnderBets = useSelector(state => state.overUnderBets.userOverUnderBets)
   const currWeekGames = useSelector(state => state.games.allGames)
   const currentWeekUserBets = userOverUnderBets.filter((bet) => bet.week === currentWeek);
+  console.log('CURRENT WEEK USER BETS USER PAGE!!!! ', currentWeekUserBets)
 
   const [showChangeProfile, setShowChangeProfile] = useState(false);
   const [newProfileImage, setNewProfileImage] = useState('');
@@ -109,7 +110,7 @@ const UserPage = () => {
       <h3><Link className="user-elim-link" to="/overunder">Over/Under Wagers</Link></h3>
       <div className="eliminator-record">
           <h4>Week {currentWeek} Over/Under Bets:</h4>
-          <p>Total Potential Payout: {calculateTotalOverUnderPayout(userOverUnderBets).toFixed(2)}</p>
+          <p>Total Potential Payout: {calculateTotalOverUnderPayout(currentWeekUserBets).toFixed(2)}</p>
           {currentWeekUserBets.length === 0 ? (
               <p>No bets placed for the current week.</p>
           ) : (
