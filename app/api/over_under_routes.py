@@ -72,11 +72,14 @@ def check_over_under_bets():
                 if game_ou_status == current_bet.status:
                     current_bet.status = 'WIN'
                     pick_user.prognosticoins += current_bet.payout
+                    current_bet.payout = 0
                 elif game_ou_status != current_bet.status:
                     current_bet.status = 'LOSS'
+                    current_bet.payout = 0
                 elif game_ou_status == 'PUSH':
                     current_bet.status = 'PUSH'
                     pick_user.prognosticoins += current_bet.progs_wagered
+                    current_bet.payout = 0
                 else:
                     return jsonify({'message': 'Unknown status of game or bet, bet not updated.'})
         db.session.commit()
