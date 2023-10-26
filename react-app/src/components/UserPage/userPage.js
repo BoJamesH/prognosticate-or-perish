@@ -17,12 +17,10 @@ const UserPage = () => {
   const currentWeek = Number(useSelector((state) => state.games.currentWeek));
   const user = useSelector((state) => state.session.user);
   const eliminatorPicks = useSelector((state) => state.eliminatorPicks.userElimPicks);
-  // const pickEmPicks = useSelector((state) => state.pickEmPicks.userPickEmPicks)
+  const spreadElimPicks = useSelector((state) => state.spreadEliminatorPicks.userSpreadElimPicks)
   const userOverUnderBets = useSelector(state => state.overUnderBets.userOverUnderBets)
   const currWeekGames = useSelector(state => state.games.allGames)
   const currentWeekUserBets = userOverUnderBets.filter((bet) => bet.week === currentWeek);
-  console.log('CURRENT WEEK USER BETS USER PAGE!!!! ', currentWeekUserBets)
-
   const [showChangeProfile, setShowChangeProfile] = useState(false);
   const [newProfileImage, setNewProfileImage] = useState('');
 
@@ -91,10 +89,11 @@ const UserPage = () => {
       <div className='user-elim-record'>
       <h3><Link className='user-elim-link' to='/eliminator'>Eliminator</Link></h3>
           <h4>Eliminator record: {user.elim_wins} - {user.elim_losses} - {user.elim_ties}</h4>
-      {eliminatorPicks && eliminatorPicks.map((pick) => (
+      {spreadElimPicks && spreadElimPicks.map((pick) => (
           <div key={pick.id} className="eliminator-pick">
           <p>Week {pick.week}</p>
           <p>Selected Team: {pick.selected_team_name}</p>
+          <p>Spread: {pick.spread}</p>
           <p>Status: {pick.status}</p>
           </div>
       ))}
@@ -103,6 +102,19 @@ const UserPage = () => {
           <h3><Link className='user-elim-link' to='/pickem'>Pick 'Em</Link></h3>
           <div className='eliminator-record'>
           <h4>Pick 'em record: {user.pick_wins} - {user.pick_losses} - {user.pick_ties}</h4>
+          </div>
+      </span>
+      <span className='user-pickem-record'>
+          <h3><Link className='user-elim-link' to='/pickem'>Spread Eliminator</Link></h3>
+          <div className='eliminator-record'>
+          <h4>Spread Eliminator record: {user.sp_elim_wins} - {user.sp_elim_losses} - {user.sp_elim_pushes}</h4>
+          {eliminatorPicks && eliminatorPicks.map((pick) => (
+          <div key={pick.id} className="eliminator-pick">
+          <p>Week {pick.week}</p>
+          <p>Selected Team: {pick.selected_team_name}</p>
+          <p>Status: {pick.status}</p>
+          </div>
+      ))}
           </div>
       </span>
       <span className='user-over-under-bets'>
