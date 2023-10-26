@@ -5,6 +5,7 @@ import { getTeams } from '../../store/teams';
 import { getAPIGames, storeGames, storeWeek } from '../../store/games';
 import { checkUserElimPicks, getUserElimPicks } from '../../store/elimPicks';
 import { checkUserPickEmPicks, getUserPickEmPicks } from '../../store/pickEmPicks';
+import { getUserOverUnderBets, checkUserOverUnderBets } from '../../store/overUnderBets';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import CommentListGuest from '../CommentListGuest/commentListGuest';
@@ -48,8 +49,8 @@ const SpreadEliminatorPage = () => {
     dispatch(checkUserElimPicks());
     dispatch(getUserPickEmPicks());
     dispatch(checkUserPickEmPicks());
-    // dispatch(getUserOverUnderBets())
-    // dispatch(checkUserOverUnderBets())
+    dispatch(getUserOverUnderBets())
+    dispatch(checkUserOverUnderBets())
     dispatch(getUserSpreadElimPicks())
     dispatch(checkUserSpreadElimPicks())
   }, [dispatch]);
