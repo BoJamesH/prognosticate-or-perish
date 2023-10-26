@@ -53,6 +53,10 @@
 .user-games-div {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    min-width: 60vw;
+    margin-left: 60px;
+    margin-right: 60px;
 }
 
 .user-elim-link {
