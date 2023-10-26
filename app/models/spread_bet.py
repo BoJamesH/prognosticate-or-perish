@@ -13,6 +13,7 @@ class Spread_Bet(db.Model):
     week = db.Column(db.Integer)
     game_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('games.id')))
     selected_team_name = db.Column(db.String)
+    spread_at_bet = db.Column(db.String)
     progs_wagered = db.Column(db.Integer)
     status = db.Column(db.String, default='OPEN')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
