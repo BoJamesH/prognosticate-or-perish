@@ -163,7 +163,7 @@ def check_spread_eliminator_picks():
                             pick_user.sp_elim_losses += 1
                 else:
                     team_abbrev, spread_value = spread_at_bet.split(' -')
-                    favored_team = game.TEAM_ABBREVIATIONS.get(team_abbrev)
+                    favored_team = TEAM_ABBREVIATIONS.team_abbrev
 
                     if favored_team is None:
                         continue

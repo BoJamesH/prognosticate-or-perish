@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react';
 import { getComments } from '../../store/comments';
 import { getTeams } from '../../store/teams';
 import { getAPIGames, storeGames, storeWeek } from '../../store/games';
-import { checkUserElimPicks, deleteUserElimPick, getUserElimPicks, postUserElimPick } from '../../store/elimPicks';
+import { checkUserElimPicks, getUserElimPicks } from '../../store/elimPicks';
 import { checkUserPickEmPicks, getUserPickEmPicks } from '../../store/pickEmPicks';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import CommentListGuest from '../CommentListGuest/commentListGuest';
 import './spreadEliminator.css';
+import { checkUserSpreadElimPicks, deleteUserSpreadElimPick, getUserSpreadElimPicks, postUserSpreadElimPick } from '../../store/spreadElimPicks';
 
 const SpreadEliminatorPage = () => {
   const dispatch = useDispatch();
@@ -47,8 +48,10 @@ const SpreadEliminatorPage = () => {
     dispatch(checkUserElimPicks());
     dispatch(getUserPickEmPicks());
     dispatch(checkUserPickEmPicks());
-    dispatch(getUserOverUnderBets())
-    dispatch(checkUserOverUnderBets())
+    // dispatch(getUserOverUnderBets())
+    // dispatch(checkUserOverUnderBets())
+    dispatch(getUserSpreadElimPicks())
+    dispatch(checkUserSpreadElimPicks())
   }, [dispatch]);
 
   const isTeamPickedInPreviousWeeks = (teamName, currentWeek, userSpreadEliminatorPicks) => {
@@ -60,7 +63,7 @@ const SpreadEliminatorPage = () => {
     return false;
   };
 
-  const spreadElimPickHandler = (over_under, teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore, e) => {
+  const spreadElimPickHandler = (spread, over_under, teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore, e) => {
     e.preventDefault()
     if (over_under == 0) {
       alert(`This game has already started! Choose another game.`)
@@ -75,7 +78,7 @@ const SpreadEliminatorPage = () => {
       dispatch(deleteUserSpreadElimPick(week))
       return;
     }
-    dispatch(postUserSpreadElimPick(teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore))
+    dispatch(postUserSpreadElimPick(spread, teamName, gameId, week, completed, selectedTeamScore, opposingTeamScore))
   }
 
   const getTeamClassName = (game, teamName) => {
@@ -133,7 +136,7 @@ const SpreadEliminatorPage = () => {
             return (
               <div className={`sp-eliminator-single-game-div ${game.completed ? 'completed' : (game.over_under === 0 ? 'in-progress' : '')}`} key={game.id}>
                 <div className='sp-eliminator-game-teams-div'>
-                  <div onClick={(e) => spreadElimPickHandler(game.over_under, awayTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
+                  <div onClick={(e) => spreadElimPickHandler(game.spread, game.over_under, awayTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
                   className={`sp-eliminator-team-left ${getTeamClassName(game, awayTeam.name)}`}
                   >
                     <img className='sp-eliminator-team-logo' src={awayTeam.logo_small} alt={`${awayTeam.name} logo`} />
@@ -142,7 +145,7 @@ const SpreadEliminatorPage = () => {
                   <div className='sp-eliminator-at-between-logos'>
                     @
                   </div>
-                  <div onClick={(e) => elimPickHandler(game.over_under, homeTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
+                  <div onClick={(e) => spreadElimPickHandler(game.spread, game.over_under, homeTeam.name, game.id, currentWeek, game.completed, game.away_team_score, game.home_team_score, e)}
                   className={`sp-eliminator-team-right ${getTeamClassName(game, homeTeam.name)}`}
                   >
                     <img className='sp-eliminator-team-logo' src={homeTeam.logo_small} alt={`${homeTeam.name} logo`} />

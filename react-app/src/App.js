@@ -12,6 +12,7 @@ import SplashPage from "./components/SplashPage/splashPage";
 import PickEmPage from "./components/PickEm/pickEm";
 import LeaderboardPage from "./components/Leaderboards/leaderboards";
 import OverUnderPage from "./components/OverUnder/overUnder";
+import SpreadEliminatorPage from "./components/SpreadEliminator/spreadEliminator";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +34,9 @@ function App() {
           </Route>
           <Route exact path='/eliminator'>
             <EliminatorPage />
+          </Route>
+          <Route exact path='/sp-eliminator'>
+            <SpreadEliminatorPage />
           </Route>
           <Route exact path='/pickem'>
             <PickEmPage />

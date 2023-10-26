@@ -17,8 +17,8 @@ export const getUserSpreadElimPicks = () => async (dispatch) => {
     }
 }
 
-export const postUserSpreadElimPick = (name, gameId, week, completed, selectedTeamScore, opposingTeamScore) => async (dispatch) => {
-    const pickBody = { name, gameId, week, completed, selectedTeamScore, opposingTeamScore };
+export const postUserSpreadElimPick = (spread, name, gameId, week, completed, selectedTeamScore, opposingTeamScore) => async (dispatch) => {
+    const pickBody = { spread, name, gameId, week, completed, selectedTeamScore, opposingTeamScore };
     try {
         const response = await fetch('/api/spread_elim_picks', {
             method: "POST",

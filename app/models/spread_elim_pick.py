@@ -30,6 +30,7 @@ class Spread_Elim_Pick(db.Model):
             'week': self.week,
             'game_id': self.game_id,
             'selected_team_name': self.selected_team_name,
+            'spread_at_bet': self.spread_at_bet,
             'status': self.status,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
