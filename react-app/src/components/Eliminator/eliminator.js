@@ -49,7 +49,7 @@ const EliminatorPage = () => {
   }, [dispatch]);
 
   const isTeamPickedInPreviousWeeks = (teamName, currentWeek, userEliminatorPicks) => {
-    if (userEliminatorPicks.length < 1) return;
+    if (userEliminatorPicks && userEliminatorPicks.length < 1) return;
     for (const pick of userEliminatorPicks) {
       if (pick.week < currentWeek && pick.selected_team_name == teamName) {
         return true;
