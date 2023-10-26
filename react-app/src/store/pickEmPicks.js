@@ -6,16 +6,21 @@ export const setPickEmPicks = (picks) => ({
 })
 
 export const getUserPickEmPicks = () => async (dispatch) => {
-    const response = await fetch(`/api/pick_em_picks`)
-    console.log('response: ', response)
-    if(response.ok) {
+    try {
+      const response = await fetch(`/api/pick_em_picks`);
+      console.log('response: ', response);
+      if (response.ok) {
         const getUserPickEmPicks = await response.json();
-        console.log('getUserPickEmPicks:', getUserPickEmPicks)
-        const userPickEmPicks = getUserPickEmPicks.user_pick_em_picks
-        console.log('USER PickEm PICKS ------ ', userPickEmPicks)
-        dispatch(setPickEmPicks(userPickEmPicks))
+        console.log('getUserPickEmPicks:', getUserPickEmPicks);
+        const userPickEmPicks = getUserPickEmPicks.user_pick_em_picks;
+        console.log('USER PickEm PICKS ------ ', userPickEmPicks);
+        dispatch(setPickEmPicks(userPickEmPicks));
+      }
+    } catch (error) {
+      console.error('Error fetching user PickEm picks:', error);
     }
-}
+  };
+
 
 export const postUserPickEmPick = (selected_team_name, gameId, week, completed, selectedTeamScore, opposingTeamScore) => async (dispatch) => {
     const pickBody = { selected_team_name, gameId, week, completed, selectedTeamScore, opposingTeamScore };

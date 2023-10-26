@@ -10,6 +10,7 @@ import { checkUserPickEmPicks } from '../../store/pickEmPicks';
 import PrognosticoinLeaderboard from './progLeaderboard';
 import EliminatorLeaderboard from './elimLeaderboard';
 import PickEmLeaderboard from './pickEmLeaderboard';
+import SpreadEliminatorLeaderboard from './spreadElimLeaderboard';
 
 function LeaderboardPage() {
     const dispatch = useDispatch()
@@ -28,6 +29,7 @@ function LeaderboardPage() {
                 <div className="leaderboard-page">
                 <EliminatorLeaderboard users={allUsers} />
                 <PickEmLeaderboard users={allUsers} />
+                <SpreadEliminatorLeaderboard users={allUsers} />
                 <PrognosticoinLeaderboard users={allUsers} />
               </div>
         }

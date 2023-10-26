@@ -6,16 +6,21 @@ export const setElimPicks = (picks) => ({
 })
 
 export const getUserElimPicks = () => async (dispatch) => {
-    const response = await fetch(`/api/elim_picks`)
-    console.log('response: ', response)
-    if(response.ok) {
+    try {
+      const response = await fetch(`/api/elim_picks`);
+      console.log('response: ', response);
+      if (response.ok) {
         const getUserElimPicks = await response.json();
-        console.log('getUserElimPicks:', getUserElimPicks)
-        const userElimPicks = getUserElimPicks.user_elim_picks
-        console.log('USER ELIM PICKS ------ ', userElimPicks)
-        dispatch(setElimPicks(userElimPicks))
+        console.log('getUserElimPicks:', getUserElimPicks);
+        const userElimPicks = getUserElimPicks.user_elim_picks;
+        console.log('USER ELIM PICKS ------ ', userElimPicks);
+        dispatch(setElimPicks(userElimPicks));
+      }
+    } catch (error) {
+      console.error('Error fetching user eliminator picks:', error);
     }
-}
+  };
+
 
 export const postUserElimPick = (name, gameId, week, completed, selectedTeamScore, opposingTeamScore) => async (dispatch) => {
     const pickBody = { name, gameId, week, completed, selectedTeamScore, opposingTeamScore };

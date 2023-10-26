@@ -6,16 +6,21 @@ export const setSpreadElimPicks = (picks) => ({
 })
 
 export const getUserSpreadElimPicks = () => async (dispatch) => {
-    const response = await fetch(`/api/spread_elim_picks`)
-    console.log('response: ', response)
-    if(response.ok) {
+    try {
+      const response = await fetch(`/api/spread_elim_picks`);
+      console.log('response: ', response);
+      if (response.ok) {
         const getUserSpreadElimPicks = await response.json();
-        console.log('getUserSpreadElimPicks:', getUserSpreadElimPicks)
-        const userSpreadElimPicks = getUserSpreadElimPicks.user_spread_elim_picks
-        console.log('USER SPREAD ELIM PICKS ------ ', userSpreadElimPicks)
-        dispatch(setSpreadElimPicks(userSpreadElimPicks))
+        console.log('getUserSpreadElimPicks:', getUserSpreadElimPicks);
+        const userSpreadElimPicks = getUserSpreadElimPicks.user_spread_elim_picks;
+        console.log('USER SPREAD ELIM PICKS ------ ', userSpreadElimPicks);
+        dispatch(setSpreadElimPicks(userSpreadElimPicks));
+      }
+    } catch (error) {
+      console.error('Error fetching user Spread Eliminator picks:', error);
     }
-}
+  };
+
 
 export const postUserSpreadElimPick = (spread, name, gameId, week, completed, selectedTeamScore, opposingTeamScore) => async (dispatch) => {
     const pickBody = { spread, name, gameId, week, completed, selectedTeamScore, opposingTeamScore };
