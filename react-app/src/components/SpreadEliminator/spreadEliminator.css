@@ -1,0 +1,141 @@
+
+.sp-eliminator-all-container-div {
+    width: 96.8vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.sp-eliminator-loading-ph {
+    text-align: center;
+}
+
+.sp-eliminator-title-div {
+    text-align: center;
+}
+
+.week-title {
+    color: rgb(170, 170, 170);
+}
+
+.sp-eliminator-instruction-div {
+    width: 670px;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.sp-eliminator-all-games-div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 60px;
+  }
+
+  .sp-eliminator-single-game-div {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+
+
+.sp-eliminator-team-logo {
+    width: 50px;
+    height: 50px;
+}
+
+.sp-eliminator-at-between-logos {
+    text-align: center;
+}
+
+/* .sp-eliminator-game-spread-div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+} */
+
+/* .sp-eliminator-game-over-under-div {
+    width: 100%;
+    display: flex;
+    flex: column;
+    align-items: center;0
+    justify-content: center;
+} */
+
+
+.main-commentlist-div {
+    max-width: 70vw;
+}
+
+.sp-eliminator-single-game-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 3px solid #136813;
+    padding: 10px;
+    /* margin-bottom: 10px; */
+    border-radius: 10px;
+}
+
+.sp-eliminator-team-left,
+.sp-eliminator-team-right {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+    cursor: pointer;
+    padding-left: 20px;
+}
+
+.sp-eliminator-team-right {
+    margin-top: 10px;
+}
+
+.sp-eliminator-team-left {
+    margin-bottom: 10px;
+}
+
+
+.sp-eliminator-game-details {
+    flex-grow: 1;
+    justify-content: left;
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+.completed {
+  /* background-color: rgba(134, 155, 15, 0.158); */
+  border: 3px solid rgba(155, 15, 15, 0.356);
+  cursor: not-allowed;
+}
+
+.current-sp-elim-pick-div {
+    background-color: rgba(6, 104, 71, 0.527);
+    border-radius: 10px;
+}
+
+/* .completed::before,
+.completed::after {
+  content: "COMPLETE";
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}  */
+
+.picked-in-previous-weeks {
+    border-radius: 10px;
+    background-color: rgba(175, 175, 175, 0.411);
+    cursor: not-allowed;
+}
+
+.sp-eliminator-no-user-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    margin-top: 60px;
+}

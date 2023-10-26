@@ -204,7 +204,7 @@ null
                             max={userPrognosticoins}
                             value={currentBetAmount}
                             onChange={(e) => handleOverUnderSliderChange(sliderOption, e)}
-                        />{console.log('SLIDER OPTIONS!!!!, ', sliderOption, 'CURRENT BET AMOUNT!!!, ', currentBetAmount)}
+                        />
                         {currentBetAmount > 0 && (
                         <div>
                             <div className='ou-current-bet-div'>Current Bet:</div>

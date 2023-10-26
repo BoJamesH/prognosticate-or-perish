@@ -77,13 +77,13 @@ function SplashPage() {
                   </li>
                   <li className='splash-gamelist-li'>
                     <span className='splash-gamelist-title'>
-                      Spread Eliminator
+                    <Link className='splash-game-link' to='/sp-eliminator'>Spread Eliminator</Link>
                     </span>
                     <span className='splash-gamelist-description'>
                       Same as eliminator, but this time you have to beat the spread. That's harder!
                     </span>
                     <span className='splash-gamelist-status'>
-                      Coming Soon
+                      Open!
                     </span>
                   </li>
                   <li className='splash-gamelist-li'>

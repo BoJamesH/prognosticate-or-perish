@@ -6,14 +6,19 @@ export const setAllUsers = (users) => ({
 })
 
 export const getAllUsers = () => async (dispatch) => {
-    const response = await fetch(`/api/users`)
-    console.log('resonse: ', response)
-    if(response.ok) {
+    try {
+      const response = await fetch(`/api/users`);
+      console.log('response: ', response);
+      if (response.ok) {
         const getAllUsers = await response.json();
-        const allUsers = getAllUsers.users
-        dispatch(setAllUsers(allUsers))
+        const allUsers = getAllUsers.users;
+        dispatch(setAllUsers(allUsers));
+      }
+    } catch (error) {
+      console.error('Error fetching all users:', error);
     }
-}
+  };
+
 
 const initialState = {
     allUsers: []

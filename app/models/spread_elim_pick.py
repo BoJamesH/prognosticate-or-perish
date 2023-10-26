@@ -13,6 +13,7 @@ class Spread_Elim_Pick(db.Model):
     week = db.Column(db.Integer)
     game_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('games.id')))
     selected_team_name = db.Column(db.String)
+    spread_at_bet = db.Column(db.String)
     status = db.Column(db.String, default='OPEN')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -29,6 +30,7 @@ class Spread_Elim_Pick(db.Model):
             'week': self.week,
             'game_id': self.game_id,
             'selected_team_name': self.selected_team_name,
+            'spread_at_bet': self.spread_at_bet,
             'status': self.status,
             'created_at': self.created_at,
             'updated_at': self.updated_at,

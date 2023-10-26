@@ -31,6 +31,45 @@ class Game(db.Model):
     over_under_bets_game = db.relationship('Over_Under_Bet', back_populates='game_over_under_bets', cascade='all, delete-orphan')
     spread_bets_game = db.relationship('Spread_Bet', back_populates='game_spread_bets', cascade='all, delete-orphan')
 
+    # Data
+
+    # TEAM_ABBREVIATIONS = {
+    # 'ARI': 'Cardinals',
+    # 'ATL': 'Falcons',
+    # 'BAL': 'Ravens',
+    # 'BUF': 'Bills',
+    # 'CAR': 'Panthers',
+    # 'CHI': 'Bears',
+    # 'CIN': 'Bengals',
+    # 'CLE': 'Browns',
+    # 'DAL': 'Cowboys',
+    # 'DEN': 'Broncos',
+    # 'DET': 'Lions',
+    # 'GB': 'Packers',
+    # 'HOU': 'Texans',
+    # 'IND': 'Colts',
+    # 'JAX': 'Jaguars',
+    # 'KC': 'Chiefs',
+    # 'LV': 'Raiders',
+    # 'LAC': 'Chargers',
+    # 'LAR': 'Rams',
+    # 'MIA': 'Dolphins',
+    # 'MIN': 'Vikings',
+    # 'NE': 'Patriots',
+    # 'NO': 'Saints',
+    # 'NYG': 'Giants',
+    # 'NYJ': 'Jets',
+    # 'PHI': 'Eagles',
+    # 'PIT': 'Steelers',
+    # 'SF': '49ers',
+    # 'SEA': 'Seahawks',
+    # 'TB': 'Buccaneers',
+    # 'TEN': 'Titans',
+    # 'WAS': 'Commanders',
+    # }
+
+    # Utility instance methods
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -63,3 +102,33 @@ class Game(db.Model):
             return 'UNDER'
         else:
             return 'PUSH'
+
+
+    # def determine_pick_result(self, pick):
+    #     team_abbrev, spread_value = pick.split(' -')
+    #     favored_team = self.TEAM_ABBREVIATIONS[team_abbrev]
+
+    #     home_team = self.home_team_name
+    #     away_team = self.away_team_name
+
+    #     if home_team == favored_team:
+    #         pref_team = home_team
+    #         dog_team = away_team
+    #     else:
+    #         pref_team = away_team
+    #         dog_team = home_team
+
+    #     home_score = self.home_team_score
+    #     away_score = self.away_team_score
+
+    #     if pref_team == home_team:
+    #         point_diff = home_score - away_score
+    #     else:
+    #         point_diff = away_score - home_score
+
+    #     if point_diff > float(spread_value):
+    #         return pref_team
+    #     elif point_diff < -float(spread_value):
+    #         return dog_team
+    #     else:
+    #         return 'PUSH'
