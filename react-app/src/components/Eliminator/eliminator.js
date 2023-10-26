@@ -45,7 +45,7 @@ const EliminatorPage = () => {
     dispatch(getUserElimPicks());
     dispatch(checkUserElimPicks());
     dispatch(getUserPickEmPicks());
-    dispatch(checkUserPickEmPicks());
+    dispatch(checkUserPickEmPicks()); // WHY IS THIS HERE
   }, [dispatch]);
 
   const isTeamPickedInPreviousWeeks = (teamName, currentWeek, userEliminatorPicks) => {

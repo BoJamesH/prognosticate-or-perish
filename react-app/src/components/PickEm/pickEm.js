@@ -15,8 +15,8 @@ const PickEmPage = () => {
   const currentWeek = Number(useSelector((state) => state.games.currentWeek));
   const allGames = useSelector((state) => state.games.allGames);
   const allTeams = useSelector((state) => state.teams.allTeams);
-  const sessionUser = useSelector((state) => state.session.user)
-  const userPickEmPicks = useSelector(state => state.pickEmPicks.userPickEmPicks)
+  const sessionUser = useSelector((state) => state.session.user);
+  const userPickEmPicks = useSelector(state => state.pickEmPicks.userPickEmPicks);
 
 
   useEffect(() => {

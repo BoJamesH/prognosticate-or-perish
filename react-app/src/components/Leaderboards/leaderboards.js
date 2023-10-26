@@ -8,6 +8,8 @@ import './leaderboards.css'
 import { checkUserElimPicks } from '../../store/elimPicks';
 import { checkUserPickEmPicks } from '../../store/pickEmPicks';
 import PrognosticoinLeaderboard from './progLeaderboard';
+import EliminatorLeaderboard from './elimLeaderboard';
+import PickEmLeaderboard from './pickEmLeaderboard';
 
 function LeaderboardPage() {
     const dispatch = useDispatch()
@@ -24,8 +26,8 @@ function LeaderboardPage() {
         <>
         {allUsers &&
                 <div className="leaderboard-page">
-                <Leaderboard users={allUsers} gameType="elim" />
-                <Leaderboard users={allUsers} gameType="pick" />
+                <EliminatorLeaderboard users={allUsers} />
+                <PickEmLeaderboard users={allUsers} />
                 <PrognosticoinLeaderboard users={allUsers} />
               </div>
         }
