@@ -56,12 +56,16 @@ const SpreadEliminatorPage = () => {
   }, [dispatch]);
 
   const isTeamPickedInPreviousWeeks = (teamName, currentWeek, userSpreadEliminatorPicks) => {
-    if (userSpreadEliminatorPicks && userSpreadEliminatorPicks.length < 1) return;
+    if (!userSpreadEliminatorPicks || userSpreadEliminatorPicks.length === 0) {
+      return false; 
+    }
+
     for (const pick of userSpreadEliminatorPicks) {
-      if (pick.week < currentWeek && pick.selected_team_name == teamName) {
+      if (pick.week < currentWeek && pick.selected_team_name === teamName) {
         return true;
       }
     }
+
     return false;
   };
 
