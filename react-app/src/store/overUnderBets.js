@@ -1,4 +1,4 @@
-const SET_OVER_UNDER_BETS= 'comments/SET_OVER_UNDER_BETS'
+const SET_OVER_UNDER_BETS= 'overUnderBets/SET_OVER_UNDER_BETS'
 
 export const setOverUnderBets = (bets) => ({
     type: SET_OVER_UNDER_BETS,

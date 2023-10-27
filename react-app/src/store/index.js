@@ -16,10 +16,10 @@ const rootReducer = combineReducers({
   games,
   teams,
   eliminatorPicks,
-  spreadEliminatorPicks,
   pickEmPicks,
   overUnderBets,
   allUsers,
+  spreadEliminatorPicks,
 });
 
 

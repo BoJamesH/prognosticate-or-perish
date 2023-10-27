@@ -1,5 +1,5 @@
-const SET_GAMES = 'GAMES/SET_GAMES'
-const SET_WEEK = 'GAMES/SET_WEEK'
+const SET_GAMES = 'games/SET_GAMES'
+const SET_WEEK = 'games/SET_WEEK'
 
 
 export const setGames = (games) => ({
