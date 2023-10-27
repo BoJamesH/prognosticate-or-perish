@@ -88,9 +88,12 @@ const SpreadEliminatorPage = () => {
 
   const getTeamClassName = (game, teamName) => {
     const isPickedInPreviousWeeks = isTeamPickedInPreviousWeeks(teamName, currentWeek, userSpreadEliminatorPicks);
-    const currWeekUserPick = userSpreadEliminatorPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
+    let currWeekUserPick
+    if (userSpreadEliminatorPicks) {
+        currWeekUserPick = userSpreadEliminatorPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
+    }
 
-    if (currWeekUserPick) {
+    if (currWeekUserPick && currWeekUserPick.length > 0) {
       return 'current-sp-elim-pick-div';
     } else if (isPickedInPreviousWeeks) {
       return 'picked-in-previous-weeks';
