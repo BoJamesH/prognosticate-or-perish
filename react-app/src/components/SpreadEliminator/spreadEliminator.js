@@ -30,7 +30,7 @@ const SpreadEliminatorPage = () => {
           dispatch(getAPIGames());
           dispatch(storeGames());
           dispatch(storeWeek());
-          dispatch()
+          // dispatch()
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -57,7 +57,7 @@ const SpreadEliminatorPage = () => {
 
   const isTeamPickedInPreviousWeeks = (teamName, currentWeek, userSpreadEliminatorPicks) => {
     if (!userSpreadEliminatorPicks || userSpreadEliminatorPicks.length === 0) {
-      return false; 
+      return false;
     }
 
     for (const pick of userSpreadEliminatorPicks) {
@@ -96,10 +96,12 @@ const SpreadEliminatorPage = () => {
     if (userSpreadEliminatorPicks) {
         currWeekUserPick = userSpreadEliminatorPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
     }
-
-    if (currWeekUserPick && currWeekUserPick.length > 0) {
-      return 'current-sp-elim-pick-div';
-    } else if (isPickedInPreviousWeeks) {
+    if (typeof currWeekUserPick !== 'undefined') {
+      if (currWeekUserPick.selected_team_name == teamName) {
+        return 'current-sp-elim-pick-div';
+    }
+    }
+    if (isPickedInPreviousWeeks) {
       return 'picked-in-previous-weeks';
     }
 

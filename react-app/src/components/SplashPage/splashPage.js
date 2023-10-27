@@ -11,6 +11,7 @@ import './splashPage.css'
 import { checkUserElimPicks } from '../../store/elimPicks';
 import { checkUserPickEmPicks } from '../../store/pickEmPicks';
 import { checkUserOverUnderBets } from '../../store/overUnderBets';
+import { checkUserSpreadElimPicks } from '../../store/spreadElimPicks';
 
 function SplashPage() {
     const dispatch = useDispatch()
@@ -27,6 +28,7 @@ function SplashPage() {
         dispatch(checkUserElimPicks())
         dispatch(checkUserPickEmPicks())
         dispatch(checkUserOverUnderBets())
+        dispatch(checkUserSpreadElimPicks())
     }, [sessionUser])
 
     return (

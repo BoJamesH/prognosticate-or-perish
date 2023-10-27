@@ -13,7 +13,10 @@ def user_spread_elim_picks():
     """
     user_id = int(current_user.get_id())
     try:
+        print('INSIDE TRY BLOCK OF GET USER ELIM PICKS')
         picks = Spread_Elim_Pick.query.filter_by(user_id=user_id).all()
+        print('PICKS ON BACKEND!!!! ', picks)
+        print('JSONIFIED BACKEND SPREAD PICK EM PICKS', jsonify({'user_spread_elim_picks': [pick.to_dict() for pick in picks]}))
         return jsonify({'user_spread_elim_picks': [pick.to_dict() for pick in picks]})
     except Exception as e:
         return jsonify({'error': 'Error fetching user picks', 'details': str(e)})

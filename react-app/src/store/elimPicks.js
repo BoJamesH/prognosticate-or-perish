@@ -1,4 +1,4 @@
-const SET_ELIM_PICKS= 'comments/SET_ELIM_PICKS'
+const SET_ELIM_PICKS= 'elimPicks/SET_ELIM_PICKS'
 
 export const setElimPicks = (picks) => ({
     type: SET_ELIM_PICKS,

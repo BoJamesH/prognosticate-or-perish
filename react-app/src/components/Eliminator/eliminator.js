@@ -5,6 +5,7 @@ import { getTeams } from '../../store/teams';
 import { getAPIGames, storeGames, storeWeek } from '../../store/games';
 import { checkUserElimPicks, deleteUserElimPick, getUserElimPicks, postUserElimPick } from '../../store/elimPicks';
 import { checkUserPickEmPicks, getUserPickEmPicks } from '../../store/pickEmPicks';
+import { getUserSpreadElimPicks, checkUserSpreadElimPicks } from '../../store/spreadElimPicks';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import CommentListGuest from '../CommentListGuest/commentListGuest';
@@ -45,7 +46,9 @@ const EliminatorPage = () => {
     dispatch(getUserElimPicks());
     dispatch(checkUserElimPicks());
     dispatch(getUserPickEmPicks());
-    dispatch(checkUserPickEmPicks()); // WHY IS THIS HERE
+    dispatch(checkUserPickEmPicks());
+    dispatch(getUserSpreadElimPicks())
+    dispatch(checkUserSpreadElimPicks())
   }, [dispatch]);
 
   const isTeamPickedInPreviousWeeks = (teamName, currentWeek, userEliminatorPicks) => {

@@ -1,4 +1,4 @@
-const SET_SPREAD_ELIM_PICKS= 'comments/SET_SPREAD_ELIM_PICKS'
+const SET_SPREAD_ELIM_PICKS= 'spreadElimPicks/SET_SPREAD_ELIM_PICKS'
 
 export const setSpreadElimPicks = (picks) => ({
     type: SET_SPREAD_ELIM_PICKS,
@@ -14,12 +14,12 @@ export const getUserSpreadElimPicks = () => async (dispatch) => {
         console.log('getUserSpreadElimPicks:', getUserSpreadElimPicks);
         const userSpreadElimPicks = getUserSpreadElimPicks.user_spread_elim_picks;
         console.log('USER SPREAD ELIM PICKS ------ ', userSpreadElimPicks);
-        dispatch(setSpreadElimPicks(userSpreadElimPicks));
+        await dispatch(setSpreadElimPicks(userSpreadElimPicks));
       }
     } catch (error) {
       console.error('Error fetching user Spread Eliminator picks:', error);
     }
-  };
+};
 
 
 export const postUserSpreadElimPick = (spread, name, gameId, week, completed, selectedTeamScore, opposingTeamScore) => async (dispatch) => {
