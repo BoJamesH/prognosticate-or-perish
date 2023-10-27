@@ -30,7 +30,6 @@ const SpreadEliminatorPage = () => {
           dispatch(getAPIGames());
           dispatch(storeGames());
           dispatch(storeWeek());
-          // dispatch()
       } catch (error) {
         console.error('Error fetching data:', error);
       }
