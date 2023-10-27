@@ -75,7 +75,10 @@ const SpreadEliminatorPage = () => {
       alert(`You've already picked the ${teamName} in a previous week!`);
       return;
     }
-    const currWeekUserPick = userSpreadEliminatorPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
+    let currWeekUserPick
+    if (userSpreadEliminatorPicks && userSpreadEliminatorPicks.length > 0) {
+        currWeekUserPick = userSpreadEliminatorPicks.find((pick) => pick.week === currentWeek && pick.selected_team_name === teamName);
+    }
     if (currWeekUserPick && currWeekUserPick.selected_team_name === teamName) {
       dispatch(deleteUserSpreadElimPick(week))
       return;
