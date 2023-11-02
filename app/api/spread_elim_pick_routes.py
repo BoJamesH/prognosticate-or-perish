@@ -94,6 +94,7 @@ def check_spread_eliminator_picks():
     current_week = Week.query.first().current_week
     try:
         current_picks = Spread_Elim_Pick.query.filter_by(week=current_week).all()
+        print('ALL CURRENT WEEK PICKS!!! ', current_picks)
         TEAM_ABBREVIATIONS = {
             'ARI': 'Cardinals',
             'ATL': 'Falcons',
@@ -128,6 +129,7 @@ def check_spread_eliminator_picks():
             'TEN': 'Titans',
             'WAS': 'Commanders',
         }
+        print('TEAM ABBREVIATION OBJECT CHECK!!!! ', TEAM_ABBREVIATIONS)
 
         if not current_picks:
             return jsonify({'message': 'No spread eliminator picks found for the current week'})
@@ -141,14 +143,14 @@ def check_spread_eliminator_picks():
 
             if game.completed:
                 spread_at_bet = current_pick.spread_at_bet
-
+                print('ENTERED GAME COMPLETED ROUTE!!!')
                 # Check for 'EVEN' spread
                 if spread_at_bet == 'EVEN':
                     home_team = game.home_team_name
                     away_team = game.away_team_name
                     home_score = game.home_team_score
                     away_score = game.away_team_score
-
+                    print('ELEMENTS FROM EVEN SPREAD----- ', home_team, away_team, home_score, away_score)
                     if home_score == away_score:
                         current_pick.status = 'PUSH'
                         pick_user.sp_elim_ties += 1
@@ -167,7 +169,9 @@ def check_spread_eliminator_picks():
                 else:
                     team_abbrev, spread_value = spread_at_bet.split(' -')
                     favored_team = TEAM_ABBREVIATIONS.team_abbrev
-
+                    print('FAVORED TEAM WORKING CORRECTLY!!!! THIS MAY BE THE PROBLEM!!! ', favored_team)
+                    print('SPREAD VALUE AFTER SPLIT~~~~~~~~ ', spread_value)
+                    print('TEAM ABBREV SPLIT FROM SPREAD, for some reason GREYED OUT/NOT IN USE---- ', team_abbrev)
                     if favored_team is None:
                         continue
 
@@ -194,9 +198,9 @@ def check_spread_eliminator_picks():
                         else:
                             pick_user.sp_elim_losses += 1
                     else:
-                        current_pick.status = 'TIE' if current_pick.selected_team_name == 'TIE' else 'LOSS'
+                        current_pick.status = 'TIE'
                         pick_user.sp_elim_ties += 1
-
+                    print('CURRENT PICK STATUS AFTER CHECKING!!!!! ', current_pick.status)
         db.session.commit()
 
         return jsonify({'message': 'Spread eliminator picks for the current week updated successfully'})
