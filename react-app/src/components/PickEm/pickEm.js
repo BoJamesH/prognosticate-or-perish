@@ -5,6 +5,7 @@ import { getTeams } from '../../store/teams';
 import { getAPIGames, storeGames, storeWeek } from '../../store/games';
 import { getUserPickEmPicks, postUserPickEmPick, deleteUserPickEmPick, checkUserPickEmPicks } from '../../store/pickEmPicks';
 import { getUserElimPicks, checkUserElimPicks } from '../../store/elimPicks';
+import { checkUserSpreadElimPicks, getUserSpreadElimPicks } from '../../store/spreadElimPicks';
 import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import CommentListGuest from '../CommentListGuest/commentListGuest';
@@ -47,7 +48,9 @@ const PickEmPage = () => {
     dispatch(getUserElimPicks());
     dispatch(checkUserElimPicks());
     dispatch(getUserPickEmPicks())
-    dispatch(checkUserPickEmPicks)
+    dispatch(checkUserPickEmPicks())
+    dispatch(getUserSpreadElimPicks())
+    dispatch(checkUserSpreadElimPicks())
   }, [dispatch]);
 
   const getTeamClassName = (game, teamName) => {

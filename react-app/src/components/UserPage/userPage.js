@@ -10,6 +10,7 @@ import { checkUserPickEmPicks, getUserPickEmPicks } from '../../store/pickEmPick
 import './userPage.css'
 import { checkUserOverUnderBets, getUserOverUnderBets } from '../../store/overUnderBets';
 import { storeGames, storeWeek } from '../../store/games';
+import { checkUserSpreadElimPicks, getUserSpreadElimPicks } from '../../store/spreadElimPicks';
 
 
 const UserPage = () => {
@@ -33,6 +34,8 @@ const UserPage = () => {
       dispatch(checkUserPickEmPicks())
       dispatch(getUserOverUnderBets())
       dispatch(checkUserOverUnderBets())
+      dispatch(getUserSpreadElimPicks())
+      dispatch(checkUserSpreadElimPicks())
   }, [dispatch]);
 
   const changeProfilePicHandler = (profile_image, e) => {
