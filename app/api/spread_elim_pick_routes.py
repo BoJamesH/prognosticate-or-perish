@@ -168,7 +168,7 @@ def check_spread_eliminator_picks():
                             pick_user.sp_elim_losses += 1
                 else:
                     team_abbrev, spread_value = spread_at_bet.split(' -')
-                    favored_team = TEAM_ABBREVIATIONS.team_abbrev
+                    favored_team = TEAM_ABBREVIATIONS.get(team_abbrev)
                     print('FAVORED TEAM WORKING CORRECTLY!!!! THIS MAY BE THE PROBLEM!!! ', favored_team)
                     print('SPREAD VALUE AFTER SPLIT~~~~~~~~ ', spread_value)
                     print('TEAM ABBREV SPLIT FROM SPREAD, for some reason GREYED OUT/NOT IN USE---- ', team_abbrev)
