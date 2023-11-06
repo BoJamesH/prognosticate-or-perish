@@ -139,7 +139,7 @@ const UserPage = () => {
       <div className="user-over-under-bets">
       <h3><Link className="user-elim-link" to="/overunder">Over/Under Wagers</Link></h3>
       <div className="eliminator-record">
-          <h4>Week {currentWeek} Over/Under Bets:</h4>
+          <h4 className='user-record-subtitle'>Week {currentWeek} Over/Under Bets:</h4>
           <p>Total Potential Payout: {calculateTotalOverUnderPayout(currentWeekUserBets).toFixed(2)}</p>
           {currentWeekUserBets.length === 0 ? (
               <p>No bets placed for the current week.</p>
@@ -169,7 +169,7 @@ const UserPage = () => {
             <div className="user-spread-bets">
             <h3><Link className="user-elim-link" to="/overunder">Spread Wagers</Link></h3>
             <div className="spread-record">
-                <h4>Week {currentWeek} Spread Bets:</h4>
+                <h4 className='user-record-subtitle'>Week {currentWeek} Spread Bets:</h4>
                 <p>Total Potential Payout: {calculateTotalSpreadPayout(currentWeekUserSpreadBets).toFixed(2)}</p>
                 {currentWeekUserSpreadBets.length === 0 ? (
                     <p>No bets placed for the current week.</p>
