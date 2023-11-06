@@ -118,13 +118,13 @@ const OverUnderPage = () => {
     <>
     <div className='ou-all-container-div'>
       <div className='ou-title-div'>
-        <h2>OVER/UNDER BETS</h2>
+        <h2>OVER/UNDER WAGERS</h2>
         {currentWeek && <h3 className='week-title'>WEEK {currentWeek}</h3>}
       </div>
       <div className='ou-instruction-div'>
         Use your prognosticoins (granted weekly) to place over/under bets on total game points.
         You can check your current bets on your profile.
-        All bets are locked in permanently when submitted!
+        All bets and over/under values are locked in permanently when submitted!
       </div>
       {games && games.length && allTeams && allTeams.length ? (
         <div className='ou-all-games-div'>

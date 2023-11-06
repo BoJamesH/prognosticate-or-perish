@@ -21,8 +21,8 @@ export const getUserSpreadBets = () => async (dispatch) => {
   };
 
 
-export const postUserSpreadBet = (gameId, status, betAmount, payout, week) => async (dispatch) => {
-    const betBody = { gameId, status, betAmount, payout, week };
+export const postUserSpreadBet = (gameId, teamName, betAmount, payout, week) => async (dispatch) => {
+    const betBody = { gameId, teamName, betAmount, payout, week };
     try {
         const response = await fetch('/api/spread_bets', {
             method: "POST",
@@ -62,7 +62,7 @@ const initialState = {
 
 export default function SpreadBetsReducer(state = initialState, action) {
     switch (action.type) {
-        case SET_OVER_UNDER_BETS:
+        case SET_SPREAD_BETS:
             return {...state, userSpreadBets: action.payload}
         default:
             return state

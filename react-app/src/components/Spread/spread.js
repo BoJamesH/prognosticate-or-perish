@@ -10,7 +10,8 @@ import CommentList from '../CommentList/commentList';
 import CommentListGuest from '../CommentListGuest/commentListGuest';
 import './spread.css'
 import { authenticate } from '../../store/session';
-import { checkUserSpreadBets, getUserSpreadBets } from '../../store/spreadBets';
+import { checkUserSpreadBets, getUserSpreadBets, postUserSpreadBet } from '../../store/spreadBets';
+import { checkUserOverUnderBets, getUserOverUnderBets } from '../../store/overUnderBets';
 
 const SpreadPage = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const SpreadPage = () => {
   const allTeams = useSelector((state) => state.teams.allTeams);
   const sessionUser = useSelector((state) => state.session.user)
   const userPrognosticoins = sessionUser.prognosticoins
-  const [selectedOptions, setSelectedOptions] = useState({});
+  const [selectedTeams, setSelectedTeams] = useState({});
   const [betAmounts, setBetAmounts] = useState({});
 
 
@@ -55,43 +56,31 @@ const SpreadPage = () => {
     dispatch(getUserOverUnderBets())
     dispatch(checkUserOverUnderBets())
     dispatch(getUserSpreadBets())
-    dispatch(checkUserSpreadBets())
+    // dispatch(checkUserSpreadBets())
   }, [dispatch]);
 
-  const handleOverChange = (option, gameID) => {
-    setSelectedOptions({ ...selectedOptions, [gameID]: { over: option } });
+  const handleTeamChange = (team, gameID) => {
+    setSelectedTeams({ ...selectedTeams, [gameID]: team });
   };
 
-  const handleUnderChange = (option, gameID) => {
-    setSelectedOptions({ ...selectedOptions, [gameID]: { under: option } });
-  };
-
-  const handleOverUnderSliderChange = (sliderOption, e) => {
-    e.preventDefault()
+  const handleSpreadSliderChange = (sliderOption, e) => {
+    e.preventDefault();
     const newBetAmounts = { ...betAmounts, [sliderOption]: parseInt(e.target.value) };
     setBetAmounts(newBetAmounts);
   };
 
-  const overUnderBetHandler = (gameId, selectedOption, betAmount) => {
-    let status = '';
-
-    if (selectedOption) {
-      if (selectedOption.over) {
-        status = 'OVER'
-      } else if (selectedOption.under) {
-        status = 'UNDER'
-      }
-    }
+  const spreadBetHandler = (gameId, selectedTeam, betAmount) => {
     const payout = (betAmount + (betAmount / 1.1)).toFixed(2);
-    dispatch(postUserOverUnderBet(gameId, status, betAmount, payout, currentWeek))
-    .then(() => {
-      setSelectedOptions({});
-      setBetAmounts({});
-      // Dispatch an action to refresh user information
-      dispatch(authenticate())
-      dispatch(getUserOverUnderBets());
-    });
-};
+    dispatch(postUserSpreadBet(gameId, selectedTeam, betAmount, payout, currentWeek))
+      .then(() => {
+        setSelectedTeams({});
+        setBetAmounts({});
+
+        // dispatch(authenticate()); // IS THIS NECESSARY??
+        dispatch(getUserSpreadBets());
+      });
+  };
+
 
   if (!sessionUser) {
     return (
@@ -118,26 +107,24 @@ const SpreadPage = () => {
     <>
     <div className='spread-all-container-div'>
       <div className='spread-title-div'>
-        <h2>OVER/UNDER BETS</h2>
+        <h2>SPREAD WAGERS</h2>
         {currentWeek && <h3 className='week-title'>WEEK {currentWeek}</h3>}
       </div>
       <div className='spread-instruction-div'>
-        Use your prognosticoins (granted weekly) to place over/under bets on total game points.
+        Use your prognosticoins (granted weekly) to place spread bets on the team you think will beat the listed spread.
         You can check your current bets on your profile.
-        All bets are locked in permanently when submitted!
+        All bets and spread lines are locked in permanently when submitted!
       </div>
       {games && games.length && allTeams && allTeams.length ? (
         <div className='spread-all-games-div'>
-          {games.map((game) => {
-              const homeTeam = allTeams.find((team) => team.name === game.home_team_name);
-              const awayTeam = allTeams.find((team) => team.name === game.away_team_name);
-              const overOption = `over-${game.id}`;
-              const underOption = `under-${game.id}`
-              const sliderOption = `slider=${game.id}`
-              const currentBetAmount = betAmounts[sliderOption] || 0;
-              const calculateReturnOnWin = (betAmount) => {
+            {games.map((game) => {
+                const homeTeam = allTeams.find((team) => team.name === game.home_team_name);
+                const awayTeam = allTeams.find((team) => team.name === game.away_team_name);
+                const sliderOption = `slider=${game.id}`;
+                const currentBetAmount = betAmounts[sliderOption] || 0;
+                const calculateReturnOnWin = (betAmount) => {
                 return betAmount / 1.1;
-              };
+                };
             return (
               <div className={`spread-single-game-div ${game.completed ? 'completed' : (game.over_under === 0 ? 'in-progress' : '')}`} key={game.id}>
                 <div className='spread-game-teams-div'>
@@ -169,61 +156,61 @@ null
                     <>
                       <div className='spread-game-spread-div' hidden={game.over_under == 0}>Spread: {game.spread === 'Game finished' ? 'Betting Closed' : game.spread}</div>
                       <div className='spread-game-over-under-div'>Over/Under: {game.over_under == 0 ? 'Betting Closed' : game.over_under}</div>
-                      <div className='spread-input-overall-div' hidden={game.over_under == 0}>
+                      <div className='spread-input-overall-div' hidden={game.spread === 0}>
                         <label>
-                        <input
-                            hidden={game.over_under == 0}
+                            <input
+                            hidden={game.spread === 0}
                             type="radio"
-                            name={overOption}
-                            value="over"
-                            checked={selectedOptions[game.id]?.over === overOption}
-                            onChange={() => handleOverChange(overOption, game.id)}
-                        />
-                        Over
+                            name={`team-${game.id}`}
+                            value={game.home_team_name}
+                            checked={selectedTeams[game.id] === game.home_team_name}
+                            onChange={() => handleTeamChange(game.home_team_name, game.id)}
+                            />
+                            {game.home_team_name}
                         </label>
 
                         <label>
-                        <input
-                            hidden={game.over_under == 0}
+                            <input
+                            hidden={game.spread === 0}
                             type="radio"
-                            id='spread-under-radio'
-                            name={underOption}
-                            value="under"
-                            checked={selectedOptions[game.id]?.under === underOption}
-                            onChange={() => handleUnderChange(underOption, game.id)}
-                        />
-                        Under
+                            name={`team-${game.id}`}
+                            value={game.away_team_name}
+                            checked={selectedTeams[game.id] === game.away_team_name}
+                            onChange={() => handleTeamChange(game.away_team_name, game.id)}
+                            />
+                            {game.away_team_name}
                         </label>
-                    </div>
-                      <div hidden={game.over_under == 0} className='spread-bet-range-div'>
+                        </div>
+
+                        <div hidden={game.spread === 0} className='spread-bet-range-div'>
                         <input
-                            hidden={game.over_under == 0}
+                            hidden={game.spread === 0}
                             type="range"
-                            name={sliderOption}
+                            name={`slider-${game.id}`}
                             min={0}
                             max={userPrognosticoins}
-                            value={currentBetAmount}
-                            onChange={(e) => handleOverUnderSliderChange(sliderOption, e)}
+                            value={betAmounts[`slider-${game.id}`] || 0}
+                            onChange={(e) => handleSpreadSliderChange(`slider-${game.id}`, e)}
                         />
-                        {currentBetAmount > 0 && (
-                        <div>
+                        {betAmounts[`slider-${game.id}`] > 0 && (
+                            <div>
                             <div className='spread-current-bet-div'>Current Bet:</div>
-                            <div className='spread-bet-amount'>{currentBetAmount} Prognosticoins</div>
-                        </div>
+                            <div className='spread-bet-amount'>{betAmounts[`slider-${game.id}`]} Prognosticoins</div>
+                            </div>
                         )}
                         <div className='spread-return-div'>
-                            {currentBetAmount > 0 && (
-                                <span>Return on Win: {calculateReturnOnWin(currentBetAmount).toFixed(2)}</span>
+                            {betAmounts[`slider-${game.id}`] > 0 && (
+                            <span>Return on Win: {calculateReturnOnWin(betAmounts[`slider-${game.id}`]).toFixed(2)}</span>
                             )}
                         </div>
                         <button
-                        className='spread-submit-button'
-                        onClick={() => overUnderBetHandler(game.id, selectedOptions[game.id], currentBetAmount)}
-                        hidden={currentBetAmount < 1 || !(selectedOptions[game.id]?.over || selectedOptions[game.id]?.under)}
-                      >
-                        Submit Bet
-                      </button>
-                    </div>
+                            className='spread-submit-button'
+                            onClick={() => spreadBetHandler(game.id, selectedTeams[game.id], betAmounts[`slider-${game.id}`])}
+                            hidden={betAmounts[`slider-${game.id}`] < 1 || !selectedTeams[game.id]}
+                        >
+                            Submit Bet
+                        </button>
+                        </div>
                     </>
                   )}
                 </div>

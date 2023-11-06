@@ -15,6 +15,7 @@ from .api.elim_picks_routes import elim_pick_routes
 from .api.spread_elim_pick_routes import spread_elim_pick_routes
 from .api.pick_em_routes import pick_em_pick_routes
 from .api.over_under_routes import over_under_routes
+from .api.spread_routes import spread_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -28,7 +29,6 @@ login.login_view = 'auth.unauthorized'
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
-
 
 # Tell flask about our seed commands
 app.cli.add_command(seed_commands)
@@ -44,6 +44,8 @@ app.register_blueprint(elim_pick_routes, url_prefix='/api/elim_picks')
 app.register_blueprint(spread_elim_pick_routes, url_prefix='/api/spread_elim_picks')
 app.register_blueprint(pick_em_pick_routes, url_prefix='/api/pick_em_picks')
 app.register_blueprint(over_under_routes, url_prefix='/api/over_under_bets')
+app.register_blueprint(spread_routes, url_prefix='/api/spread_bets')
+
 db.init_app(app)
 Migrate(app, db)
 

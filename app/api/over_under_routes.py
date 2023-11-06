@@ -16,7 +16,7 @@ def user_over_under_bets():
         ou_bets = Over_Under_Bet.query.filter_by(user_id=user_id).all()
         return jsonify({'user_over_under_bets': [bet.to_dict() for bet in ou_bets]})
     except Exception as e:
-        return jsonify({'error': 'Error fetching user picks', 'details': str(e)})
+        return jsonify({'error': 'Error fetching user over/under bets', 'details': str(e)})
 
 
 @over_under_routes.route('', methods=['POST'])
