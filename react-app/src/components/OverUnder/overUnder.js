@@ -136,7 +136,7 @@ const OverUnderPage = () => {
               const sliderOption = `slider=${game.id}`
               const currentBetAmount = betAmounts[sliderOption] || 0;
               const calculateReturnOnWin = (betAmount) => {
-                return betAmount / 1.1;
+                return betAmount + betAmount / 1.1;
               };
             return (
               <div className={`ou-single-game-div ${game.completed ? 'completed' : (game.over_under === 0 ? 'in-progress' : '')}`} key={game.id}>
@@ -213,7 +213,7 @@ null
                         )}
                         <div className='ou-return-div'>
                             {currentBetAmount > 0 && (
-                                <span>Return on Win: {calculateReturnOnWin(currentBetAmount).toFixed(2)}</span>
+                                <span>Total Return on Win: {calculateReturnOnWin(currentBetAmount).toFixed(2)}</span>
                             )}
                         </div>
                         <button

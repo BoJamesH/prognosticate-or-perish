@@ -120,7 +120,7 @@ const SpreadPage = () => {
                 const sliderOption = `slider=${game.id}`;
                 const currentBetAmount = betAmounts[sliderOption] || 0;
                 const calculateReturnOnWin = (betAmount) => {
-                return betAmount / 1.1;
+                return betAmount + betAmount / 1.1;
                 };
             return (
               <div className={`spread-single-game-div ${game.completed ? 'completed' : (game.over_under === 0 ? 'in-progress' : '')}`} key={game.id}>
@@ -197,7 +197,7 @@ null
                         )}
                         <div className='spread-return-div'>
                             {betAmounts[`slider-${game.id}`] > 0 && (
-                            <span>Return on Win: {calculateReturnOnWin(betAmounts[`slider-${game.id}`]).toFixed(2)}</span>
+                            <span>Total Return on Win: {calculateReturnOnWin(betAmounts[`slider-${game.id}`]).toFixed(2)}</span>
                             )}
                         </div>
                         <button
