@@ -90,13 +90,13 @@ function SplashPage() {
                   </li>
                   <li className='splash-gamelist-li'>
                     <span className='splash-gamelist-title'>
-                      Spread Bets
+                    <Link className='splash-game-link' to='/spread'>Spread Bets</Link>
                     </span>
                     <span className='splash-gamelist-description'>
                       Use a set amount of prognosticoins to out-bet your competition and earn the most by the end of the season betting against the spread!
                     </span>
                     <span className='splash-gamelist-status'>
-                      Coming Soon
+                      Open!
                     </span>
                   </li>
                   <li className='splash-gamelist-li'>

@@ -82,7 +82,7 @@ const OverUnderPage = () => {
         status = 'UNDER'
       }
     }
-    const payout = (betAmount + (betAmount / 1.1)).toFixed(2);
+    const payout = (betAmount / 1.1).toFixed(2);
     dispatch(postUserOverUnderBet(gameId, status, betAmount, payout, currentWeek))
     .then(() => {
       setSelectedOptions({});

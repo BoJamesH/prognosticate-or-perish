@@ -21,8 +21,8 @@ export const getUserSpreadBets = () => async (dispatch) => {
   };
 
 
-export const postUserSpreadBet = (gameId, teamName, betAmount, payout, week) => async (dispatch) => {
-    const betBody = { gameId, teamName, betAmount, payout, week };
+export const postUserSpreadBet = (gameId, teamName, betAmount, week, spread) => async (dispatch) => {
+    const betBody = { gameId, teamName, betAmount, week, spread };
     try {
         const response = await fetch('/api/spread_bets', {
             method: "POST",

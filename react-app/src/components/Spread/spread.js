@@ -9,7 +9,6 @@ import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import CommentListGuest from '../CommentListGuest/commentListGuest';
 import './spread.css'
-import { authenticate } from '../../store/session';
 import { checkUserSpreadBets, getUserSpreadBets, postUserSpreadBet } from '../../store/spreadBets';
 import { checkUserOverUnderBets, getUserOverUnderBets } from '../../store/overUnderBets';
 
@@ -69,14 +68,12 @@ const SpreadPage = () => {
     setBetAmounts(newBetAmounts);
   };
 
-  const spreadBetHandler = (gameId, selectedTeam, betAmount) => {
-    const payout = (betAmount + (betAmount / 1.1)).toFixed(2);
-    dispatch(postUserSpreadBet(gameId, selectedTeam, betAmount, payout, currentWeek))
+  const spreadBetHandler = (gameId, selectedTeam, betAmount, spread) => {
+    dispatch(postUserSpreadBet(gameId, selectedTeam, betAmount, currentWeek, spread))
       .then(() => {
         setSelectedTeams({});
         setBetAmounts({});
 
-        // dispatch(authenticate()); // IS THIS NECESSARY??
         dispatch(getUserSpreadBets());
       });
   };
@@ -205,7 +202,7 @@ null
                         </div>
                         <button
                             className='spread-submit-button'
-                            onClick={() => spreadBetHandler(game.id, selectedTeams[game.id], betAmounts[`slider-${game.id}`])}
+                            onClick={() => spreadBetHandler(game.id, selectedTeams[game.id], betAmounts[`slider-${game.id}`], game.spread)}
                             hidden={betAmounts[`slider-${game.id}`] < 1 || !selectedTeams[game.id]}
                         >
                             Submit Bet

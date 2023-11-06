@@ -11,6 +11,7 @@ import './userPage.css'
 import { checkUserOverUnderBets, getUserOverUnderBets } from '../../store/overUnderBets';
 import { storeGames, storeWeek } from '../../store/games';
 import { checkUserSpreadElimPicks, getUserSpreadElimPicks } from '../../store/spreadElimPicks';
+import { checkUserSpreadBets, getUserSpreadBets } from '../../store/spreadBets';
 
 
 const UserPage = () => {
@@ -20,8 +21,10 @@ const UserPage = () => {
   const eliminatorPicks = useSelector((state) => state.eliminatorPicks.userElimPicks);
   const spreadElimPicks = useSelector((state) => state.spreadEliminatorPicks.userSpreadElimPicks)
   const userOverUnderBets = useSelector(state => state.overUnderBets.userOverUnderBets)
+  const userSpreadBets = useSelector(state => state.spreadBets.userSpreadBets)
   const currWeekGames = useSelector(state => state.games.allGames)
   const currentWeekUserBets = userOverUnderBets.filter((bet) => bet.week === currentWeek);
+  const currentWeekUserSpreadBets = userSpreadBets.filter((bet) => bet.week === currentWeek);
   const [showChangeProfile, setShowChangeProfile] = useState(false);
   const [newProfileImage, setNewProfileImage] = useState('');
 
@@ -36,6 +39,8 @@ const UserPage = () => {
       dispatch(checkUserOverUnderBets())
       dispatch(getUserSpreadElimPicks())
       dispatch(checkUserSpreadElimPicks())
+      dispatch(getUserSpreadBets())
+      // dispatch(checkUserSpreadBets())
   }, [dispatch]);
 
   const changeProfilePicHandler = (profile_image, e) => {
@@ -48,6 +53,16 @@ const UserPage = () => {
     const totalPayout = allUserOUBets.reduce((accumulator, bet) => {
       return accumulator + bet.payout;
     }, 0);
+
+    return totalPayout;
+  }
+
+  const calculateTotalSpreadPayout = (allUserSpreadBets) => {
+    const totalWagered = allUserSpreadBets.reduce((accumulator, bet) => {
+      return accumulator + bet.progs_wagered;
+    }, 0);
+
+    const totalPayout = totalWagered / 1.1;
 
     return totalPayout;
   }
@@ -121,7 +136,7 @@ const UserPage = () => {
           </div>
       </span>
       <span className='user-over-under-bets'>
-  <div className="user-over-under-bets">
+      <div className="user-over-under-bets">
       <h3><Link className="user-elim-link" to="/overunder">Over/Under Wagers</Link></h3>
       <div className="eliminator-record">
           <h4>Week {currentWeek} Over/Under Bets:</h4>
@@ -149,7 +164,38 @@ const UserPage = () => {
             )}
             </div>
         </div>
-    </span>
+        </span>
+          <span className='user-over-under-bets'>
+            <div className="user-over-under-bets">
+            <h3><Link className="user-elim-link" to="/overunder">Spread Wagers</Link></h3>
+            <div className="eliminator-record">
+                <h4>Week {currentWeek} Spread Bets:</h4>
+                <p>Total Potential Payout: {calculateTotalSpreadPayout(currentWeekUserSpreadBets).toFixed(2)}</p>
+                {currentWeekUserSpreadBets.length === 0 ? (
+                    <p>No bets placed for the current week.</p>
+                ) : (
+                    <div>
+                        {currentWeekUserSpreadBets.map((bet) => {
+                            const game = currWeekGames.find((game) => game.id === bet.game_id);
+                            if (!game) {
+                                return null;
+                            }
+
+                            return (
+                                <div className='user-ou-bet-game' key={bet.id}>
+                                    <div>Game: {game.away_team_name} vs {game.home_team_name}</div>
+                                    <div>Spread: {game.over_under === 0 ? 'Betting Closed' : bet.spread_at_bet}</div>
+                                    <div>Selected Team: {bet.selected_team_name}</div>
+                                    <div>Amount Wagered: {bet.progs_wagered} Prognosticoins</div>
+                                    <div>Bet: {bet.status}</div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                  )}
+                  </div>
+              </div>
+          </span>
         </div>
         {user && (
                 <>
