@@ -129,7 +129,7 @@ def check_spread_eliminator_picks():
             'TEN': 'Titans',
             'WAS': 'Commanders',
         }
-        print('TEAM ABBREVIATION OBJECT CHECK!!!! ', TEAM_ABBREVIATIONS)
+        # print('TEAM ABBREVIATION OBJECT CHECK!!!! ', TEAM_ABBREVIATIONS)
 
         if not current_picks:
             return jsonify({'message': 'No spread eliminator picks found for the current week'})

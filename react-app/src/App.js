@@ -13,6 +13,7 @@ import PickEmPage from "./components/PickEm/pickEm";
 import LeaderboardPage from "./components/Leaderboards/leaderboards";
 import OverUnderPage from "./components/OverUnder/overUnder";
 import SpreadEliminatorPage from "./components/SpreadEliminator/spreadEliminator";
+import SpreadPage from "./components/Spread/spread";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,9 @@ function App() {
           </Route>
           <Route path="/overunder">
             <OverUnderPage />
+          </Route>
+          <Route path="/spread">
+            <SpreadPage />
           </Route>
           <Route exact path='/user'>
             <UserPage />

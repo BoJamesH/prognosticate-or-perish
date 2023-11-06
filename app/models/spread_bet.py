@@ -32,6 +32,7 @@ class Spread_Bet(db.Model):
             'week': self.week,
             'game_id': self.game_id,
             'selected_team_name': self.selected_team_name,
+            'spread_at_bet': self.spread_at_bet,
             'progs_wagered': self.progs_wagered,
             'status': self.status,
             'created_at': self.created_at,

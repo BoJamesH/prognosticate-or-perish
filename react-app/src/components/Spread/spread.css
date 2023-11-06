@@ -1,0 +1,158 @@
+
+.spread-all-container-div {
+    width: 96.8vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.spread-loading-ph {
+    text-align: center;
+}
+
+.spread-title-div {
+    text-align: center;
+}
+
+.week-title {
+    color: rgb(170, 170, 170);
+}
+
+.spread-instruction-div {
+    width: 690px;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.spread-all-games-div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 60px;
+  }
+
+  .spread-single-game-div {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 385px;
+    height: 230px;
+  }
+
+
+.spread-team-logo {
+    width: 65px;
+    height: 65px;
+}
+
+.spread-at-between-logos {
+    text-align: center;
+}
+
+
+.main-commentlist-div {
+    max-width: 70vw;
+}
+
+.spread-single-game-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 3px solid #136813;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.spread-team-left,
+.spread-team-right {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+    cursor: pointer;
+    padding-left: 20px;
+}
+
+.spread-team-right {
+    margin-top: 10px;
+}
+
+.spread-team-left {
+    margin-bottom: 10px;
+}
+
+
+.spread-game-details {
+    flex-grow: 1;
+    justify-content: left;
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+.completed {
+  border: 3px solid rgba(155, 15, 15, 0.356);
+}
+
+.in-progress {
+    border: 3px solid rgba(189, 164, 25, 0.356);
+}
+
+.spread-input-overall-div {
+    margin-top: 10px;
+}
+
+.spread-no-user-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    margin-top: 60px;
+}
+
+#spread-under-radio {
+    margin-left: 20px;
+}
+
+.spread-bet-range-div {
+    margin-top: 10px;
+}
+
+.spread-current-bet-div {
+    margin-top: 10px;
+}
+
+.spread-return-div {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.spread-submit-button {
+    height: 25px;
+    width: 150px;
+    background-color: rgb(68, 68, 68);
+    color: white;
+    border-radius: 5px;
+    margin-top: 4px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    background: rgb(105, 105, 105);
+    height: 15px;
+    border-radius: 10px;
+}
+
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    color: #5c2583;
+    height: 20px;
+    background: black;
+    border: 2px solid #5c2583;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: black;
+}

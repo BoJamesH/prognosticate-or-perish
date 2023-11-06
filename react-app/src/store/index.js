@@ -9,6 +9,7 @@ import pickEmPicks from './pickEmPicks'
 import allUsers from './allUsers'
 import overUnderBets from './overUnderBets'
 import spreadEliminatorPicks from './spreadElimPicks'
+import spreadBets from './spreadBets'
 
 const rootReducer = combineReducers({
   session,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   overUnderBets,
   allUsers,
   spreadEliminatorPicks,
+  spreadBets,
 });
 
 

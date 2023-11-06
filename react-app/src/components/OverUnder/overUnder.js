@@ -82,7 +82,7 @@ const OverUnderPage = () => {
         status = 'UNDER'
       }
     }
-    const payout = (betAmount + (betAmount / 1.1)).toFixed(2);
+    const payout = (betAmount / 1.1).toFixed(2);
     dispatch(postUserOverUnderBet(gameId, status, betAmount, payout, currentWeek))
     .then(() => {
       setSelectedOptions({});
@@ -118,13 +118,13 @@ const OverUnderPage = () => {
     <>
     <div className='ou-all-container-div'>
       <div className='ou-title-div'>
-        <h2>OVER/UNDER BETS</h2>
+        <h2>OVER/UNDER WAGERS</h2>
         {currentWeek && <h3 className='week-title'>WEEK {currentWeek}</h3>}
       </div>
       <div className='ou-instruction-div'>
         Use your prognosticoins (granted weekly) to place over/under bets on total game points.
         You can check your current bets on your profile.
-        All bets are locked in permanently when submitted!
+        All bets and over/under values are locked in permanently when submitted!
       </div>
       {games && games.length && allTeams && allTeams.length ? (
         <div className='ou-all-games-div'>
@@ -136,7 +136,7 @@ const OverUnderPage = () => {
               const sliderOption = `slider=${game.id}`
               const currentBetAmount = betAmounts[sliderOption] || 0;
               const calculateReturnOnWin = (betAmount) => {
-                return betAmount / 1.1;
+                return betAmount + betAmount / 1.1;
               };
             return (
               <div className={`ou-single-game-div ${game.completed ? 'completed' : (game.over_under === 0 ? 'in-progress' : '')}`} key={game.id}>
@@ -213,7 +213,7 @@ null
                         )}
                         <div className='ou-return-div'>
                             {currentBetAmount > 0 && (
-                                <span>Return on Win: {calculateReturnOnWin(currentBetAmount).toFixed(2)}</span>
+                                <span>Total Return on Win: {calculateReturnOnWin(currentBetAmount).toFixed(2)}</span>
                             )}
                         </div>
                         <button
