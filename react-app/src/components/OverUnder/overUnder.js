@@ -18,7 +18,7 @@ const OverUnderPage = () => {
   const allGames = useSelector((state) => state.games.allGames);
   const allTeams = useSelector((state) => state.teams.allTeams);
   const sessionUser = useSelector((state) => state.session.user)
-  const userPrognosticoins = sessionUser.prognosticoins
+  // const userPrognosticoins = sessionUser.prognosticoins
 //   const userOverUnderBets = useSelector(state => state.overUnderBets.userOverUnderBets)
 //   const [betAmount, setBetAmount] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState({});
@@ -201,7 +201,7 @@ null
                             type="range"
                             name={sliderOption}
                             min={0}
-                            max={userPrognosticoins}
+                            max={sessionUser.prognosticoins}
                             value={currentBetAmount}
                             onChange={(e) => handleOverUnderSliderChange(sliderOption, e)}
                         />
