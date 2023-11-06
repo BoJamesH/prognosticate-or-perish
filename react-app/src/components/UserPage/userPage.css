@@ -62,7 +62,7 @@
 .user-elim-link {
     text-decoration: none;
     color: rgb(120, 28, 156);
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 600;
 }
 
@@ -97,4 +97,16 @@
 
 .user-ou-bet-game {
     margin-top: 10px;
+}
+
+/* .spread-record {
+    margin-left: 60px;
+} */
+
+/* .user-spread-bets {
+    margin-left: 20px;
+} */
+
+.user-over-under-bets {
+    margin-right: 60px;
 }

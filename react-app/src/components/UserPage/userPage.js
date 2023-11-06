@@ -166,9 +166,9 @@ const UserPage = () => {
         </div>
         </span>
           <span className='user-over-under-bets'>
-            <div className="user-over-under-bets">
+            <div className="user-spread-bets">
             <h3><Link className="user-elim-link" to="/overunder">Spread Wagers</Link></h3>
-            <div className="eliminator-record">
+            <div className="spread-record">
                 <h4>Week {currentWeek} Spread Bets:</h4>
                 <p>Total Potential Payout: {calculateTotalSpreadPayout(currentWeekUserSpreadBets).toFixed(2)}</p>
                 {currentWeekUserSpreadBets.length === 0 ? (
