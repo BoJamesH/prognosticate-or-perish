@@ -45,7 +45,8 @@ Enjoy predicting NFL games with NFL Game Predictor!
 
 ## Backend
 
-![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/22209119-8c96-45fc-b064-d6e7a574ccb2)
+![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/8c7a8741-0880-4c3b-ab5e-318bbfdd2224)
+
 
 ## Wireframes
 
