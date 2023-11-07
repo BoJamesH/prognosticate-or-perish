@@ -51,10 +51,10 @@ const UserPage = () => {
 
   const calculateTotalOverUnderPayout = (allUserOUBets) => {
     const totalPayout = allUserOUBets.reduce((accumulator, bet) => {
-      return accumulator + bet.payout;
+      return accumulator + bet.progs_wagered;
     }, 0);
 
-    return totalPayout;
+    return totalPayout / 1.1;
   }
 
   const calculateTotalSpreadPayout = (allUserSpreadBets) => {
@@ -62,9 +62,7 @@ const UserPage = () => {
       return accumulator + bet.progs_wagered;
     }, 0);
 
-    const totalPayout = totalWagered / 1.1;
-
-    return totalPayout;
+    return totalWagered / 1.1;
   }
 
   if (!user) {
