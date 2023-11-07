@@ -11,6 +11,7 @@ import CommentListGuest from '../CommentListGuest/commentListGuest';
 import './overUnder.css'
 import { checkUserOverUnderBets, getUserOverUnderBets, postUserOverUnderBet } from '../../store/overUnderBets';
 import { authenticate } from '../../store/session';
+import { checkUserSpreadBets, getUserSpreadBets } from '../../store/spreadBets';
 
 const OverUnderPage = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,8 @@ const OverUnderPage = () => {
     dispatch(checkUserPickEmPicks())
     dispatch(getUserOverUnderBets())
     dispatch(checkUserOverUnderBets())
+    dispatch(getUserSpreadBets());
+    dispatch(checkUserSpreadBets());
   }, [dispatch]);
 
   const handleOverChange = (option, gameID) => {
@@ -122,7 +125,7 @@ const OverUnderPage = () => {
         {currentWeek && <h3 className='week-title'>WEEK {currentWeek}</h3>}
       </div>
       <div className='ou-instruction-div'>
-        Use your prognosticoins (granted weekly) to place over/under bets on total game points.
+        Use your prognosticoins <img className='coin-img' src='https://i.imgur.com/IBtKgXx.png' alt='Coin Icon' /> (granted weekly) to place over/under bets on total game points.
         You can check your current bets on your profile.
         All bets and over/under values are locked in permanently when submitted!
       </div>

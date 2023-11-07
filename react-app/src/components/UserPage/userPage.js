@@ -40,7 +40,7 @@ const UserPage = () => {
       dispatch(getUserSpreadElimPicks())
       dispatch(checkUserSpreadElimPicks())
       dispatch(getUserSpreadBets())
-      // dispatch(checkUserSpreadBets())
+      dispatch(checkUserSpreadBets())
   }, [dispatch]);
 
   const changeProfilePicHandler = (profile_image, e) => {
@@ -100,7 +100,7 @@ const UserPage = () => {
       <div className="user-info">
           <h2>{user.username}</h2>
           <p>Email: {user.email}</p>
-          <p>Prognosticoins: {user.prognosticoins}</p>
+          <p>Prognosticoins: {user.prognosticoins.toFixed(2)}<img className='coin-img' src='https://i.imgur.com/IBtKgXx.png' alt='Coin Icon' /> </p>
       </div>
       </div>
       <div className='user-games-div'>
@@ -140,7 +140,7 @@ const UserPage = () => {
       <h3><Link className="user-elim-link" to="/overunder">Over/Under Wagers</Link></h3>
       <div className="eliminator-record">
           <h4 className='user-record-subtitle'>Week {currentWeek} Over/Under Bets:</h4>
-          <p>Total Potential Payout: {calculateTotalOverUnderPayout(currentWeekUserBets).toFixed(2)}</p>
+          <p>Total Potential Payout: {calculateTotalOverUnderPayout(currentWeekUserBets).toFixed(2)} <img className='coin-img' src='https://i.imgur.com/IBtKgXx.png' alt='Coin Icon' /></p>
           {currentWeekUserBets.length === 0 ? (
               <p>No bets placed for the current week.</p>
           ) : (
@@ -155,7 +155,7 @@ const UserPage = () => {
                           <div className='user-ou-bet-game' key={bet.id}>
                               <div>Game: {game.away_team_name} vs {game.home_team_name}</div>
                               <div>Over/Under: {game.over_under === 0 ? 'Betting Closed' : game.over_under}</div>
-                              <div>Amount Wagered: {bet.progs_wagered} Prognosticoins</div>
+                              <div>Amount Wagered: {bet.progs_wagered}<img className='coin-img' src='https://i.imgur.com/IBtKgXx.png' alt='Coin Icon' /> Prognosticoins </div>
                               <div>Bet: {bet.status}</div>
                           </div>
                       );
@@ -170,7 +170,7 @@ const UserPage = () => {
             <h3><Link className="user-elim-link" to="/overunder">Spread Wagers</Link></h3>
             <div className="spread-record">
                 <h4 className='user-record-subtitle'>Week {currentWeek} Spread Bets:</h4>
-                <p>Total Potential Payout: {calculateTotalSpreadPayout(currentWeekUserSpreadBets).toFixed(2)}</p>
+                <p>Total Potential Payout: {calculateTotalSpreadPayout(currentWeekUserSpreadBets).toFixed(2)} <img className='coin-img' src='https://i.imgur.com/IBtKgXx.png' alt='Coin Icon' /></p>
                 {currentWeekUserSpreadBets.length === 0 ? (
                     <p>No bets placed for the current week.</p>
                 ) : (

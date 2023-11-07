@@ -55,7 +55,7 @@ const SpreadPage = () => {
     dispatch(getUserOverUnderBets())
     dispatch(checkUserOverUnderBets())
     dispatch(getUserSpreadBets())
-    // dispatch(checkUserSpreadBets())
+    dispatch(checkUserSpreadBets())
   }, [dispatch]);
 
   const handleTeamChange = (team, gameID) => {
@@ -108,7 +108,7 @@ const SpreadPage = () => {
         {currentWeek && <h3 className='week-title'>WEEK {currentWeek}</h3>}
       </div>
       <div className='spread-instruction-div'>
-        Use your prognosticoins (granted weekly) to place spread bets on the team you think will beat the listed spread.
+        Use your prognosticoins <img className='coin-img' src='https://i.imgur.com/IBtKgXx.png' alt='Coin Icon' /> (granted weekly) to place spread bets on the team you think will beat the listed spread.
         You can check your current bets on your profile.
         All bets and spread lines are locked in permanently when submitted!
       </div>

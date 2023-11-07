@@ -10,6 +10,7 @@ import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import CommentListGuest from '../CommentListGuest/commentListGuest';
 import './pickEm.css';
+import { checkUserSpreadBets, getUserSpreadBets } from '../../store/spreadBets';
 
 const PickEmPage = () => {
   const dispatch = useDispatch();
@@ -51,6 +52,8 @@ const PickEmPage = () => {
     dispatch(checkUserPickEmPicks())
     dispatch(getUserSpreadElimPicks())
     dispatch(checkUserSpreadElimPicks())
+    dispatch(getUserSpreadBets())
+    dispatch(checkUserSpreadBets())
   }, [dispatch]);
 
   const getTeamClassName = (game, teamName) => {

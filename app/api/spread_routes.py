@@ -98,12 +98,14 @@ def check_spread_bets():
             return jsonify({'message': 'No spread bets found for the current week'})
 
         for current_bet in current_spread_bets:
-            if current_bet.status in ('WIN', 'LOSS', 'PUSH'):
-                continue
+            # if current_bet.status in ('WIN', 'LOSS', 'PUSH'):
+            #     continue
             game = Game.query.get(current_bet.game_id)
             bet_user = User.query.get(current_bet.user_id)
             if game.completed:
                 spread_at_bet = current_bet.spread_at_bet
+                if not spread_at_bet:
+                    continue
                 if spread_at_bet == 'EVEN':
                     home_team = game.home_team_name
                     away_team = game.away_team_name
@@ -140,11 +142,11 @@ def check_spread_bets():
                         spread_diff = away_score - home_score
 
                     if spread_diff > float(spread_value):
-                        current_bet.status = 'WIN' if current_bet.selected_team_name == home_team else 'LOSS'
+                        current_bet.status = 'LOSS' if current_bet.selected_team_name == home_team else 'WIN'
                         if current_bet.status == 'WIN':
                             bet_user.prognosticoins += (current_bet.progs_wagered + (current_bet.progs_wagered / 1.1))
                     elif spread_diff < -float(spread_value):
-                        current_bet.status = 'WIN' if current_bet.selected_team_name == away_team else 'LOSS'
+                        current_bet.status = 'LOSS' if current_bet.selected_team_name == away_team else 'WIN'
                         if current_bet.status == 'WIN':
                             bet_user.prognosticoins += (current_bet.progs_wagered + (current_bet.progs_wagered / 1.1))
                     else:

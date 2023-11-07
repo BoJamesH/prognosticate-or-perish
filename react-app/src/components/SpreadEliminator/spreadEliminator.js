@@ -11,6 +11,7 @@ import CommentList from '../CommentList/commentList';
 import CommentListGuest from '../CommentListGuest/commentListGuest';
 import './spreadEliminator.css';
 import { checkUserSpreadElimPicks, deleteUserSpreadElimPick, getUserSpreadElimPicks, postUserSpreadElimPick } from '../../store/spreadElimPicks';
+import { checkUserSpreadBets, getUserSpreadBets } from '../../store/spreadBets';
 
 const SpreadEliminatorPage = () => {
   const dispatch = useDispatch();
@@ -52,6 +53,8 @@ const SpreadEliminatorPage = () => {
     dispatch(checkUserOverUnderBets())
     dispatch(getUserSpreadElimPicks())
     dispatch(checkUserSpreadElimPicks())
+    dispatch(getUserSpreadBets())
+    dispatch(checkUserSpreadBets())
   }, [dispatch]);
 
   const isTeamPickedInPreviousWeeks = (teamName, currentWeek, userSpreadEliminatorPicks) => {

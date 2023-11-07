@@ -114,3 +114,9 @@
 .user-record-subtitle {
     margin-top: 40px;
 }
+
+.coin-img {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
