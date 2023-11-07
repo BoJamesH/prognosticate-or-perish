@@ -14,7 +14,7 @@ User Comment Stream: Chat with your fellow competitors about predictions and the
 
 ## Tech Stack
 
-### Languages and Frameworks
+#### Languages and Frameworks
 
 ![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/191435e3-6e62-440a-8799-32b53282de36)
 ![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/fe17a36b-d764-4d7c-80b7-54cef86bbedf)
@@ -24,30 +24,30 @@ User Comment Stream: Chat with your fellow competitors about predictions and the
 ![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/4333eb9c-29a2-4802-90f7-bf56296d2a8a)
 ![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/0036cc22-a23d-4735-b36b-1878fef7ab57)
 
-### Backend
+#### Backend
 
 ![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/2ecfe66e-5449-4fc0-a5bd-2da6f8924775)
 ![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/009a61bf-dc10-441e-a6d4-66f0ac5f5d57)
 
-### Hosting
+#### Hosting
 
 ![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/e6303314-ae76-4195-bedf-fa258fcec700)
 
 ## Previews
 
-### Splash Page/Login:
+#### Splash Page/Login:
 
 ![prog-splash-gif](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/0762b5a1-8216-457e-9d65-6a57f1746a09)
 
-### Navigating Different Games
+#### Navigating Different Games
 
 ![prog-games-gif](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/9a4019b4-4a95-4354-8015-3094b71722cd)
 
-### Leaderboards/User Profile/Chatter
+#### Leaderboards/User Profile/Chatter
 
 ![prog-extras-gif](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/2c78435e-5743-4a7f-a1a8-b146942d475e)
 
-## SQL Backend Details
+#### SQL Backend Details
 
 ![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/8c7a8741-0880-4c3b-ab5e-318bbfdd2224)
 
@@ -66,7 +66,7 @@ pipenv install -r requirements.txt
 4. Ensure the SQLite3 database connection URL is correctly set in the `.env` file.
 5. Organize all tables inside the `flask_schema` schema (defined by the `SCHEMA` environment variable). Replace the value for `SCHEMA` with your chosen name following the snake_case convention.
 
-## Local Development:
+#### Local Development:
 
 6. Get into your pipenv shell, migrate your database, seed your database, and run your Flask app:
 pipenv shell
@@ -110,39 +110,17 @@ npm install --prefix react-app && npm run build --prefix react-app && pip instal
 
 ## Further Information
 
-### Contributing
+#### Contributing
 
 We welcome contributions from the open-source community. If you have ideas, bug fixes, or new features to add, please feel free to open issues or submit pull requests.
 
-### License
+#### License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-### Contact
+#### Contact
 
 If you have any questions or need assistance, you can reach out to the project maintainer at [RobertJamesH@gmail.com].
 
 Enjoy predicting NFL games with Prognosticate or Perish!
 
-## Backend
-
-![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/8c7a8741-0880-4c3b-ab5e-318bbfdd2224)
-
-
-## Wireframes
-
-Landing Page
-
-![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/99827c20-a5fd-4cb4-9fe5-ce6a33e685e9)
-
-User Page
-
-![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/e9def6a7-1265-437c-805d-ea20c868f3a2)
-
-Game Forms
-
-![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/fce28b16-a0aa-4555-a080-d391995f1234)
-
-Comments
-
-![image](https://github.com/BoJamesH/prognosticate-or-perish/assets/128858490/06191bde-de20-4181-84a4-6bfa893b4710)
