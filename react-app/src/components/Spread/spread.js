@@ -55,7 +55,7 @@ const SpreadPage = () => {
     dispatch(getUserOverUnderBets())
     dispatch(checkUserOverUnderBets())
     dispatch(getUserSpreadBets())
-    // dispatch(checkUserSpreadBets())
+    dispatch(checkUserSpreadBets())
   }, [dispatch]);
 
   const handleTeamChange = (team, gameID) => {

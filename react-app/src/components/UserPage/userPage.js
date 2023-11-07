@@ -40,7 +40,7 @@ const UserPage = () => {
       dispatch(getUserSpreadElimPicks())
       dispatch(checkUserSpreadElimPicks())
       dispatch(getUserSpreadBets())
-      // dispatch(checkUserSpreadBets())
+      dispatch(checkUserSpreadBets())
   }, [dispatch]);
 
   const changeProfilePicHandler = (profile_image, e) => {

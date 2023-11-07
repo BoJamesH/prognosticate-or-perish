@@ -104,6 +104,8 @@ def check_spread_bets():
             bet_user = User.query.get(current_bet.user_id)
             if game.completed:
                 spread_at_bet = current_bet.spread_at_bet
+                if not spread_at_bet:
+                    continue
                 if spread_at_bet == 'EVEN':
                     home_team = game.home_team_name
                     away_team = game.away_team_name

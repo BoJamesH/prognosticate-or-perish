@@ -10,6 +10,7 @@ import CommentForm from '../CommentForm/commentForm';
 import CommentList from '../CommentList/commentList';
 import CommentListGuest from '../CommentListGuest/commentListGuest';
 import './eliminator.css';
+import { checkUserSpreadBets, getUserSpreadBets } from '../../store/spreadBets';
 
 const EliminatorPage = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,8 @@ const EliminatorPage = () => {
     dispatch(checkUserPickEmPicks());
     dispatch(getUserSpreadElimPicks())
     dispatch(checkUserSpreadElimPicks())
+    dispatch(getUserSpreadBets())
+    dispatch(checkUserSpreadBets())
   }, [dispatch]);
 
   const isTeamPickedInPreviousWeeks = (teamName, currentWeek, userEliminatorPicks) => {

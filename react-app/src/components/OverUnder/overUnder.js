@@ -11,6 +11,7 @@ import CommentListGuest from '../CommentListGuest/commentListGuest';
 import './overUnder.css'
 import { checkUserOverUnderBets, getUserOverUnderBets, postUserOverUnderBet } from '../../store/overUnderBets';
 import { authenticate } from '../../store/session';
+import { checkUserSpreadBets, getUserSpreadBets } from '../../store/spreadBets';
 
 const OverUnderPage = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,8 @@ const OverUnderPage = () => {
     dispatch(checkUserPickEmPicks())
     dispatch(getUserOverUnderBets())
     dispatch(checkUserOverUnderBets())
+    dispatch(getUserSpreadBets());
+    dispatch(checkUserSpreadBets());
   }, [dispatch]);
 
   const handleOverChange = (option, gameID) => {
