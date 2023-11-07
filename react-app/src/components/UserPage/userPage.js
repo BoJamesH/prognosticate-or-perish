@@ -155,7 +155,7 @@ const UserPage = () => {
                           <div className='user-ou-bet-game' key={bet.id}>
                               <div>Game: {game.away_team_name} vs {game.home_team_name}</div>
                               <div>Over/Under: {game.over_under === 0 ? 'Betting Closed' : game.over_under}</div>
-                              <div>Amount Wagered: {bet.progs_wagered}<img className='coin-img' src='https://i.imgur.com/IBtKgXx.png' alt='Coin Icon' /> Prognosticoins </div>
+                              <div>Amount Wagered: {bet.progs_wagered}<img className='coin-img' src='https://i.imgur.com/IBtKgXx.png' alt='Coin Icon' /></div>
                               <div>Bet: {bet.status}</div>
                           </div>
                       );
@@ -186,7 +186,7 @@ const UserPage = () => {
                                     <div>Game: {game.away_team_name} vs {game.home_team_name}</div>
                                     <div>Spread: {game.over_under === 0 ? 'Betting Closed' : bet.spread_at_bet}</div>
                                     <div>Selected Team: {bet.selected_team_name}</div>
-                                    <div>Amount Wagered: {bet.progs_wagered} Prognosticoins</div>
+                                    <div>Amount Wagered: {bet.progs_wagered} <img className='coin-img' src='https://i.imgur.com/IBtKgXx.png' alt='Coin Icon' /></div>
                                     <div>Bet: {bet.status}</div>
                                 </div>
                             );
