@@ -156,18 +156,7 @@ null
                       <div className='spread-input-overall-div' hidden={game.spread === 0}>
                         <label>
                             <input
-                            hidden={game.spread === 0}
-                            type="radio"
-                            name={`team-${game.id}`}
-                            value={game.home_team_name}
-                            checked={selectedTeams[game.id] === game.home_team_name}
-                            onChange={() => handleTeamChange(game.home_team_name, game.id)}
-                            />
-                            {game.home_team_name}
-                        </label>
-
-                        <label>
-                            <input
+                            className='away-team-input'
                             hidden={game.spread === 0}
                             type="radio"
                             name={`team-${game.id}`}
@@ -177,6 +166,19 @@ null
                             />
                             {game.away_team_name}
                         </label>
+                        <div>
+                        <label className='home-team-label'>
+                            <input
+                            hidden={game.spread === 0}
+                            type="radio"
+                            name={`team-${game.id}`}
+                            value={game.home_team_name}
+                            checked={selectedTeams[game.id] === game.home_team_name}
+                            onChange={() => handleTeamChange(game.home_team_name, game.id)}
+                            />
+                            {game.home_team_name}
+                        </label>
+                        </div>
                         </div>
 
                         <div hidden={game.spread === 0} className='spread-bet-range-div'>
