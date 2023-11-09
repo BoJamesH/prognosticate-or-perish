@@ -161,3 +161,10 @@ input[type="range"]::-webkit-slider-thumb:hover {
     width: 20px;
     height: 20px;
 }
+
+.home-team-label {
+    margin-top: 20px;
+}
+.away-team-input {
+    margin-bottom: 10px;
+}
