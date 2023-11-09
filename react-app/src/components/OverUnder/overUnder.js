@@ -211,12 +211,12 @@ null
                         {currentBetAmount > 0 && (
                         <div>
                             <div className='ou-current-bet-div'>Current Bet:</div>
-                            <div className='ou-bet-amount'>{currentBetAmount} Prognosticoins</div>
+                            <div className='ou-bet-amount'>{currentBetAmount} <img className='coin-img' src='https://i.imgur.com/IBtKgXx.png' alt='Coin Icon' /></div>
                         </div>
                         )}
                         <div className='ou-return-div'>
                             {currentBetAmount > 0 && (
-                                <span>Total Return on Win: {calculateReturnOnWin(currentBetAmount).toFixed(2)}</span>
+                                <span>Total Return on Win: {calculateReturnOnWin(currentBetAmount).toFixed(2)} <img className='coin-img' src='https://i.imgur.com/IBtKgXx.png' alt='Coin Icon' /></span>
                             )}
                         </div>
                         <button

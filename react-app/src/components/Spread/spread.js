@@ -192,12 +192,12 @@ null
                         {betAmounts[`slider-${game.id}`] > 0 && (
                             <div>
                             <div className='spread-current-bet-div'>Current Bet:</div>
-                            <div className='spread-bet-amount'>{betAmounts[`slider-${game.id}`]} Prognosticoins</div>
+                            <div className='spread-bet-amount'>{betAmounts[`slider-${game.id}`]} <img className='coin-img' src='https://i.imgur.com/IBtKgXx.png' alt='Coin Icon' /></div>
                             </div>
                         )}
                         <div className='spread-return-div'>
                             {betAmounts[`slider-${game.id}`] > 0 && (
-                            <span>Total Return on Win: {calculateReturnOnWin(betAmounts[`slider-${game.id}`]).toFixed(2)}</span>
+                            <span>Total Return on Win: {calculateReturnOnWin(betAmounts[`slider-${game.id}`]).toFixed(2)} <img className='coin-img' src='https://i.imgur.com/IBtKgXx.png' alt='Coin Icon' /></span>
                             )}
                         </div>
                         <button
