@@ -98,7 +98,6 @@ export const getAPIGames = () => async (dispatch) => {
                 game_week_data[i].espn_id = events[i].id
             }
             console.log('GAME WEEK API DATA!!!!!!!!!!!!--', game_week_data)
-            // game_week_data.year = response.season.year
             const backResponse = await fetch('/api/games', {
                 method: 'POST',
                 headers: {
