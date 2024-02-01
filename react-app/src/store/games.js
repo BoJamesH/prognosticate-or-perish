@@ -36,7 +36,7 @@ export const storeWeek = () => async (dispatch) => {
         const response = await fetch(`/api/week`);
         const res = await response.json();
         const currentWeek = res.week.current_week
-        dispatch(setWeek(Number(10)));
+        dispatch(setWeek(Number(11)));
     } catch (e) {
         console.error('Error fetching week:', e);
     }
