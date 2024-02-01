@@ -36,7 +36,7 @@ export const storeWeek = () => async (dispatch) => {
         const response = await fetch(`/api/week`);
         const res = await response.json();
         const currentWeek = res.week.current_week
-        dispatch(setWeek(Number(currentWeek)));
+        dispatch(setWeek(Number(10)));
     } catch (e) {
         console.error('Error fetching week:', e);
     }
@@ -98,7 +98,6 @@ export const getAPIGames = () => async (dispatch) => {
                 game_week_data[i].espn_id = events[i].id
             }
             console.log('GAME WEEK API DATA!!!!!!!!!!!!--', game_week_data)
-            // game_week_data.year = response.season.year
             const backResponse = await fetch('/api/games', {
                 method: 'POST',
                 headers: {
