@@ -31,6 +31,8 @@ export const setWeek = (week) => ({
 //     }
 // }
 
+// UNCOMMENT WHEN SEASON BEGINS
+
 export const storeWeek = () => async (dispatch) => {
     try {
         const response = await fetch(`/api/week`);
